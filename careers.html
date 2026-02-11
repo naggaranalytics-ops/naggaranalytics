@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Naggar Analytics</title>
+    <!-- FONTS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;700&family=Inter:wght@300;400;600;800&family=Courier+Prime:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- LIBRARIES -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="antialiased">
+
+    <div id="global-particles-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nav
+        class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-opacity-70 bg-[#111821] border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-white font-bold text-xl tracking-tighter">
+                        NAGGAR<span class="text-[#16a085]">ANALYTICS</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="services.html"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</a>
+                        <a href="portfolio.html"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
+                        <a href="about.html"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="careers.html"
+                            class="text-[#16a085] hover:text-[#16a085] px-3 py-2 rounded-md text-sm font-medium transition-colors">Careers</a>
+                        <a href="faq.html"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">FAQ</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden fixed inset-0 bg-[#050a10] bg-opacity-98 z-[9999] transition-opacity duration-300 opacity-0"
+            id="mobile-menu">
+            <div class="flex justify-end p-4">
+                <button id="mobile-menu-close" class="text-gray-400 hover:text-white">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center justify-center h-[80vh]">
+                <a href="index.html"
+                    class="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-xl font-medium">Home</a>
+                <a href="services.html"
+                    class="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-xl font-medium">Services</a>
+                <a href="portfolio.html"
+                    class="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-xl font-medium">Portfolio</a>
+                <a href="about.html"
+                    class="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-xl font-medium">About</a>
+                <a href="careers.html"
+                    class="text-[#16a085] hover:text-[#16a085] block px-3 py-4 rounded-md text-xl font-bold">Careers</a>
+                <a href="faq.html"
+                    class="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-xl font-medium">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="pt-32 pb-12 px-4 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 scroll-fx">Join Our Team</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto scroll-fx delay-100">
+            We are always looking for talented data scientists.
+        </p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-layer relative z-10 w-full mb-20">
+        <div class="container mx-auto px-4 max-w-4xl">
+
+            <div class="glass-card p-10 rounded-2xl text-center scroll-fx">
+                <h3 class="text-2xl font-bold text-white mb-4">No Openings Currently</h3>
+                <p class="text-slate-400 mb-8">
+                    We don't have any specific roles open right now, but we are always interested in connecting with
+                    talented statisticians who are proficient in SPSS and R.
+                </p>
+                <a href="mailto:careers@naggaranalytics.com"
+                    class="inline-block border border-[#16a085] text-[#16a085] hover:bg-[#16a085] hover:text-white px-8 py-3 rounded-xl transition-all font-bold">
+                    Email Your CV
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#050a10] border-t border-white/5 py-12 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <a href="index.html" class="text-white font-bold text-xl tracking-tighter mb-4 block">
+                    NAGGAR<span class="text-[#16a085]">ANALYTICS</span>
+                </a>
+                <p class="text-slate-400 text-sm max-w-sm">
+                    Providing defensible, high-accuracy statistical analysis for researchers, students, and
+                    institutions.
+                </p>
+            </div>
+            <div>
+                <h5 class="text-white font-bold mb-4">Quick Links</h5>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="services.html" class="hover:text-[#16a085]">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-[#16a085]">Portfolio</a></li>
+                    <li><a href="about.html" class="hover:text-[#16a085]">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-[#16a085]">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-white font-bold mb-4">Legal</h5>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="#" class="hover:text-[#16a085]">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-[#16a085]">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-white/5 text-center text-slate-500 text-xs font-mono">
+            &copy; 2024 Naggar Analytics. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
