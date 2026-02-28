@@ -9,8 +9,22 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;700&family=Inter:wght@300;400;600;800&family=Courier+Prime:wght@400;700&display=swap"
         rel="stylesheet">
+
+    <!-- SEO & META (Senior Dev Revision) -->
+    <meta name="description" content="Professional high-accuracy statistical analysis and consulting for researchers, students, and institutions.">
+    <meta name="keywords" content="statistical analysis, data analysis, biostatistics, research consulting">
+    <meta name="theme-color" content="#111821">
+    <meta property="og:title" content="FAQ | Naggar Analytics">
+    <meta property="og:description" content="Professional high-accuracy statistical analysis and consulting.">
+    <meta property="og:type" content="website">
+
+    <!-- PERFORMANCE: Preconnect for external assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
     <!-- LIBRARIES -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- CUSTOM STYLES -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -53,6 +67,10 @@
 </head>
 
 <body class="antialiased">
+
+    <!-- ACCESSIBILITY: Skip to main content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#16a085] text-white p-2 z-[9999] rounded shadow-lg outline-none ring-2 ring-white">Skip to main content</a>
+
 
     <div id="global-particles-bg"></div>
 
@@ -98,7 +116,7 @@
         <div class="md:hidden hidden fixed inset-0 bg-[#050a10] bg-opacity-98 z-[9999] transition-opacity duration-300 opacity-0"
             id="mobile-menu">
             <div class="flex justify-end p-4">
-                <button id="mobile-menu-close" class="text-gray-400 hover:text-white">
+                <button id="mobile-menu-close" class="text-gray-400 hover:text-white" aria-label="Close mobile menu">
                     <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
@@ -122,6 +140,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- HEADER -->
     <div class="pt-32 pb-12 px-4 text-center">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 scroll-fx">FAQ</h1>
@@ -225,6 +244,8 @@
         </div>
     </div>
 
+    </main>
+
     <!-- FOOTER -->
     <footer class="bg-[#050a10] border-t border-white/5 py-12 relative z-20">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -260,7 +281,7 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 
 </html>

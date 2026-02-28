@@ -134,7 +134,7 @@
         requestAnimationFrame(loop);
     }
 
-    window.addEventListener('resize', init);
+    window.addEventListener('resize', init, { passive: true });
     // Slight delay to allow DOM to settle
     setTimeout(init, 100);
 })();
@@ -277,7 +277,7 @@
         requestAnimationFrame(loop);
     }
 
-    window.addEventListener('resize', init);
+    window.addEventListener('resize', init, { passive: true });
     setTimeout(init, 100);
 })();
 
@@ -318,7 +318,19 @@
         });
     }
 
-    window.addEventListener('scroll', updateTimeline);
-    window.addEventListener('resize', updateTimeline);
+    // Performance: Throttle scroll event
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                updateTimeline();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Performance: Debounce/passive resize event
+    window.addEventListener('resize', updateTimeline, { passive: true });
     setTimeout(updateTimeline, 100);
 })();

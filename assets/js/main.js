@@ -8,8 +8,8 @@
     3. Mobile Menu Logic
 */
 
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // --- 1. Init Particles (Background) ---
     // Checks if the particles library is loaded before running
     if (window.particlesJS) {
@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Invisible dots, only lines
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.0, "random": false }, 
-                "size": { "value": 0, "random": false },    
+                "opacity": { "value": 0.0, "random": false },
+                "size": { "value": 0, "random": false },
                 // Visible Lines
                 "line_linked": { "enable": true, "distance": 150, "color": "#16a085", "opacity": 0.2, "width": 1 },
                 "move": { "enable": true, "speed": 0.8, "direction": "none", "random": true, "out_mode": "out" }
@@ -60,24 +60,34 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', () => {
             // Show menu
             menu.classList.remove('hidden');
+            btn.setAttribute('aria-expanded', 'true');
             // Small delay to allow display:block to apply before opacity transition
             setTimeout(() => {
                 menu.classList.remove('opacity-0', 'translate-x-full');
             }, 10);
+
+            // Enhance accessibility by moving focus to the menu close button
+            if (closeBtn) {
+                setTimeout(() => closeBtn.focus(), 50);
+            }
         });
 
         const closeMenu = () => {
-             // Hide animation first
-             menu.classList.add('opacity-0', 'translate-x-full');
-             // Then hide element after transition matches CSS duration
-             setTimeout(() => {
-                 menu.classList.add('hidden');
-             }, 300);
+            // Hide animation first
+            menu.classList.add('opacity-0', 'translate-x-full');
+            btn.setAttribute('aria-expanded', 'false');
+            // Then hide element after transition matches CSS duration
+            setTimeout(() => {
+                menu.classList.add('hidden');
+            }, 300);
+
+            // Return focus to trigger button for accessibility
+            btn.focus();
         };
 
         if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     }
-    
+
     // --- 4. 3D Tilt Effect for Cards ---
     // Only applies on desktops with fine pointers (mouse)
     const cards = document.querySelectorAll('.card-3d');
@@ -92,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const midX = rect.width / 2;
                 const midY = rect.height / 2;
                 // Subtle rotation limits
-                const rotateX = ((y - midY) / midY) * -5; 
+                const rotateX = ((y - midY) / midY) * -5;
                 const rotateY = ((x - midX) / midX) * 5;
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
             card.addEventListener('mouseleave', () => {

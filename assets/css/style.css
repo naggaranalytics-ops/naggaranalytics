@@ -11,8 +11,8 @@
 
 /* Force Dark Mode on the whole site */
 body { 
-    background-color: #111821 !important; 
-    color: #E2E8F0;
+    background-color: var(--bg-primary) !important; 
+    color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
@@ -25,7 +25,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1; /* Puts it BEHIND everything else */
-    background: radial-gradient(circle at top, #111821 0%, #050a10 55%, #020406 100%);
+    background: radial-gradient(circle at top, var(--bg-primary) 0%, var(--bg-secondary) 55%, var(--bg-tertiary) 100%);
     pointer-events: none; /* Allows clicking through to links behind it */
 }
 
@@ -84,16 +84,16 @@ body {
 
 .timeline-line-fill { 
     position: absolute; top: 0; width: 2px; 
-    background: linear-gradient(to bottom, #1ABC9C, #16a085); 
+    background: linear-gradient(to bottom, var(--accent-hover), var(--accent-primary)); 
     left: 50%; transform: translateX(-50%); 
     z-index: 1; height: 0px; 
-    box-shadow: 0 0 15px #16a085; 
+    box-shadow: 0 0 15px var(--accent-primary); 
     transition: height 0.1s linear;
 }
 
 .step-dot { 
     width: 56px; height: 56px; 
-    background: radial-gradient(circle at top, #0b1117, #050a10); 
+    background: radial-gradient(circle at top, #0b1117, var(--bg-secondary)); 
     border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; 
     position: absolute; left: 50%; transform: translateX(-50%); 
     z-index: 2; display: flex; align-items: center; justify-content: center; 
@@ -102,7 +102,7 @@ body {
 }
 
 .step-dot.active { 
-    border-color: #16a085; background: #16a085; color: white; 
+    border-color: var(--accent-primary); background: var(--accent-primary); color: white; 
     box-shadow: 0 0 30px rgba(22, 160, 133, 0.4); 
     transform: translateX(-50%) scale(1.1); 
 }
@@ -136,4 +136,24 @@ body {
 /* Hover Lift for Desktop */
 @media (min-width: 769px) { 
     .popular-card { transform: scale(1.05); } 
+}
+
+/* --- G. ACCESSIBILITY --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+.focus\:not-sr-only:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    clip: auto;
+    z-index: 9999;
 }
