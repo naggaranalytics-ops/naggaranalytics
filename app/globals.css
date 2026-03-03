@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --bg-primary: #111821;
+  --bg-secondary: #0d141d;
+  --bg-tertiary: #050a10;
+  --primary: #16a085;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: radial-gradient(circle at top, var(--bg-primary) 0%, var(--bg-secondary) 55%, var(--bg-tertiary) 100%) fixed;
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: radial-gradient(circle at top left, rgba(44, 62, 80, 0.65), rgba(6, 12, 18, 0.98));
+  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(26px);
+  border: 1px solid rgba(248, 249, 250, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
