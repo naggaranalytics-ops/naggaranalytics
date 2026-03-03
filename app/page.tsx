@@ -24,8 +24,11 @@ export default async function Home() {
                 <div className="text-2xl font-bold tracking-tighter">
                     NAGGAR<span className="text-primary">ANALYTICS</span>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex items-center gap-6">
                     <LoginLink className="text-sm font-medium hover:text-primary transition-colors">Sign In</LoginLink>
+                    <RegisterLink className="px-6 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-xl transition-all">
+                        Register
+                    </RegisterLink>
                 </div>
             </nav>
 
@@ -62,11 +65,16 @@ export default async function Home() {
                         { icon: ShieldCheck, title: "Defensible Results", desc: "Publication-ready tables and high-res graphs (APA style)." },
                         { icon: Zap, title: "10-Day Delivery", desc: "Fast, reliable, and thorough results for your research." }
                     ].map((feature, i) => (
-                        <div key={i} className="glass-card p-8 rounded-3xl hover:border-primary/50 transition-all hover:-translate-y-2 group">
-                            <feature.icon size={32} className="text-primary mb-6" />
-                            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
-                        </div>
+                        <LoginLink key={i} className="block group">
+                            <div className="glass-card p-8 rounded-3xl hover:border-primary/50 transition-all hover:-translate-y-2 h-full">
+                                <feature.icon size={32} className="text-primary mb-6" />
+                                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                                <div className="mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Get Started <ArrowRight size={16} />
+                                </div>
+                            </div>
+                        </LoginLink>
                     ))}
                 </div>
             </main>
