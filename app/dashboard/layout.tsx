@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
 
+export const runtime = 'edge';
+
 export default async function DashboardLayout({
     children,
 }: {

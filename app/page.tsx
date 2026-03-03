@@ -3,6 +3,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { ArrowRight, BarChart3, ShieldCheck, Zap } from "lucide-react";
 
+export const runtime = 'edge';
+
 export default async function Home() {
     const { isAuthenticated } = getKindeServerSession();
 
