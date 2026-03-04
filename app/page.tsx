@@ -5,6 +5,7 @@ import { ArrowRight, BarChart3, ShieldCheck, Zap } from "lucide-react";
 import RegressionCurve from "@/components/RegressionCurve";
 import BellCurve from "@/components/BellCurve";
 import PricingSection from "@/components/PricingSection";
+import ParticlesScript from "@/components/ParticlesScript";
 
 export const runtime = 'edge';
 
@@ -18,11 +19,12 @@ export default async function Home() {
     return (
         <div className="min-h-screen bg-dark text-white selection:bg-primary/30 relative">
             {/* Background Particles/Glow - Matching the original site design */}
-            <div id="global-particles-bg" className="absolute inset-0 z-0 opacity-40">
+            <div id="global-particles-bg" className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-radial-gradient from-secondary via-dark to-dark opacity-50" />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] rounded-full" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full" />
             </div>
+            <ParticlesScript />
 
             {/* Header / Nav Section */}
             <nav className="relative z-20 flex items-center justify-between px-6 py-6 max-w-7xl mx-auto backdrop-blur-md bg-dark/70 border-b border-white/5">
