@@ -76,31 +76,6 @@ export default async function Home() {
             {/* Restored Pricing Section */}
             <PricingSection />
 
-            {/* CTA / Signup Section */}
-            <section className="relative py-32 px-4 z-10">
-                <div className="max-w-4xl mx-auto glass-card p-12 md:p-20 text-center rounded-[3rem] border-primary/20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -mr-20 -mt-20" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -ml-20 -mb-20" />
-
-                    <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">
-                        Ready to elevate your <br />
-                        <span className="text-primary italic">research data?</span>
-                    </h2>
-                    <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
-                        Join hundreds of researchers getting fast, accurate, and defensible statistical results.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <RegisterLink className="w-full sm:w-auto px-10 py-5 bg-primary hover:bg-primary/90 text-white font-bold rounded-2xl shadow-2xl shadow-primary/30 transition-all flex items-center justify-center gap-2 text-lg">
-                            Get Started Now <ArrowRight size={20} />
-                        </RegisterLink>
-                    </div>
-
-                    <p className="mt-8 text-slate-500 text-sm">
-                        No credit card required to start your first request.
-                    </p>
-                </div>
-            </section>
 
             <Footer />
         </div >
