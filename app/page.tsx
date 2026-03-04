@@ -2,6 +2,9 @@ import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { ArrowRight, BarChart3, ShieldCheck, Zap } from "lucide-react";
+import RegressionCurve from "@/components/RegressionCurve";
+import BellCurve from "@/components/BellCurve";
+import PricingSection from "@/components/PricingSection";
 
 export const runtime = 'edge';
 
@@ -80,6 +83,13 @@ export default async function Home() {
                     ))}
                 </div>
             </main>
+
+            {/* Restored Visual Animations */}
+            <RegressionCurve />
+            <BellCurve />
+
+            {/* Restored Pricing Section */}
+            <PricingSection />
 
             {/* CTA / Signup Section */}
             <section className="relative py-32 px-4">
