@@ -28,15 +28,19 @@ We are building a **Project Management & Learning Dashboard** for students (Mast
 - **User Dashboard** (`/dashboard`): Lists user's active/completed projects, current status, and provides a download button when the Admin uploads the final result.
 - **Admin Dashboard** (`/admin`): Allows the admin to view all incoming projects, verify payments, advance statuses (e.g., Pending -> In Progress -> Review -> Completed), and upload the final result delivery files.
 
+**Phase 5: Educational Hub & Enhancements**
+- **Video Gallery**: Library page displaying unlisted YouTube videos.
+- **Resources**: Section for downloading PDF templates.
+- **WhatsApp Widget**: Global floating icon linked to support number.
+
 ---
 
 ## 🚧 Known Issues & Failures Encountered
 When continuing work, keep the following environment hurdles in mind:
 
 1. **NPM Permissions / EPERM Errors:**
-   - **The Error:** Running `npm install` frequently failed with `EPERM: operation not permitted` on `lstat` or `rename` inside `node_modules`.
-   - **The Workaround:** We bypassed the broken local cache by forcing a temporary cache: `npm install --cache /tmp/empty-cache-X` (incrementing X).
-   - *Note:* Do not casually run `npm install` without anticipating potential permission locks.
+   - **The Error:** Running `npm install` frequently failed with `EPERM: operation not permitted` on `lstat` or `rename` inside `node_modules` because the global `~/.npm` cache was corrupted/owned by root.
+   - **The Workaround/Fix:** We bypassed it using `--cache /tmp/empty-cache-X`. The permanent fix ran by the user was `sudo chown -R $(whoami) ~/.npm` followed by `npm cache clean --force`. If this happens again on the local machine, repeat that cache cleaning step.
 
 2. **State Management Pivot (Zustand -> Context):**
    - **The Issue:** Attempted to use `zustand` to govern the onboarding form state. NPM installation locked up repeatedly.
@@ -52,19 +56,16 @@ When continuing work, keep the following environment hurdles in mind:
 ---
 
 ## ⏳ What is Missing (The Plan for Next Session)
-You are currently ready to begin **Phase 5: Educational Hub & Enhancements**. 
+You are currently ready to begin **Polish, Testing, and Deployment**. 
 
 ### Remaining Tasks:
-1. **Video Gallery (Educational Hub):**
-   - Build a layout to showcase unlisted YouTube webinars. 
-   - Separate access control (e.g., Free vs. Premium tiers, if necessary). Currently, simple embedding will suffice.
-2. **Resources Section:**
-   - Create a page or section for downloadable PDFs (templates, structural guides).
-3. **WhatsApp "Chat with Naggar" Widget:**
-   - Integrate a floating WhatsApp API button (`https://wa.me/...`) so clients can contact support directly from any dashboard page.
-4. **General Polish:**
-   - Fix remaining accessibility (`aria-labels`) and TS linting warnings.
-   - Test deploying to Cloudflare Pages via GitHub Actions (or natively linking the repo).
+1. **General Polish:**
+   - Fix any remaining accessibility (`aria-labels`) and TS linting warnings if they appear.
+   - Add real data (videos, PDF files) to the Library.
+   - Update the dummy WhatsApp number in `components/WhatsAppWidget.tsx`.
+2. **Deployment:**
+   - Test deploying the application to Cloudflare Pages.
+   - Ensure environment variables (Supabase URL, Anon Key, Kinde Auth keys) are properly set in the Cloudflare Pages deployment dashboard.
 
 ### Instructions for the Next AI:
-When resuming this project, start by reading `app/dashboard/page.tsx` and `app/admin/page.tsx` to understand the data fetching architecture. Then, proceed directly to scoping out the Video Gallery and Resources sections for Phase 5.
+When resuming this project, the core functionality (Phases 1 through 5) is completely implemented. Start by reading `app/dashboard/page.tsx` and `app/admin/page.tsx` to understand the data fetching architecture. Then, assist the user with deploying to Cloudflare Pages or adding custom real-world content to the Digital Library.
