@@ -15,8 +15,13 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-    title: "Naggar Analytics Dashboard",
-    description: "Advanced Statistical Analysis Dashboard",
+    title: "Naggar Analytics | Advanced Statistical Analysis & Data Science",
+    description: "Expert statistical analysis, data visualization, and research methodology services. Naggar Analytics provides defensible results for complex research data.",
+    icons: {
+        icon: "/logo/icon-dark.png",
+        shortcut: "/logo/icon-dark.png",
+        apple: "/logo/icon-dark.png",
+    },
 };
 
 export default function RootLayout({
