@@ -10,20 +10,39 @@ export default function ParticlesScript() {
             onLoad={() => {
                 // @ts-ignore
                 if (window.particlesJS) {
+                    const isMobile = window.innerWidth < 768;
                     // @ts-ignore
                     window.particlesJS("global-particles-bg", {
                         "particles": {
-                            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                            "number": {
+                                "value": isMobile ? 30 : 80,
+                                "density": { "enable": true, "value_area": 800 }
+                            },
                             "color": { "value": "#ffffff" },
                             "shape": { "type": "circle" },
                             "opacity": { "value": 0.0, "random": false },
                             "size": { "value": 0, "random": false },
-                            "line_linked": { "enable": true, "distance": 150, "color": "#16a085", "opacity": 0.2, "width": 1 },
-                            "move": { "enable": true, "speed": 0.8, "direction": "none", "random": true, "out_mode": "out" }
+                            "line_linked": {
+                                "enable": true,
+                                "distance": isMobile ? 100 : 150,
+                                "color": "#16a085",
+                                "opacity": isMobile ? 0.1 : 0.2,
+                                "width": 1
+                            },
+                            "move": {
+                                "enable": true,
+                                "speed": isMobile ? 0.4 : 0.8,
+                                "direction": "none",
+                                "random": true,
+                                "out_mode": "out"
+                            }
                         },
                         "interactivity": {
                             "detect_on": "window",
-                            "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true },
+                            "events": {
+                                "onhover": { "enable": !isMobile, "mode": "grab" },
+                                "resize": true
+                            },
                             "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
                         },
                         "retina_detect": true

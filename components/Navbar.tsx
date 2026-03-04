@@ -1,8 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const navLinks = [
+        { href: "/", label: "Home" },
+        { href: "/services", label: "Services" },
+        { href: "/portfolio", label: "Portfolio" },
+        { href: "/about", label: "About" },
+        { href: "/careers", label: "Careers" },
+        { href: "/faq", label: "FAQ" },
+    ];
+
     return (
         <nav className="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-opacity-70 bg-[#111821] border-b border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,12 +30,15 @@ export default function Navbar() {
 
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
-                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</Link>
-                            <Link href="/services" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</Link>
-                            <Link href="/portfolio" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</Link>
-                            <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</Link>
-                            <Link href="/careers" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Careers</Link>
-                            <Link href="/faq" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">FAQ</Link>
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
                         </div>
                     </div>
 
@@ -31,12 +49,42 @@ export default function Navbar() {
                         </RegisterLink>
                     </div>
 
-                    {/* Mobile menu button (Simplified for React) */}
-                    <div className="-mr-2 flex md:hidden">
-                        <LoginLink className="text-sm font-medium bg-primary/20 text-primary px-4 py-2 rounded-lg">Sign In</LoginLink>
+                    {/* Mobile menu button */}
+                    <div className="flex md:hidden items-center gap-4">
+                        <LoginLink className="text-sm font-medium text-white hover:text-primary transition-colors">Sign In</LoginLink>
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="text-slate-300 hover:text-white transition-colors"
+                            aria-label="Toggle menu"
+                        >
+                            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                        </button>
                     </div>
                 </div>
             </div>
+
+            {/* Mobile menu dropdown */}
+            {isMenuOpen && (
+                <div className="md:hidden glass-card border-x-0 border-b border-white/5 bg-[#111821]/95 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="px-4 pt-2 pb-6 space-y-2">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="block px-4 py-3 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                        <div className="pt-4 mt-4 border-t border-white/5 flex flex-col gap-3 px-4">
+                            <RegisterLink className="w-full py-3 bg-primary text-white text-center font-bold rounded-xl shadow-lg shadow-primary/20">
+                                Get Started
+                            </RegisterLink>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }
