@@ -144,19 +144,19 @@ export default function BellCurve() {
                 <div className="lg:col-span-4 order-2 lg:order-1 space-y-8">
                     <div className="text-center lg:text-left">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Statistical Significance</h2>
-                        <h3 className="text-xl md:text-3xl text-[#16a085] mb-4" dir="rtl">الدلالة الإحصائية</h3>
+                        <h3 className="text-xl md:text-3xl text-[#16a085] mb-4 font-arabic" dir="rtl">الدلالة الإحصائية</h3>
                         <p className="text-slate-300 text-sm md:text-base leading-relaxed">
                             We don't guess. We verify that your results aren't just random chance, but meaningful patterns.
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 text-sm">
-                        <div className="glass-card p-5 rounded-lg border-l-2 border-slate-500 transition-all duration-500">
+                        <div id="box-normal" className="glass-card p-5 rounded-lg border-l-2 border-slate-500 transition-all duration-500">
                             <h4 className="font-bold text-slate-200 mb-1">The Bell Curve</h4>
                             <p className="text-xs text-slate-400 font-mono">Normal distribution of data.</p>
                         </div>
 
-                        <div className={`glass-card p-5 rounded-lg border-l-2 transition-all duration-500 ${isVisible ? 'opacity-100 border-[#fbbf24] bg-[#fbbf24]/5' : 'opacity-50 border-transparent bg-transparent'}`}>
+                        <div id="box-sig" className={`glass-card p-5 rounded-lg border-l-2 transition-all duration-500 ${isVisible ? 'opacity-100 border-[#fbbf24] bg-[#fbbf24]/5' : 'opacity-50 border-transparent bg-transparent'}`}>
                             <h4 className="font-bold text-[#fbbf24] mb-1">P &lt; 0.05</h4>
                             <p className="text-xs text-slate-400 font-mono">Significant findings (The Tails).</p>
                         </div>
@@ -167,11 +167,11 @@ export default function BellCurve() {
                     <div className="w-full h-full bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden">
                         <canvas ref={canvasRef} className="block w-full h-full"></canvas>
                     </div>
-                    <div className={`absolute top-1/2 left-[10%] glass-card px-4 py-2 rounded-lg text-center border-l-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <div id="sig-tag-left" className={`absolute top-1/2 left-[10%] glass-card px-4 py-2 rounded-lg text-center border-l-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                         <div className="text-[#fbbf24] font-bold text-sm">Significant</div>
                         <div className="text-[10px] text-slate-300 font-mono">p &lt; 0.05</div>
                     </div>
-                    <div className={`absolute top-1/2 right-[10%] glass-card px-4 py-2 rounded-lg text-center border-r-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <div id="sig-tag-right" className={`absolute top-1/2 right-[10%] glass-card px-4 py-2 rounded-lg text-center border-r-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                         <div className="text-[#fbbf24] font-bold text-sm">Significant</div>
                         <div className="text-[10px] text-slate-300 font-mono">p &lt; 0.05</div>
                     </div>

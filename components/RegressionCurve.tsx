@@ -145,10 +145,11 @@ export default function RegressionCurve() {
             <section className="w-full max-w-7xl mx-auto px-4 flex flex-col items-center">
                 <div className="text-center mb-10 max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight">From Chaos to Clarity</h2>
+                    <h3 className="text-2xl md:text-3xl text-[#16a085] mb-6 font-arabic" dir="rtl">من الفوضى إلى الوضوح</h3>
                     <p className="text-sm md:text-base text-slate-400 font-mono">Scroll down to fit the model.</p>
                 </div>
 
-                <div ref={containerRef} className="relative w-full max-w-5xl h-[400px] md:h-[60vh] bg-white/5 rounded-2xl border border-white/10">
+                <div ref={containerRef} className="relative w-full max-w-5xl h-[400px] md:h-[60vh] bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
                     <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl">
                         <canvas ref={canvasRef} className="block w-full h-full"></canvas>
                     </div>
@@ -161,7 +162,7 @@ export default function RegressionCurve() {
                     <p className="text-sm md:text-base text-slate-300 leading-relaxed">
                         The regression line (in yellow) represents the best-fit model for predicting outcomes based on your data.
                     </p>
-                    <p className="text-sm md:text-base text-[#16a085]" dir="rtl">
+                    <p className="text-sm md:text-base text-[#16a085] font-arabic" dir="rtl">
                         يمثل خط الانحدار (باللون الأصفر) النموذج الأفضل للتنبؤ بالنتائج بناءً على بياناتك
                     </p>
                 </div>

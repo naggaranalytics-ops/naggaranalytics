@@ -7,6 +7,9 @@ import RegressionCurve from "@/components/RegressionCurve";
 import BellCurve from "@/components/BellCurve";
 import PricingSection from "@/components/PricingSection";
 import ParticlesScript from "@/components/ParticlesScript";
+import Navbar from "@/components/Navbar";
+import ProcessSection from "@/components/ProcessSection";
+import Footer from "@/components/Footer";
 
 export const runtime = 'edge';
 
@@ -27,75 +30,75 @@ export default async function Home() {
             </div>
             <ParticlesScript />
 
-            {/* Header / Nav Section */}
-            <nav className="relative z-20 flex items-center justify-between px-6 py-6 max-w-7xl mx-auto backdrop-blur-md bg-dark/70 border-b border-white/5">
-                <div className="flex-shrink-0">
-                    <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={400} className="w-auto h-12 md:h-16" priority />
-                </div>
-                <div className="flex items-center gap-6">
-                    <LoginLink className="text-sm font-medium hover:text-primary transition-colors">Sign In</LoginLink>
-                    <RegisterLink className="px-6 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-xl transition-all">
-                        Register
-                    </RegisterLink>
-                </div>
-            </nav>
+            <Navbar />
 
-            {/* Hero Section */}
-            <main className="relative pt-32 pb-20 px-4 overflow-hidden min-h-screen flex flex-col items-center justify-center">
-                <div className="max-w-7xl mx-auto text-center relative z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-[11px] font-mono tracking-[0.2em] uppercase mb-8">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        Advanced Analytics
-                    </div>
+            {/* 
+              =======================================================================
+              HERO SECTION (Replicated exactly from old site)
+              =======================================================================
+            */}
+            <div className="content-layer relative z-10 w-full min-h-[100dvh] flex flex-col justify-center items-center py-20 pt-32 pointer-events-none">
+                <div className="px-4 flex flex-col items-center w-full max-w-6xl mx-auto text-center pointer-events-auto">
 
                     <h1 className="flex justify-center mb-6 drop-shadow-2xl">
                         <Image src="/logo/logo.svg" alt="Naggar Analytics" width={800} height={800} className="w-auto h-32 md:h-48 lg:h-64 object-contain" priority />
                     </h1>
 
-                    <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light mb-12">
-                        Professional high-accuracy statistical analysis and consulting for researchers, students, and institutions.
-                    </p>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12 opacity-90">
+                        <p className="text-xl md:text-2xl text-slate-300 font-mono tracking-tight">
+                            Raw Data
+                        </p>
+                        <svg className="w-6 h-6 text-[#16a085] transform rotate-90 md:rotate-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                        <p className="text-xl md:text-2xl text-white font-mono font-bold tracking-tight">
+                            Defensible Results
+                        </p>
+                    </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <LoginLink className="w-full sm:w-auto px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-2xl shadow-2xl shadow-primary/20 transition-all flex items-center justify-center gap-2">
-                            Get Started <ArrowRight size={20} />
-                        </LoginLink>
-                        <RegisterLink className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 transition-all">
-                            Create Account
-                        </RegisterLink>
+                    <div className="arrow-anim absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-60">
+                        <p className="text-[10px] text-[#16a085] font-mono mb-2 tracking-widest text-center">SCROLL</p>
+                        <svg className="w-6 h-6 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19 13l-7 7-7-7m14-8l-7 7-7-7"></path>
+                        </svg>
                     </div>
                 </div>
+            </div>
 
-                {/* Feature Grid */}
-                <div className="max-w-7xl mx-auto mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {[
-                        { icon: BarChart3, title: "Deep Analysis", desc: "Rigorous cleaning and hypothesis testing by senior experts." },
-                        { icon: ShieldCheck, title: "Defensible Results", desc: "Publication-ready tables and high-res graphs (APA style)." },
-                        { icon: Zap, title: "10-Day Delivery", desc: "Fast, reliable, and thorough results for your research." }
-                    ].map((feature, i) => (
-                        <LoginLink key={i} className="block group">
-                            <div className="glass-card p-8 rounded-3xl hover:border-primary/50 transition-all hover:-translate-y-2 h-full">
-                                <feature.icon size={32} className="text-primary mb-6" />
-                                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
-                                <div className="mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                                    Get Started <ArrowRight size={16} />
-                                </div>
+            {/* Feature Grid */}
+            <div className="max-w-7xl mx-auto px-4 mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                {[
+                    { icon: BarChart3, title: "Deep Analysis", desc: "Rigorous cleaning and hypothesis testing by senior experts." },
+                    { icon: ShieldCheck, title: "Defensible Results", desc: "Publication-ready tables and high-res graphs (APA style)." },
+                    { icon: Zap, title: "10-Day Delivery", desc: "Fast, reliable, and thorough results for your research." }
+                ].map((feature, i) => (
+                    <LoginLink key={i} className="block group">
+                        <div className="glass-card p-8 rounded-3xl hover:border-primary/50 transition-all hover:-translate-y-2 h-full">
+                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 shadow-inner ring-1 ring-inset ring-primary/20">
+                                <feature.icon size={24} />
                             </div>
-                        </LoginLink>
-                    ))}
-                </div>
-            </main>
+                            <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                            <div className="mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                                Get Started <ArrowRight size={16} />
+                            </div>
+                        </div>
+                    </LoginLink>
+                ))}
+            </div>
 
             {/* Restored Visual Animations */}
             <RegressionCurve />
             <BellCurve />
 
+            {/* Process Section */}
+            <ProcessSection />
+
             {/* Restored Pricing Section */}
             <PricingSection />
 
             {/* CTA / Signup Section */}
-            <section className="relative py-32 px-4">
+            <section className="relative py-32 px-4 z-10">
                 <div className="max-w-4xl mx-auto glass-card p-12 md:p-20 text-center rounded-[3rem] border-primary/20 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -mr-20 -mt-20" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -ml-20 -mb-20" />
@@ -120,9 +123,7 @@ export default async function Home() {
                 </div>
             </section>
 
-            <footer className="py-12 border-t border-white/5 text-center text-slate-600 text-xs font-mono">
-                &copy; 2026 Naggar Analytics. All rights reserved.
-            </footer>
+            <Footer />
         </div >
     );
 }
