@@ -3,6 +3,8 @@ import ProjectsSection from "@/components/ProjectsSection";
 import AcademySection from "@/components/AcademySection";
 import NewRequestForm from "@/components/NewRequestForm";
 
+export const runtime = 'edge';
+
 export default async function DashboardPage() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
