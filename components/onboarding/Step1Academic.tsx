@@ -17,8 +17,10 @@ export default function Step1Academic() {
 
             <div className="space-y-4 text-right">
                 <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2 font-arabic">الدرجة العلمية <span className="text-red-500">*</span></label>
+                    <label htmlFor="degreeSelect" className="block text-sm font-medium text-slate-300 mb-2 font-arabic">الدرجة العلمية <span className="text-red-500">*</span></label>
                     <select
+                        id="degreeSelect"
+                        title="اختر الدرجة العلمية"
                         value={academicDetails.degree}
                         onChange={(e) => updateAcademicDetails({ degree: e.target.value as any })}
                         className="w-full bg-[#111821] border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-[#16a085] focus:border-transparent outline-none transition-all font-arabic"

@@ -87,13 +87,17 @@ export default async function DashboardPage() {
 
                 {/* Right Column: Quick Links & Resources */}
                 <div className="space-y-6">
-                    <div className="glass-card rounded-2xl p-8 border border-white/5 bg-[#111821]/50">
-                        <h3 className="text-xl font-bold font-arabic text-white mb-4 text-right" dir="rtl">المكتبة الرقمية</h3>
-                        <p className="text-sm text-slate-400 mb-4 font-arabic text-right" dir="rtl">دورات تدريبية ومواد علمية مجانية (قريباً!)</p>
-                        <div className="h-32 rounded-xl bg-gradient-to-br from-[#16a085]/20 to-transparent border border-[#16a085]/20 flex items-center justify-center">
-                            <span className="text-[#16a085] font-bold tracking-widest text-xs uppercase">Coming Soon</span>
+                    <Link href="/dashboard/library" className="block glass-card rounded-2xl p-8 border border-white/5 bg-[#111821]/50 hover:bg-[#111821]/80 hover:border-[#16a085]/30 transition-all group">
+                        <h3 className="text-xl font-bold font-arabic text-white mb-4 text-right group-hover:text-[#16a085] transition-colors" dir="rtl">المكتبة الرقمية</h3>
+                        <p className="text-sm text-slate-400 mb-4 font-arabic text-right" dir="rtl">دورات تدريبية وقوالب إحصائية لمساعدتك في بحثك.</p>
+                        <div className="h-32 rounded-xl bg-[url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 flex flex-col items-center justify-center">
+                                <span className="text-white font-bold font-arabic bg-[#16a085] px-4 py-2 rounded-lg translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all flex justify-center items-center gap-2">
+                                    تصفح المكتبة
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

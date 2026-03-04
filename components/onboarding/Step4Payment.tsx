@@ -110,6 +110,8 @@ export default function Step4Payment() {
                         }`}
                 >
                     <input
+                        id="receiptUpload"
+                        title="Upload Receipt"
                         type="file"
                         accept="image/*,.pdf"
                         className="hidden"

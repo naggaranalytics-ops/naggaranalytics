@@ -1,0 +1,118 @@
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { PlayCircle, Download, BookOpen, Lock, FileText, Video } from "lucide-react";
+
+export default async function LibraryPage() {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    // Mock data for resources
+    const videos = [
+        {
+            id: 1,
+            title: "مقدمة في التحليل الإحصائي للبحوث الطبية",
+            description: "ورشة عمل تدريبية تغطي الأساسيات المطلوبة لطلبة الماجستير.",
+            videoId: "dQw4w9WgXcQ", // Replace with an actual unlisted YouTube ID
+            type: "Free"
+        },
+        {
+            id: 2,
+            title: "استخدام برنامج SPSS خطوة بخطوة",
+            description: "شرح عملي ومفصل لكيفية تنظيف وتحليل البيانات باستخدام SPSS.",
+            videoId: "dQw4w9WgXcQ",
+            type: "Premium"
+        }
+    ];
+
+    const resources = [
+        {
+            id: 1,
+            title: "قالب كتابة النتائج الإحصائية (APA)",
+            description: "ملف وورد جاهز للاستخدام.",
+            type: "Free"
+        },
+        {
+            id: 2,
+            title: "دليل المصطلحات الإحصائية للباحثين",
+            description: "أهم المصطلحات مترجمة مع تعريفاتها.",
+            type: "Free"
+        }
+    ];
+
+    return (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <header className="mb-12 border-b border-white/5 pb-8 text-right">
+                <h1 className="text-3xl font-bold font-arabic text-white mb-2" dir="rtl">المكتبة الرقمية 📚</h1>
+                <p className="text-slate-400 font-arabic" dir="rtl">موارد ودورات تدريبية مصممة خصيصاً للباحثين وطلاب الدراسات العليا.</p>
+            </header>
+
+            <div className="space-y-12">
+                {/* Videos Section */}
+                <section>
+                    <div className="flex items-center gap-3 mb-6 flex-row-reverse">
+                        <Video className="text-[#16a085]" size={24} />
+                        <h2 className="text-2xl font-bold text-white font-arabic">الفيديوهات التعليمية</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {videos.map((vid) => (
+                            <div key={vid.id} className="bg-[#111821] border border-white/5 rounded-2xl overflow-hidden group">
+                                <div className="aspect-video bg-black relative">
+                                    {vid.type === 'Free' ? (
+                                        <iframe
+                                            className="w-full h-full"
+                                            src={`https://www.youtube.com/embed/${vid.videoId}`}
+                                            title="YouTube video player"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
+                                    ) : (
+                                        <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 border-b border-white/5 relative">
+                                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-20 filter blur-sm"></div>
+                                            <Lock size={48} className="text-slate-500 mb-4 z-10" />
+                                            <span className="text-zinc-400 font-arabic font-bold z-10">محتوى حصري (قريباً)</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="p-6 text-right">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <span className={`px-2 py-1 text-[10px] rounded-full font-bold ${vid.type === 'Free' ? 'bg-[#16a085]/20 text-[#16a085]' : 'bg-amber-500/20 text-amber-500'}`}>
+                                            {vid.type === 'Free' ? 'مجاني' : 'متقدم'}
+                                        </span>
+                                        <h3 className="text-xl font-bold text-white font-arabic" dir="rtl">{vid.title}</h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm font-arabic mt-2 line-clamp-2" dir="rtl">{vid.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Resources Section */}
+                <section className="pt-8 border-t border-white/5">
+                    <div className="flex items-center gap-3 mb-6 flex-row-reverse">
+                        <BookOpen className="text-[#16a085]" size={24} />
+                        <h2 className="text-2xl font-bold text-white font-arabic">القوالب والمستندات</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {resources.map((res) => (
+                            <div key={res.id} className="bg-[#111821] border border-white/5 p-6 rounded-2xl flex flex-col hover:border-[#16a085]/30 transition-all text-right group">
+                                <div className="w-12 h-12 rounded-xl bg-[#16a085]/10 flex items-center justify-center text-[#16a085] ml-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <FileText size={24} />
+                                </div>
+                                <h3 className="text-lg font-bold text-white font-arabic mb-2" dir="rtl">{res.title}</h3>
+                                <p className="text-slate-400 text-sm font-arabic flex-1" dir="rtl">{res.description}</p>
+
+                                <button className="mt-6 flex items-center justify-center gap-2 w-full py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-all font-arabic text-sm">
+                                    <Download size={16} className="text-[#16a085]" />
+                                    تحميل الملف
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </div>
+        </div>
+    );
+}

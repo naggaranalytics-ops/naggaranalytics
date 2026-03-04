@@ -33,6 +33,8 @@ export default function Step2Files() {
                 className="border-2 border-dashed border-[#16a085]/50 bg-[#16a085]/5 hover:bg-[#16a085]/10 transition-colors rounded-2xl p-12 flex flex-col items-center justify-center cursor-pointer text-center"
             >
                 <input
+                    id="fileUpload"
+                    title="Upload Files"
                     type="file"
                     multiple
                     className="hidden"
@@ -49,7 +51,7 @@ export default function Step2Files() {
                     <h4 className="text-right text-sm font-bold text-slate-300 font-arabic">الملفات المرفوعة:</h4>
                     {files.map((file, i) => (
                         <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-[#111821] border border-white/10">
-                            <button onClick={() => removeFile(i)} className="text-slate-400 hover:text-red-500 transition-colors p-1">
+                            <button onClick={() => removeFile(i)} title="إزالة الملف" aria-label="Remove file" className="text-slate-400 hover:text-red-500 transition-colors p-1">
                                 <X size={18} />
                             </button>
                             <div className="flex items-center gap-3">

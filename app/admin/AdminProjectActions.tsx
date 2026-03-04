@@ -60,6 +60,8 @@ export default function AdminProjectActions({ projectId, currentStatus }: { proj
             {(currentStatus === 'Review' || currentStatus === 'Analysis In Progress' || currentStatus === 'Completed') && (
                 <div className="relative">
                     <input
+                        id="deliveryUpload"
+                        title="Upload Delivery File"
                         type="file"
                         onChange={handleDeliveryUpload}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
