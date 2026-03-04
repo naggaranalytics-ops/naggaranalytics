@@ -5,7 +5,7 @@ import { useOnboarding } from "../../context/OnboardingContext";
 import { UploadCloud, CheckCircle2 } from "lucide-react";
 
 export default function Step4Payment() {
-    const { calculateTotal, prevStep, paymentPhase } = useOnboarding();
+    const { calculateTotal, prevStep, paymentPhase, academicDetails, tasks, files } = useOnboarding();
     const [receipt, setReceipt] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const receiptRef = useRef<HTMLInputElement>(null);
@@ -21,11 +21,44 @@ export default function Step4Payment() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        // TODO: Integrate Supabase Storage & Database Insertion
-        setTimeout(() => {
-            setIsSubmitting(false);
+
+        try {
+            const formData = new FormData();
+            formData.append('degree', academicDetails.degree);
+            formData.append('thesisTitle', academicDetails.thesisTitle);
+            formData.append('tasks', JSON.stringify(tasks));
+            formData.append('total', total.toString());
+            formData.append('paymentPhase', paymentPhase);
+
+            if (receipt) {
+                formData.append('receipt', receipt);
+            }
+
+            files.forEach((file) => {
+                formData.append('files', file);
+            });
+
+            const response = await fetch('/api/projects', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'فشل إرسال المشروع. يرجى المحاولة مرة أخرى.');
+            }
+
             alert("تم إرسال مشروعك بنجاح! سيتم مراجعته قريباً.");
-        }, 1500);
+            // Redirect to dashboard (this will be built next)
+            window.location.href = '/dashboard';
+
+        } catch (error: any) {
+            console.error(error);
+            alert(error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
