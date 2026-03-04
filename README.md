@@ -1,56 +1,40 @@
-# Naggar Analytics Website
+# Naggar Analytics: Senior Architectural Documentation
 
-This is a multi-page static website built with HTML, Tailwind CSS (via CDN), and Vanilla JavaScript.
+This repository houses the professional portfolio and consulting hub for Naggar Analytics. It is architected for scalability, performance, and "Apple-level" UI/UX polish.
 
-## 📂 Project Structure
+## 🚀 Technology Stack
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Runtime**: Edge Runtime (Optimized for Cloudflare Pages)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with CVA
+- **Auth**: [Kinde Auth](https://kinde.com/)
+- **Database**: PostgreSQL (via Supabase) with [Drizzle ORM](https://orm.drizzle.team/)
+- **Animations**: [GSAP](https://gsap.com/) & [Framer Motion](https://www.framer.com/motion/)
+- **State**: [TanStack Query](https://tanstack.com/query) (Server) & [Zustand](https://zustand-demo.pmnd.rs/) (Local)
 
+## 🏛️ Architecture & Principles
+This project follows a **Feature-based Modular Architecture**.
+- **Type Safety**: 100% TypeScript with Zero `any`. Runtime validation via **Zod**.
+- **DRY & SOLID**: Strict adherence to clean code principles.
+- **Performance**: Edge-first deployment, optimized media, and minimal re-renders.
+- **Accessibility**: WCAG 2.1 compliant.
+
+## 🛠️ Development
+
+### Prerequisites
+- Node.js 20+
+- `npm` or `pnpm`
+
+### Commands
+```bash
+npm install        # Install dependencies
+npm run dev        # Start development server
+npm run build      # Build for production
 ```
-/
-├── index.html          # Home Page (Regression, Significance, Process)
-├── services.html       # Services Page
-├── portfolio.html      # Portfolio Page
-├── about.html          # About Us Page
-├── careers.html        # Careers Page
-├── faq.html            # FAQ Page
-└── assets/
-    ├── css/
-    │   └── style.css   # Main custom styles (Animations, Glass effects)
-    └── js/
-        ├── main.js     # Global scripts (Particles, Mobile Menu)
-        └── home.js     # Homepage-only scripts (Charts, Timeline)
-```
 
-## 🛠️ How to Edit
+## 🌐 Deployment
+Targeted for **Cloudflare Pages**. 
+- Ensure `.env` mirrors `.env.example` (or `.env.local`).
+- Use `npm run build` to verify edge compatibility before pushing.
 
-Since this is a simple static site, you don't need any complex tools. You can edit the files directly in any text editor (like VS Code, Notepad++, etc).
-
-### 1. Changing Text
-Open the relevant `.html` file and look for the text you want to change.
-*   **Example**: To change a service price, open `services.html`, search for `$249`, and replace it.
-
-### 2. Changing the Menu
-The Navigation Bar is repeated in every HTML file (Lines ~20-60). 
-*   **Important**: If you add a new link to the menu, you must copy-paste the new Navigation section into ALL `.html` files to keep them consistent.
-
-### 3. Changing Colors/Styles
-*   **Global Styles**: Edit `assets/css/style.css`.
-*   **Tailwind Classes**: You can change classes directly in the HTML (e.g., changing `text-white` to `text-gray-500`).
-
-## 🚀 How to Deploy (Cloudflare Pages)
-
-1.  **GitHub**:
-    *   Create a new Repository on GitHub (e.g., `naggar-analytics-site`).
-    *   Upload all these files to that repository.
-2.  **Cloudflare Pages**:
-    *   Log in to Cloudflare Dashboard > Pages.
-    *   Click "Connect to Git" and select your new repository.
-    *   **Build Settings**:
-        *   **Framework**: None / Static HTML
-        *   **Build directory**: (Leave empty or put `/` if asked)
-    *   Click "Save and Deploy".
-
-## 📱 Mobile Menu Fix
-The mobile menu has been fixed to sit *above* the background particles using `z-index: 9999`.
-
-## ⚠️ Note for Future Developers
-This site uses Tailwind via CDN for simplicity of editing. For a production environment with high traffic, it is recommended to set up a proper Tailwind build step to generate a minified CSS file, but strictly speaking, it will work fine as-is for a small business site.
+## 🧠 Brain & AI Guidelines
+See [brain.md](file:///Users/muhammedelnaggar/Desktop/Naggar%20Analytics%20/naggaranalytics/brain.md) for detailed AI personas, engineering standards, and architectural blueprints.
