@@ -29,8 +29,8 @@ export default async function Home() {
 
             {/* Header / Nav Section */}
             <nav className="relative z-20 flex items-center justify-between px-6 py-6 max-w-7xl mx-auto backdrop-blur-md bg-dark/70 border-b border-white/5">
-                <div className="w-48">
-                    <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={100} className="w-full h-auto" />
+                <div className="flex-shrink-0">
+                    <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={400} className="w-auto h-12 md:h-16" priority />
                 </div>
                 <div className="flex items-center gap-6">
                     <LoginLink className="text-sm font-medium hover:text-primary transition-colors">Sign In</LoginLink>
@@ -49,7 +49,7 @@ export default async function Home() {
                     </div>
 
                     <h1 className="flex justify-center mb-6 drop-shadow-2xl">
-                        <Image src="/logo/logo.svg" alt="Naggar Analytics" width={600} height={150} className="w-full max-w-lg h-auto" priority />
+                        <Image src="/logo/logo.svg" alt="Naggar Analytics" width={800} height={800} className="w-auto h-32 md:h-48 lg:h-64 object-contain" priority />
                     </h1>
 
                     <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light mb-12">

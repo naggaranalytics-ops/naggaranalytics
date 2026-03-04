@@ -43,8 +43,8 @@ const Sidebar = () => {
             >
                 <div className="flex flex-col h-full">
                     <div className="p-6">
-                        <Link href="/" className="block w-48">
-                            <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={100} className="w-full h-auto" />
+                        <Link href="/" className="inline-block">
+                            <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={400} className="w-auto h-12" priority />
                         </Link>
                     </div>
 
