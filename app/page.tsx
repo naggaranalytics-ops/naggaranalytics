@@ -65,27 +65,6 @@ export default async function Home() {
                 </div>
             </div>
 
-            {/* Feature Grid */}
-            <div className="max-w-7xl mx-auto px-4 mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                {[
-                    { icon: BarChart3, title: "Deep Analysis", desc: "Rigorous cleaning and hypothesis testing by senior experts." },
-                    { icon: ShieldCheck, title: "Defensible Results", desc: "Publication-ready tables and high-res graphs (APA style)." },
-                    { icon: Zap, title: "10-Day Delivery", desc: "Fast, reliable, and thorough results for your research." }
-                ].map((feature, i) => (
-                    <LoginLink key={i} className="block group">
-                        <div className="glass-card p-8 rounded-3xl hover:border-primary/50 transition-all hover:-translate-y-2 h-full">
-                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 shadow-inner ring-1 ring-inset ring-primary/20">
-                                <feature.icon size={24} />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
-                            <div className="mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                                Get Started <ArrowRight size={16} />
-                            </div>
-                        </div>
-                    </LoginLink>
-                ))}
-            </div>
 
             {/* Restored Visual Animations */}
             <RegressionCurve />
