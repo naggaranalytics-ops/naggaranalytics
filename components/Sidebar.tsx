@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
     BarChart3,
@@ -42,8 +43,8 @@ const Sidebar = () => {
             >
                 <div className="flex flex-col h-full">
                     <div className="p-6">
-                        <Link href="/" className="text-white font-bold text-xl tracking-tighter">
-                            NAGGAR<span className="text-primary">ANALYTICS</span>
+                        <Link href="/" className="block w-48">
+                            <Image src="/logo/logo-light.png" alt="Naggar Analytics" width={400} height={100} className="w-full h-auto" />
                         </Link>
                     </div>
 
