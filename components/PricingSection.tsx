@@ -1,3 +1,6 @@
+import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import Link from "next/link";
+
 export default function PricingSection() {
     return (
         <div className="content-layer relative z-10 w-full mb-20">
@@ -30,7 +33,7 @@ export default function PricingSection() {
                                 <li className="flex items-center justify-start"><span className="text-[#16a085] ml-2">✓</span> تنسيق وبرمجة الاستبيان</li>
                                 <li className="flex items-center justify-start opacity-40"><span className="text-slate-600 ml-2">✕</span> تحليل الانحدار</li>
                             </ul>
-                            <a href="#" className="w-full block text-center py-3 border border-[#16a085] text-[#16a085] hover:bg-[#16a085] hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">اطلب الآن</a>
+                            <RegisterLink className="w-full block text-center py-3 border border-[#16a085] text-[#16a085] hover:bg-[#16a085] hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">اطلب الآن</RegisterLink>
                         </div>
                     </div>
 
@@ -53,7 +56,7 @@ export default function PricingSection() {
                                 <li className="flex items-center justify-start"><span className="text-[#16a085] ml-2 bg-[#16a085]/10 p-1 rounded-full text-xs">✓</span> الجداول والرسومات البيانية</li>
                                 <li className="flex items-center justify-start"><span className="text-[#16a085] ml-2 bg-[#16a085]/10 p-1 rounded-full text-xs">✓</span> تحليل الانحدار واختبار الفرضيات</li>
                             </ul>
-                            <a href="#" className="w-full block text-center py-4 bg-[#16a085] text-white hover:bg-[#149174] rounded-xl transition-all font-bold shadow-lg shadow-black/50 hover:shadow-black/70 mt-auto relative z-10 font-arabic">اطلب الآن</a>
+                            <RegisterLink className="w-full block text-center py-4 bg-[#16a085] text-white hover:bg-[#149174] rounded-xl transition-all font-bold shadow-lg shadow-black/50 hover:shadow-black/70 mt-auto relative z-10 font-arabic">اطلب الآن</RegisterLink>
                         </div>
                     </div>
 
@@ -69,7 +72,7 @@ export default function PricingSection() {
                             <p className="text-right text-slate-300 leading-relaxed mb-8 flex-grow text-sm font-arabic" dir="rtl">
                                 للمراكز البحثية والجهات التي لديها مجموعة ضخمة من البيانات، يسعدنا التواصل معكم لتحديد باقة تناسب احتياجاتكم بدقة.
                             </p>
-                            <a href="#" className="w-full block text-center py-3 border border-slate-600 text-slate-400 hover:border-white hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">تواصل معنا</a>
+                            <Link href="/contact" className="w-full block text-center py-3 border border-slate-600 text-slate-400 hover:border-white hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">تواصل معنا</Link>
                         </div>
                     </div>
                 </div>
