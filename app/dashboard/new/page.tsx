@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { OnboardingProvider } from "@/context/OnboardingContext";
 import OnboardingStepper from "@/components/onboarding/OnboardingStepper";

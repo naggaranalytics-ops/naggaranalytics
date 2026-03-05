@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { PlayCircle, Download, BookOpen, Lock, FileText, Video } from "lucide-react";
 
@@ -9,16 +11,16 @@ export default async function LibraryPage() {
     const videos = [
         {
             id: 1,
-            title: "مقدمة في التحليل الإحصائي للبحوث الطبية",
-            description: "ورشة عمل تدريبية تغطي الأساسيات المطلوبة لطلبة الماجستير.",
-            videoId: "dQw4w9WgXcQ", // Replace with an actual unlisted YouTube ID
+            title: "قناة د. محمد حسن التعليمية",
+            description: "تابع قناتي للحصول على دورات ودروس شاملة في التحليل الإحصائي واستخدام البرامج الإحصائية.",
+            url: "https://youtube.com/c/MuhamedHassan",
             type: "Free"
         },
         {
             id: 2,
-            title: "استخدام برنامج SPSS خطوة بخطوة",
-            description: "شرح عملي ومفصل لكيفية تنظيف وتحليل البيانات باستخدام SPSS.",
-            videoId: "dQw4w9WgXcQ",
+            title: "دورات متقدمة حصرياً",
+            description: "محتوى متقدم وشرح مفصل وحصري للبحوث الطبية.",
+            videoId: null,
             type: "Premium"
         }
     ];
@@ -57,7 +59,12 @@ export default async function LibraryPage() {
                         {videos.map((vid) => (
                             <div key={vid.id} className="bg-[#111821] border border-white/5 rounded-2xl overflow-hidden group">
                                 <div className="aspect-video bg-black relative">
-                                    {vid.type === 'Free' ? (
+                                    {vid.type === 'Free' && vid.url ? (
+                                        <a href={vid.url} target="_blank" rel="noreferrer" className="w-full h-full flex flex-col items-center justify-center bg-red-950/30 hover:bg-red-900/40 transition-all border-b border-white/5 relative group/link">
+                                            <PlayCircle size={64} className="text-red-500 mb-4 group-hover/link:scale-110 transition-transform" />
+                                            <span className="text-red-400 font-arabic font-bold">الانتقال إلى القناة</span>
+                                        </a>
+                                    ) : vid.type === 'Free' ? (
                                         <iframe
                                             className="w-full h-full"
                                             src={`https://www.youtube.com/embed/${vid.videoId}`}

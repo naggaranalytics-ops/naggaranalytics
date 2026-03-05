@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { supabase } from "@/lib/supabase";
 import { Clock, FileText, CheckCircle2, Download, AlertCircle, RefreshCw } from "lucide-react";
 import AdminProjectActions from "./AdminProjectActions";
@@ -45,8 +47,8 @@ export default async function AdminPage() {
                                             <div className="flex items-center gap-3 mb-2">
                                                 <h3 className="text-xl font-bold text-white font-arabic truncate max-w-md">{project.thesis_title}</h3>
                                                 <span className={`px-3 py-0.5 text-xs rounded-full font-medium border ${project.status === 'Completed' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
-                                                        project.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' :
-                                                            'bg-[#16a085]/10 text-[#16a085] border-[#16a085]/20'
+                                                    project.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' :
+                                                        'bg-[#16a085]/10 text-[#16a085] border-[#16a085]/20'
                                                     } font-arabic`}>
                                                     {project.status === 'Pending' ? 'بانتظار التأكيد' :
                                                         project.status === 'Payment Verified' ? 'تم تأكيد الدفع' :
