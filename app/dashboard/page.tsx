@@ -1,4 +1,4 @@
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { supabase } from "@/lib/supabase";
