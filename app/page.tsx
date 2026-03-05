@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRight, BarChart3, ShieldCheck, Zap } from "lucide-react";
 import RegressionCurve from "@/components/RegressionCurve";
 import BellCurve from "@/components/BellCurve";
-import PricingSection from "@/components/PricingSection";
+
 import ParticlesScript from "@/components/ParticlesScript";
 import Navbar from "@/components/Navbar";
 import ProcessSection from "@/components/ProcessSection";
@@ -41,7 +41,7 @@ export default async function Home() {
                 <div className="px-4 flex flex-col items-center w-full max-w-6xl mx-auto text-center pointer-events-auto">
 
                     <h1 className="flex justify-center mb-6 drop-shadow-2xl">
-                        <Image src="/logo/logo.svg" alt="Naggar Analytics" width={800} height={800} className="w-auto h-32 md:h-48 lg:h-64 object-contain" priority />
+                        <Image src="/arabic.svg" alt="Naggar Analytics" width={800} height={800} className="w-auto h-32 md:h-48 lg:h-64 object-contain" priority />
                     </h1>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12 opacity-90">
@@ -72,9 +72,6 @@ export default async function Home() {
 
             {/* Process Section */}
             <ProcessSection />
-
-            {/* Restored Pricing Section */}
-            <PricingSection />
 
 
             <Footer />

@@ -105,6 +105,39 @@ export async function POST(request: Request) {
                 });
         }
 
+        // Send email notification to Admin via Resend REST API (if configured)
+        const RESEND_API_KEY = process.env.RESEND_API_KEY;
+        const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+
+        if (RESEND_API_KEY && ADMIN_EMAIL) {
+            try {
+                await fetch('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${RESEND_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        from: 'Naggar Analytics <onboarding@resend.dev>',
+                        to: [ADMIN_EMAIL],
+                        subject: `New Project Submitted: ${thesisTitle}`,
+                        html: `
+                            <h2>New Project Submitted</h2>
+                            <p><strong>Title:</strong> ${thesisTitle}</p>
+                            <p><strong>Degree:</strong> ${degree}</p>
+                            <p><strong>Client ID:</strong> ${user.id}</p>
+                            <p><strong>Total Price:</strong> $${total}</p>
+                            <p><strong>Payment Phase:</strong> ${paymentPhase}</p>
+                            <br/>
+                            <p>Check the admin dashboard to review the project and download files.</p>
+                        `
+                    })
+                });
+            } catch (emailErr) {
+                console.error("Failed to send email notification:", emailErr);
+            }
+        }
+
         return NextResponse.json({ success: true, projectId });
 
     } catch (error: any) {

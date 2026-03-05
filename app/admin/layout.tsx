@@ -1,7 +1,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut, LayoutDashboard, Settings, Users, FolderOpen } from "lucide-react";
+import { LogOut, Settings, Users, FolderOpen, Briefcase, Mail } from "lucide-react";
 
 export default async function AdminLayout({
     children,
@@ -33,9 +33,13 @@ export default async function AdminLayout({
                         <FolderOpen size={18} />
                         المشاريع
                     </Link>
-                    <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
-                        <Users size={18} />
-                        العملاء (قريباً)
+                    <Link href="/admin/careers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
+                        <Briefcase size={18} />
+                        طلبات التوظيف
+                    </Link>
+                    <Link href="/admin/subscribers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
+                        <Mail size={18} />
+                        المشتركون
                     </Link>
                     <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
                         <Settings size={18} />

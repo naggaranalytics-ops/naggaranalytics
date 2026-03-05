@@ -32,7 +32,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-white/5 text-center text-slate-500 text-xs font-mono">
-                &copy; 2024 Naggar Analytics. All rights reserved.
+                &copy; {new Date().getFullYear()} Naggar Analytics. All rights reserved.
             </div>
         </footer>
     );
