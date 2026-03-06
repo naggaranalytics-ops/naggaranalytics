@@ -40,7 +40,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function ProgressBar({ status }: { status: string }) {
-    const { t } = useLanguage();
+    const { t, dir } = useLanguage();
     const statusConfig: Record<string, { step: number }> = {
         'Pending': { step: 1 },
         'Payment Verified': { step: 2 },
