@@ -3,13 +3,15 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import RegressionCurve from "@/components/RegressionCurve";
-import BellCurve from "@/components/BellCurve";
+// import BellCurve from "@/components/BellCurve"; // Temporarily hidden per user request
 import ParticlesScript from "@/components/ParticlesScript";
 import Navbar from "@/components/Navbar";
 import ProcessSection from "@/components/ProcessSection";
 import Footer from "@/components/Footer";
 import HeroLogo from "@/components/HeroLogo";
 import HeroText from "@/components/HeroText";
+import AudienceSection from "@/components/AudienceSection";
+import HomePortfolio from "@/components/HomePortfolio";
 
 export const runtime = 'edge';
 
@@ -47,10 +49,13 @@ export default async function Home() {
                 </div>
             </div>
 
+            <AudienceSection />
+
             <RegressionCurve />
-            <BellCurve />
+            {/* <BellCurve /> Temporarily hidden per user request */}
 
             <ProcessSection />
+            <HomePortfolio />
 
             <Footer />
         </div>
