@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/context/ThemeProvider';
+import { useLanguage } from '@/context/LanguageProvider';
 
 export default function BellCurve() {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [progress, setProgress] = useState(0);
+    const { theme } = useTheme();
+    const { t } = useLanguage();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -55,14 +59,16 @@ export default function BellCurve() {
             const scaleY = height * 0.7 * 2.5;
             const centerX = width / 2;
 
-            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            // Axe
+            ctx.strokeStyle = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(0, baseY);
             ctx.lineTo(width, baseY);
             ctx.stroke();
 
-            ctx.strokeStyle = '#cbd5e1';
+            // Curve
+            ctx.strokeStyle = theme === 'dark' ? '#cbd5e1' : '#475569';
             ctx.lineWidth = 3;
             ctx.lineJoin = 'round';
             ctx.beginPath();
@@ -133,7 +139,7 @@ export default function BellCurve() {
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [theme]); // Redraw on theme change
 
     const isVisible = progress > 0.5;
 
@@ -143,37 +149,41 @@ export default function BellCurve() {
 
                 <div className="lg:col-span-4 order-2 lg:order-1 space-y-8">
                     <div className="text-center lg:text-left">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Statistical Significance</h2>
-                        <h3 className="text-xl md:text-3xl text-[#16a085] mb-4 font-arabic" dir="rtl">الدلالة الإحصائية</h3>
-                        <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                            We don't guess. We verify that your results aren't just random chance, but meaningful patterns.
+                        <h2 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                            {t("sig.title")}
+                        </h2>
+                        <h3 className="text-xl md:text-3xl text-[#16a085] mb-4">
+                            {t("sig.subtitle")}
+                        </h3>
+                        <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                            {t("sig.desc")}
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 text-sm">
-                        <div id="box-normal" className="glass-card p-5 rounded-lg border-l-2 border-slate-500 transition-all duration-500">
-                            <h4 className="font-bold text-slate-200 mb-1">The Bell Curve</h4>
-                            <p className="text-xs text-slate-400 font-mono">Normal distribution of data.</p>
+                        <div id="box-normal" className="glass-card p-5 rounded-lg border-l-2 border-slate-400 transition-all duration-500">
+                            <h4 className="font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{t("sig.curveTitle")}</h4>
+                            <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{t("sig.curveDesc")}</p>
                         </div>
 
                         <div id="box-sig" className={`glass-card p-5 rounded-lg border-l-2 transition-all duration-500 ${isVisible ? 'opacity-100 border-[#fbbf24] bg-[#fbbf24]/5' : 'opacity-50 border-transparent bg-transparent'}`}>
-                            <h4 className="font-bold text-[#fbbf24] mb-1">P &lt; 0.05</h4>
-                            <p className="text-xs text-slate-400 font-mono">Significant findings (The Tails).</p>
+                            <h4 className="font-bold text-[#fbbf24] mb-1">{t("sig.pTitle")}</h4>
+                            <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{t("sig.pDesc")}</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="lg:col-span-8 order-1 lg:order-2 relative h-[350px] md:h-[60vh] w-full" ref={containerRef}>
-                    <div className="w-full h-full bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden">
+                    <div className="w-full h-full bg-[var(--input-bg)] rounded-3xl border border-[var(--border-color)] relative overflow-hidden shadow-inner">
                         <canvas ref={canvasRef} className="block w-full h-full"></canvas>
                     </div>
                     <div id="sig-tag-left" className={`absolute top-1/2 left-[10%] glass-card px-4 py-2 rounded-lg text-center border-l-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        <div className="text-[#fbbf24] font-bold text-sm">Significant</div>
-                        <div className="text-[10px] text-slate-300 font-mono">p &lt; 0.05</div>
+                        <div className="text-[#fbbf24] font-bold text-sm">{t("sig.tag")}</div>
+                        <div className="text-[10px] font-mono" style={{ color: 'var(--text-secondary)' }}>p &lt; 0.05</div>
                     </div>
                     <div id="sig-tag-right" className={`absolute top-1/2 right-[10%] glass-card px-4 py-2 rounded-lg text-center border-r-2 border-[#fbbf24] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        <div className="text-[#fbbf24] font-bold text-sm">Significant</div>
-                        <div className="text-[10px] text-slate-300 font-mono">p &lt; 0.05</div>
+                        <div className="text-[#fbbf24] font-bold text-sm">{t("sig.tag")}</div>
+                        <div className="text-[10px] font-mono" style={{ color: 'var(--text-secondary)' }}>p &lt; 0.05</div>
                     </div>
                 </div>
             </section>

@@ -8,6 +8,7 @@ import ParticlesScript from "@/components/ParticlesScript";
 import Navbar from "@/components/Navbar";
 import ProcessSection from "@/components/ProcessSection";
 import Footer from "@/components/Footer";
+import HeroLogo from "@/components/HeroLogo";
 import HeroText from "@/components/HeroText";
 
 export const runtime = 'edge';
@@ -34,10 +35,7 @@ export default async function Home() {
             <div className="content-layer relative z-10 w-full min-h-[100dvh] flex flex-col justify-center items-center py-20 pt-32 pointer-events-none">
                 <div className="px-4 flex flex-col items-center w-full max-w-6xl mx-auto text-center pointer-events-auto">
 
-                    <h1 className="flex justify-center mb-6 drop-shadow-2xl">
-                        <Image src="/arabic.svg" alt="Naggar Analytics" width={800} height={800} className="w-auto h-32 md:h-48 lg:h-64 object-contain" priority />
-                    </h1>
-
+                    <HeroLogo />
                     <HeroText />
 
                     <div className="arrow-anim absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-60">

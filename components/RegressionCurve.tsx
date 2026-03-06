@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/context/ThemeProvider';
+import { useLanguage } from '@/context/LanguageProvider';
 
 export default function RegressionCurve() {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [b0, setB0] = useState("0");
     const [b1, setB1] = useState("0.0");
+    const { theme } = useTheme();
+    const { t } = useLanguage();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -70,7 +74,7 @@ export default function RegressionCurve() {
 
             const ease = 1 - Math.pow(1 - p, 3);
 
-            ctx.fillStyle = '#48c9b0';
+            ctx.fillStyle = theme === 'dark' ? '#48c9b0' : '#16a085';
             points.forEach(pt => {
                 pt.cx = pt.sx + (pt.tx - pt.sx) * ease;
                 pt.cy = pt.sy + (pt.ty - pt.sy) * ease;
@@ -93,7 +97,7 @@ export default function RegressionCurve() {
                     const y2 = height * (1 - 0.77);
 
                     ctx.strokeStyle = '#fbbf24';
-                    ctx.lineWidth = 3;
+                    ctx.lineWidth = 4;
                     ctx.lineCap = 'round';
 
                     ctx.beginPath();
@@ -138,32 +142,35 @@ export default function RegressionCurve() {
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [theme]);
 
     return (
         <div className="content-layer relative z-20 w-full py-20 overflow-hidden" id="method-section">
             <section className="w-full max-w-7xl mx-auto px-4 flex flex-col items-center">
-                <div className="text-center mb-10 max-w-3xl mx-auto">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight">From Chaos to Clarity</h2>
-                    <h3 className="text-2xl md:text-3xl text-[#16a085] mb-6 font-arabic" dir="rtl">من الفوضى إلى الوضوح</h3>
-                    <p className="text-sm md:text-base text-slate-400 font-mono">Scroll down to fit the model.</p>
+                <div className="text-center mb-10 max-w-4xl mx-auto">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                        {t("method.title")}
+                    </h2>
+                    <h3 className="text-2xl md:text-3xl text-[#16a085] mb-6">
+                        {t("method.subtitle")}
+                    </h3>
+                    <p className="text-sm md:text-base font-mono" style={{ color: 'var(--text-muted)' }}>
+                        {t("method.scroll")}
+                    </p>
                 </div>
 
-                <div ref={containerRef} className="relative w-full max-w-5xl h-[400px] md:h-[60vh] bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div ref={containerRef} className="relative w-full max-w-5xl h-[400px] md:h-[60vh] bg-[var(--input-bg)] rounded-3xl border border-[var(--border-color)] overflow-hidden shadow-inner">
                     <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl">
                         <canvas ref={canvasRef} className="block w-full h-full"></canvas>
                     </div>
-                    <div className="absolute bottom-6 left-6 md:left-12 glass-card px-4 py-3 rounded text-[#fbbf24] font-mono text-sm md:text-xl z-30 border-[#fbbf24]/20 shadow-2xl">
+                    <div className="absolute bottom-6 left-6 md:left-12 glass-card px-6 py-4 rounded-2xl text-[#fbbf24] font-mono text-lg md:text-2xl z-30 border-[#fbbf24]/20 shadow-2xl">
                         y = <span>{b0}</span> + <span>{b1}</span>x + ε
                     </div>
                 </div>
 
                 <div className="text-center mt-12 max-w-3xl space-y-4 px-2">
-                    <p className="text-sm md:text-base text-slate-300 leading-relaxed">
-                        The regression line (in yellow) represents the best-fit model for predicting outcomes based on your data.
-                    </p>
-                    <p className="text-sm md:text-base text-[#16a085] font-arabic" dir="rtl">
-                        يمثل خط الانحدار (باللون الأصفر) النموذج الأفضل للتنبؤ بالنتائج بناءً على بياناتك
+                    <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {t("method.desc")}
                     </p>
                 </div>
             </section>

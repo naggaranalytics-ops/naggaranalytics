@@ -27,7 +27,14 @@ export default function Navbar() {
                 <div className={`flex items-center justify-between h-20 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className="flex-shrink-0">
                         <Link href="/">
-                            <Image src="/logo/logo.svg" alt="Naggar Analytics" width={400} height={400} className="w-auto h-12 md:h-12" priority />
+                            <Image
+                                src={theme === 'light' ? "/logo/light-logo.svg" : "/logo/logo.svg"}
+                                alt="Naggar Analytics"
+                                width={400}
+                                height={400}
+                                className="w-auto h-12 md:h-12"
+                                priority
+                            />
                         </Link>
                     </div>
 

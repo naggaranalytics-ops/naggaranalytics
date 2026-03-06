@@ -62,7 +62,7 @@ const Sidebar = ({ user }: SidebarProps) => {
                 <div className="p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                     <Link href="/" className="inline-block">
                         <Image
-                            src="/logo/logo.svg"
+                            src={theme === 'light' ? "/logo/light-logo.svg" : "/logo/logo.svg"}
                             alt="Naggar Analytics"
                             width={400}
                             height={400}
