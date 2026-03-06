@@ -1,38 +1,43 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageProvider";
 
 export default function Footer() {
+    const { t, dir } = useLanguage();
+
     return (
-        <footer className="bg-[#050a10] border-t border-white/5 py-12 relative z-20">
-            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer className="border-t py-12 relative z-20" style={{ backgroundColor: 'var(--footer-bg)', borderColor: 'var(--border-color)' }}>
+            <div className={`max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className="col-span-1 md:col-span-2">
-                    <Link href="/" className="text-white font-bold text-xl tracking-tighter mb-4 block">
+                    <Link href="/" className="font-bold text-xl tracking-tighter mb-4 block" style={{ color: 'var(--text-primary)' }}>
                         NAGGAR<span className="text-[#16a085]">ANALYTICS</span>
                     </Link>
-                    <p className="text-slate-400 text-sm max-w-sm">
-                        Providing defensible, high-accuracy statistical analysis for researchers, students, and institutions.
+                    <p className="text-sm max-w-sm" style={{ color: 'var(--text-secondary)' }}>
+                        {t("footer.tagline")}
                     </p>
                 </div>
 
                 <div>
-                    <h5 className="text-white font-bold mb-4">Quick Links</h5>
-                    <ul className="space-y-2 text-sm text-slate-400">
-                        <li><Link href="/services" className="hover:text-[#16a085]">Services</Link></li>
-                        <li><Link href="/portfolio" className="hover:text-[#16a085]">Portfolio</Link></li>
-                        <li><Link href="/about" className="hover:text-[#16a085]">About Us</Link></li>
-                        <li><Link href="/contact" className="hover:text-[#16a085]">Contact</Link></li>
+                    <h5 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{t("footer.quickLinks")}</h5>
+                    <ul className="space-y-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <li><Link href="/services" className="hover:text-[#16a085]">{t("footer.services")}</Link></li>
+                        <li><Link href="/portfolio" className="hover:text-[#16a085]">{t("footer.portfolio")}</Link></li>
+                        <li><Link href="/about" className="hover:text-[#16a085]">{t("footer.aboutUs")}</Link></li>
+                        <li><Link href="/contact" className="hover:text-[#16a085]">{t("footer.contact")}</Link></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h5 className="text-white font-bold mb-4">Legal</h5>
-                    <ul className="space-y-2 text-sm text-slate-400">
-                        <li><Link href="#" className="hover:text-[#16a085]">Privacy Policy</Link></li>
-                        <li><Link href="#" className="hover:text-[#16a085]">Terms of Service</Link></li>
+                    <h5 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{t("footer.legal")}</h5>
+                    <ul className="space-y-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <li><Link href="#" className="hover:text-[#16a085]">{t("footer.privacy")}</Link></li>
+                        <li><Link href="#" className="hover:text-[#16a085]">{t("footer.terms")}</Link></li>
                     </ul>
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-white/5 text-center text-slate-500 text-xs font-mono">
-                &copy; {new Date().getFullYear()} Naggar Analytics. All rights reserved.
+            <div className="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t text-center text-xs font-mono" style={{ borderColor: 'var(--border-color)', color: 'var(--text-muted)' }}>
+                &copy; {new Date().getFullYear()} {t("footer.copyright")}
             </div>
         </footer>
     );

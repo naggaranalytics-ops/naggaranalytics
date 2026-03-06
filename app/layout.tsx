@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans_Arabic, Courier_Prime } from "next/font/google";
 import "./globals.css";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import { ThemeProvider } from "@/context/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
@@ -31,10 +33,14 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${inter.variable} ${ibmPlexSansArabic.variable} ${courierPrime.variable}`}>
+        <html lang="en" data-theme="dark" className={`${inter.variable} ${ibmPlexSansArabic.variable} ${courierPrime.variable}`}>
             <body className="font-sans antialiased">
-                {children}
-                <WhatsAppWidget />
+                <ThemeProvider>
+                    <LanguageProvider>
+                        {children}
+                        <WhatsAppWidget />
+                    </LanguageProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

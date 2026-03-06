@@ -12,9 +12,14 @@ import {
     X,
     HelpCircle,
     User,
+    Sun,
+    Moon,
+    Globe,
 } from "lucide-react";
 import { useState } from "react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useTheme } from "@/context/ThemeProvider";
+import { useLanguage } from "@/context/LanguageProvider";
 
 interface SidebarProps {
     user?: { name: string | null; email: string | null };
@@ -24,11 +29,13 @@ const Sidebar = ({ user }: SidebarProps) => {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [showSignOutTip, setShowSignOutTip] = useState(false);
+    const { theme, toggleTheme } = useTheme();
+    const { t, lang, toggleLang } = useLanguage();
 
     const navItems = [
-        { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
-        { label: "Research Academy", icon: GraduationCap, href: "/dashboard/library" },
-        { label: "New Request", icon: PlusCircle, href: "/dashboard/new" },
+        { label: t("sidebar.dashboard"), icon: LayoutDashboard, href: "/dashboard" },
+        { label: t("sidebar.library"), icon: GraduationCap, href: "/dashboard/library" },
+        { label: t("sidebar.newRequest"), icon: PlusCircle, href: "/dashboard/new" },
     ];
 
     const isActive = (href: string) =>
@@ -47,11 +54,12 @@ const Sidebar = ({ user }: SidebarProps) => {
 
             {/* Sidebar Container */}
             <aside
-                className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#080e17]/80 backdrop-blur-xl border-r border-white/5 flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"
+                className={`fixed inset-y-0 ${lang === 'ar' ? 'right-0' : 'left-0'} z-40 w-64 backdrop-blur-xl border-r flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : lang === 'ar' ? "translate-x-full md:translate-x-0" : "-translate-x-full"
                     }`}
+                style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
             >
                 {/* Logo */}
-                <div className="p-6 border-b border-white/5">
+                <div className="p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                     <Link href="/" className="inline-block">
                         <Image
                             src="/logo/logo.svg"
@@ -72,8 +80,9 @@ const Sidebar = ({ user }: SidebarProps) => {
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(item.href)
                                 ? "bg-[#16a085] text-white shadow-lg shadow-[#16a085]/20"
-                                : "text-slate-400 hover:text-white hover:bg-white/5"
+                                : "hover:bg-[var(--input-bg)]"
                                 }`}
+                            style={!isActive(item.href) ? { color: 'var(--text-secondary)' } : {}}
                             onClick={() => setIsOpen(false)}
                         >
                             <item.icon size={20} />
@@ -82,42 +91,63 @@ const Sidebar = ({ user }: SidebarProps) => {
                     ))}
                 </nav>
 
-                {/* Help & Sign Out */}
-                <div className="p-4 border-t border-white/5 space-y-2">
+                {/* Footer controls */}
+                <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--border-color)' }}>
+
+                    {/* Theme & Lang toggles */}
+                    <div className="flex items-center gap-2 px-2 mb-2">
+                        <button
+                            onClick={toggleTheme}
+                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium transition-all hover:bg-[var(--input-bg)]"
+                            style={{ color: 'var(--text-secondary)' }}
+                        >
+                            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+                            {theme === "dark" ? "Light" : "Dark"}
+                        </button>
+                        <button
+                            onClick={toggleLang}
+                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium border transition-all hover:bg-[var(--input-bg)]"
+                            style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}
+                        >
+                            <Globe size={14} />
+                            {t("lang.toggle")}
+                        </button>
+                    </div>
 
                     {/* Sign-out guidance tip */}
                     <button
-                        className="flex items-center gap-3 px-4 py-3 w-full text-slate-500 hover:text-slate-300 hover:bg-white/5 rounded-xl transition-all text-left"
+                        className="flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all text-left hover:bg-[var(--input-bg)]"
+                        style={{ color: 'var(--text-muted)' }}
                         onClick={() => setShowSignOutTip(!showSignOutTip)}
                         aria-expanded={showSignOutTip ? "true" : "false"}
                     >
                         <HelpCircle size={18} />
-                        <span className="font-medium text-xs">Need help signing out?</span>
+                        <span className="font-medium text-xs">{t("sidebar.signOutHelp")}</span>
                     </button>
 
                     {showSignOutTip && (
-                        <div className="mx-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-xs text-slate-400 leading-relaxed">
-                            Click <span className="text-white font-semibold">Sign Out</span> below to securely log out of your account. Your projects and data are saved automatically — you can sign back in anytime.
+                        <div className="mx-2 px-4 py-3 rounded-xl text-xs leading-relaxed border" style={{ backgroundColor: 'var(--input-bg)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                            {t("sidebar.signOutTip")}
                         </div>
                     )}
 
                     {/* User profile strip */}
                     {user?.email && (
-                        <div className="flex items-center gap-3 px-4 py-3 bg-white/3 rounded-xl">
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ backgroundColor: 'var(--input-bg)' }}>
                             <div className="w-8 h-8 rounded-full bg-[#16a085]/20 flex items-center justify-center shrink-0">
                                 <User size={16} className="text-[#16a085]" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-white text-xs font-semibold truncate">{user.name || "User"}</p>
-                                <p className="text-slate-500 text-[10px] truncate">{user.email}</p>
+                                <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{user.name || t("sidebar.user")}</p>
+                                <p className="text-[10px] truncate" style={{ color: 'var(--text-muted)' }}>{user.email}</p>
                             </div>
                         </div>
                     )}
 
                     {/* Sign out button */}
-                    <LogoutLink className="flex items-center gap-3 px-4 py-3 w-full text-slate-400 hover:text-red-400 hover:bg-red-400/5 rounded-xl transition-all">
+                    <LogoutLink className="flex items-center gap-3 px-4 py-3 w-full text-red-400 hover:text-red-300 hover:bg-red-400/5 rounded-xl transition-all">
                         <LogOut size={20} />
-                        <span className="font-medium text-sm">Sign Out</span>
+                        <span className="font-medium text-sm">{t("sidebar.signOut")}</span>
                     </LogoutLink>
                 </div>
             </aside>
