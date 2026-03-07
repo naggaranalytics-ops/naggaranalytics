@@ -16,12 +16,6 @@ import HomePortfolio from "@/components/HomePortfolio";
 export const runtime = 'edge';
 
 export default async function Home() {
-    const { isAuthenticated } = getKindeServerSession();
-
-    if (await isAuthenticated()) {
-        redirect("/dashboard");
-    }
-
     return (
         <div className="min-h-screen text-white selection:bg-[#16a085]/30 relative" style={{ color: 'var(--text-primary)' }}>
             {/* Background Particles/Glow */}
