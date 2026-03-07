@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Naggar Analytics",
+    "slug": "naggar-analytics-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "naggaranalytics",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#050a10"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.naggaranalytics.app",
+      "infoPlist": {
+        "NSDocumentPickerUsageDescription": "Upload your data files for analysis",
+        "NSPhotoLibraryUsageDescription": "Upload payment receipts from your photo library",
+        "NSCameraUsageDescription": "Take photos of payment receipts"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#050a10",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.naggaranalytics.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-sharing",
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#16a085"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Upload payment receipts from your photo library",
+          "cameraPermission": "Take photos of payment receipts"
+        }
+      ],
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
+      ]
+    ]
+  }
+}
