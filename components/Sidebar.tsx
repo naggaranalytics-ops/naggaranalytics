@@ -30,7 +30,7 @@ const Sidebar = ({ user }: SidebarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [showSignOutTip, setShowSignOutTip] = useState(false);
     const { theme, toggleTheme } = useTheme();
-    const { t, lang, toggleLang } = useLanguage();
+    const { t, lang, dir, toggleLang } = useLanguage();
 
     const navItems = [
         { label: t("sidebar.dashboard"), icon: LayoutDashboard, href: "/dashboard" },
@@ -45,7 +45,7 @@ const Sidebar = ({ user }: SidebarProps) => {
         <>
             {/* Mobile Toggle */}
             <button
-                className="fixed top-4 left-4 z-50 md:hidden p-2 bg-[#16a085] rounded-lg shadow-lg"
+                className={`fixed top-4 z-50 md:hidden p-2 bg-[#16a085] rounded-lg shadow-lg ${dir === 'rtl' ? 'right-4' : 'left-4'}`}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle navigation"
             >
@@ -54,7 +54,8 @@ const Sidebar = ({ user }: SidebarProps) => {
 
             {/* Sidebar Container */}
             <aside
-                className={`fixed inset-y-0 ${lang === 'ar' ? 'right-0' : 'left-0'} z-40 w-64 backdrop-blur-xl border-r flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : lang === 'ar' ? "translate-x-full md:translate-x-0" : "-translate-x-full"
+                dir={dir}
+                className={`fixed inset-y-0 ${dir === 'rtl' ? 'right-0 border-l' : 'left-0 border-r'} z-40 w-64 backdrop-blur-xl flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : dir === 'rtl' ? "translate-x-full md:translate-x-0" : "-translate-x-full"
                     }`}
                 style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
             >
@@ -116,7 +117,7 @@ const Sidebar = ({ user }: SidebarProps) => {
 
                     {/* Sign-out guidance tip */}
                     <button
-                        className="flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all text-left hover:bg-[var(--input-bg)]"
+                        className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all hover:bg-[var(--input-bg)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
                         style={{ color: 'var(--text-muted)' }}
                         onClick={() => setShowSignOutTip(!showSignOutTip)}
                         aria-expanded={showSignOutTip ? "true" : "false"}
