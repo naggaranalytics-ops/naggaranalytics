@@ -108,6 +108,10 @@ body {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
+[data-theme="light"] .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
 [data-theme="light"] .hover\:bg-white\/5:hover {
   background-color: var(--input-bg);
 }

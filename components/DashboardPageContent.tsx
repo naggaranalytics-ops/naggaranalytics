@@ -90,7 +90,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
     return (
         <div className="max-w-5xl mx-auto py-10 px-4" dir={dir}>
             {/* ── Header ── */}
-            <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 border-b border-white/5 pb-8">
+            <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 border-b pb-8" style={{ borderColor: 'var(--border-color)' }}>
                 <div className={`w-full md:w-auto ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     <h1 className="text-2xl md:text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                         {t('dash.welcome').replace('{name}', user?.given_name || (lang === 'ar' ? 'الباحث' : 'Researcher'))}
@@ -111,7 +111,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
             {/* ── Stats strip ── */}
             <div className="grid grid-cols-3 gap-4 mb-10">
                 {stats.map(({ label, value, icon: Icon }) => (
-                    <div key={label} className="bg-[#111821]/60 border border-white/5 rounded-2xl p-5 text-right glass-card">
+                    <div key={label} className="glass-card rounded-2xl p-5 text-right" style={{ borderColor: 'var(--border-color)' }}>
                         <Icon size={18} className="text-[#16a085] mb-2 mr-auto" />
                         <p className="text-2xl font-black" style={{ color: 'var(--text-primary)' }}>{value}</p>
                         <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{label}</p>
@@ -122,7 +122,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* ── Projects list ── */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-[#111821]/60 border border-white/5 rounded-2xl p-7 glass-card">
+                    <div className="glass-card rounded-2xl p-7" style={{ borderColor: 'var(--border-color)' }}>
                         <h2 className={`text-xl font-bold text-[#16a085] mb-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                             {t('dash.currentProjects')}
                         </h2>
@@ -135,7 +135,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                         )}
 
                         {!error && (!projects || projects.length === 0) ? (
-                            <div className="text-center py-14 border border-dashed border-white/10 rounded-xl">
+                            <div className="text-center py-14 border border-dashed rounded-xl" style={{ borderColor: 'var(--border-color)' }}>
                                 <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
                                     {t('dash.empty')}
                                 </p>
@@ -155,7 +155,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                                     return (
                                         <div
                                             key={project.id}
-                                            className="bg-black/20 border border-white/5 rounded-xl p-5 hover:border-white/10 transition-all glass-card"
+                                            className="glass-card rounded-xl p-5 transition-all" style={{ borderColor: 'var(--border-color)' }}
                                         >
                                             <div className="flex justify-between items-start gap-3 mb-2">
                                                 <StatusBadge status={project.status} />
@@ -197,7 +197,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                 {/* ── Right sidebar cards ── */}
                 <div className="space-y-5">
                     {/* Project status guide */}
-                    <div className="bg-[#111821]/60 border border-white/5 rounded-2xl p-6 glass-card">
+                    <div className="glass-card rounded-2xl p-6" style={{ borderColor: 'var(--border-color)' }}>
                         <h3 className={`text-sm font-bold mb-4 ${dir === 'rtl' ? 'text-right' : 'text-left'}`} style={{ color: 'var(--text-primary)' }}>
                             {dir === 'rtl' ? '🗺 مراحل المشروع' : '🗺 Project Roadmap'}
                         </h3>
@@ -216,7 +216,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                     {/* Library card */}
                     <LocaleLink
                         href="/dashboard/library"
-                        className="block bg-[#111821]/60 border border-white/5 rounded-2xl p-6 hover:border-[#16a085]/40 transition-all group glass-card"
+                        className="block glass-card rounded-2xl p-6 hover:border-[#16a085]/40 transition-all group" style={{ borderColor: 'var(--border-color)' }}
                     >
                         <div className={`flex items-center gap-3 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : 'flex-row'}`}>
                             <Library size={20} className="text-[#16a085]" />
