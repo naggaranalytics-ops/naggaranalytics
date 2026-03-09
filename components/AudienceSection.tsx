@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageProvider";
 import { CheckCircle, Briefcase, User, ArrowRight, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 
 export default function AudienceSection() {
     const { t, dir } = useLanguage();
@@ -31,10 +31,10 @@ export default function AudienceSection() {
                             ))}
                         </ul>
                         <div className={`flex ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
-                            <Link href="/dashboard/new" className={`flex items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <LocaleLink href="/dashboard/new" className={`flex items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                 <span>{t("audience.persons.cta")}</span>
                                 {dir === 'rtl' ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-                            </Link>
+                            </LocaleLink>
                         </div>
                     </div>
 

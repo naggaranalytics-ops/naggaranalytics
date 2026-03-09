@@ -5,19 +5,23 @@ const config: CapacitorConfig = {
     appName: 'Naggar Analytics',
     webDir: 'public',
     server: {
-        url: 'https://naggaranalytics.com/',
-        cleartext: true,
         allowNavigation: [
             'naggaranalytics.kinde.com',
             '*.kinde.com',
+            'login.kinde.com',
             'naggaranalytics.com',
-            '*.naggaranalytics.com'
+            '*.naggaranalytics.com',
+            'accounts.google.com',
+            '*.google.com'
         ]
     },
     ios: {
         allowsLinkPreview: false,
         scrollEnabled: true,
         contentInset: 'always'
+    },
+    plugins: {
+        App: {}
     }
 };
 

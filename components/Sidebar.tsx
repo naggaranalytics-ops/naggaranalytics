@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
@@ -39,7 +39,7 @@ const Sidebar = ({ user }: SidebarProps) => {
     ];
 
     const isActive = (href: string) =>
-        href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(href);
+        href === "/dashboard" ? pathname === `/${lang}/dashboard` : pathname.startsWith(`/${lang}${href}`);
 
     return (
         <>
@@ -60,7 +60,7 @@ const Sidebar = ({ user }: SidebarProps) => {
             >
                 {/* Logo */}
                 <div className="p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
-                    <Link href="/" className="inline-block">
+                    <LocaleLink href="/" className="inline-block">
                         <Image
                             src={theme === 'light' ? "/logo/light-logo.svg" : "/logo/logo.svg"}
                             alt="Naggar Analytics"
@@ -69,13 +69,13 @@ const Sidebar = ({ user }: SidebarProps) => {
                             className="w-auto h-10"
                             priority
                         />
-                    </Link>
+                    </LocaleLink>
                 </div>
 
                 {/* Nav */}
                 <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
                     {navItems.map((item) => (
-                        <Link
+                        <LocaleLink
                             key={item.label}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(item.href)
@@ -87,7 +87,7 @@ const Sidebar = ({ user }: SidebarProps) => {
                         >
                             <item.icon size={20} />
                             <span className="font-medium text-sm">{item.label}</span>
-                        </Link>
+                        </LocaleLink>
                     ))}
                 </nav>
 

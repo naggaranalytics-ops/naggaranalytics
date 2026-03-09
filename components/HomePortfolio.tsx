@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageProvider";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function HomePortfolio() {
@@ -38,15 +38,15 @@ export default function HomePortfolio() {
                             {t("portfolio.title")} <span className="text-[#16a085]">{t("portfolio.titleHighlight")}</span>
                         </h2>
                     </div>
-                    <Link href="/portfolio" className={`hidden md:flex items-center gap-2 text-[#16a085] hover:underline font-bold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <LocaleLink href="/portfolio" className={`hidden md:flex items-center gap-2 text-[#16a085] hover:underline font-bold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         {t("portfolio.viewAll")}
                         {dir === 'rtl' ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
-                    </Link>
+                    </LocaleLink>
                 </div>
 
                 <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {mockItems.map((item, index) => (
-                        <Link key={index} href={item.link} className="block group">
+                        <LocaleLink key={index} href={item.link} className="block group">
                             <div className="glass-card bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] rounded-3xl overflow-hidden border border-[var(--glass-border)] transition-all h-full flex flex-col hover:-translate-y-2">
                                 <div className="h-48 bg-[#111821] relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#16a085]/20 to-[#0ea5e9]/20" />
@@ -73,14 +73,14 @@ export default function HomePortfolio() {
                                     </div>
                                 </div>
                             </div>
-                        </Link>
+                        </LocaleLink>
                     ))}
                 </div>
 
                 <div className="mt-8 text-center md:hidden">
-                    <Link href="/portfolio" className="inline-flex items-center gap-2 bg-[#16a085]/10 text-[#16a085] px-6 py-3 rounded-xl font-bold border border-[#16a085]/20 hover:bg-[#16a085]/20 transition-all">
+                    <LocaleLink href="/portfolio" className="inline-flex items-center gap-2 bg-[#16a085]/10 text-[#16a085] px-6 py-3 rounded-xl font-bold border border-[#16a085]/20 hover:bg-[#16a085]/20 transition-all">
                         {t("portfolio.viewAll")}
-                    </Link>
+                    </LocaleLink>
                 </div>
             </div>
         </section>

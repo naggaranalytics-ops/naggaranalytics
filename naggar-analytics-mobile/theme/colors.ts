@@ -57,8 +57,8 @@ export const colors = {
   },
 } as const;
 
-export type ThemeColors = typeof colors.dark;
+export type ThemeColors = typeof colors.dark | typeof colors.light;
 
-export function getThemeColors(isDark: boolean): ThemeColors {
+export function getThemeColors(isDark: boolean): typeof colors.dark | typeof colors.light {
   return isDark ? colors.dark : colors.light;
 }

@@ -85,9 +85,12 @@ export default function ProcessSection() {
                         </p>
                     </div>
 
-                    <div className="relative space-y-12">
+                    <div className="relative space-y-12" dir={dir}>
                         {steps.map((step, i) => (
-                            <div key={i} className={`flex items-start gap-6 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                            <div key={i} className={`flex items-start gap-6 ${dir === 'rtl'
+                                    ? (i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row')
+                                    : (i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse')
+                                }`}>
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#16a085]/20 border border-[#16a085]/40 flex items-center justify-center text-[#16a085] shadow-lg shadow-[#16a085]/10">
                                     {step.icon}
                                 </div>

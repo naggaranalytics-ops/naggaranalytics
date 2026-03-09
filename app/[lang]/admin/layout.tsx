@@ -1,6 +1,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 import { LogOut, Settings, Users, FolderOpen, Briefcase, Mail } from "lucide-react";
 
 export default async function AdminLayout({
@@ -29,22 +29,22 @@ export default async function AdminLayout({
                 </div>
 
                 <nav className="flex-1 p-4 space-y-2 font-arabic">
-                    <Link href="/admin" className="flex items-center gap-3 px-4 py-3 bg-[#16a085]/10 text-[#16a085] rounded-xl font-medium transition-all">
+                    <LocaleLink href="/admin" className="flex items-center gap-3 px-4 py-3 bg-[#16a085]/10 text-[#16a085] rounded-xl font-medium transition-all">
                         <FolderOpen size={18} />
                         المشاريع
-                    </Link>
-                    <Link href="/admin/careers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
+                    </LocaleLink>
+                    <LocaleLink href="/admin/careers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
                         <Briefcase size={18} />
                         طلبات التوظيف
-                    </Link>
-                    <Link href="/admin/subscribers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
+                    </LocaleLink>
+                    <LocaleLink href="/admin/subscribers" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
                         <Mail size={18} />
                         المشتركون
-                    </Link>
-                    <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
+                    </LocaleLink>
+                    <LocaleLink href="/admin/settings" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all">
                         <Settings size={18} />
                         الإعدادات (قريباً)
-                    </Link>
+                    </LocaleLink>
                 </nav>
 
                 <div className="p-4 border-t border-white/5">

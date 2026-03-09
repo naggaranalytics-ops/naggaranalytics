@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageProvider";
 import { useTheme } from "@/context/ThemeProvider";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 import { FileText, Clock, CheckCircle, PlusCircle, Library, AlertTriangle } from "lucide-react";
 
 const statusSteps = [
@@ -99,13 +99,13 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                         {t('dash.subtitle')}
                     </p>
                 </div>
-                <Link
+                <LocaleLink
                     href="/dashboard/new"
                     className="flex items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-7 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 shrink-0"
                 >
                     <PlusCircle size={18} />
                     <span>{t('dash.newProject')}</span>
-                </Link>
+                </LocaleLink>
             </header>
 
             {/* ── Stats strip ── */}
@@ -139,12 +139,12 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                                 <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
                                     {t('dash.empty')}
                                 </p>
-                                <Link
+                                <LocaleLink
                                     href="/dashboard/new"
                                     className="inline-flex items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20"
                                 >
                                     <PlusCircle size={16} /> {t('dash.newProject')}
-                                </Link>
+                                </LocaleLink>
                             </div>
                         ) : (
                             <div className="space-y-4">
@@ -214,7 +214,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                     </div>
 
                     {/* Library card */}
-                    <Link
+                    <LocaleLink
                         href="/dashboard/library"
                         className="block bg-[#111821]/60 border border-white/5 rounded-2xl p-6 hover:border-[#16a085]/40 transition-all group glass-card"
                     >
@@ -227,7 +227,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
                         <p className={`text-xs ${dir === 'rtl' ? 'text-right' : 'text-left'}`} style={{ color: 'var(--text-secondary)' }}>
                             {t('dash.libraryDesc')}
                         </p>
-                    </Link>
+                    </LocaleLink>
 
                     {/* Support card */}
                     <div className="bg-[#16a085]/5 border border-[#16a085]/20 rounded-2xl p-6 glass-card">

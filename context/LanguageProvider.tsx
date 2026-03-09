@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import en from "@/translations/en.json";
 import ar from "@/translations/ar.json";
 
@@ -18,35 +19,32 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType>({
     lang: "en",
     dir: "ltr",
-    toggleLang: () => { },
+    toggleLang: () => {},
     t: (key: string) => key,
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-    const [lang, setLang] = useState<Lang>("en");
-    const [mounted, setMounted] = useState(false);
+export function LanguageProvider({
+    children,
+    initialLang,
+}: {
+    children: ReactNode;
+    initialLang: Lang;
+}) {
+    const router = useRouter();
+    const pathname = usePathname();
 
-    useEffect(() => {
-        const stored = localStorage.getItem("na-lang") as Lang | null;
-        if (stored) setLang(stored);
-        setMounted(true);
-    }, []);
+    const lang = initialLang;
+    const dir = lang === "ar" ? "rtl" : "ltr";
 
-    useEffect(() => {
-        if (!mounted) return;
-        const dir = lang === "ar" ? "rtl" : "ltr";
-        document.documentElement.setAttribute("dir", dir);
-        document.documentElement.setAttribute("lang", lang);
-        localStorage.setItem("na-lang", lang);
-    }, [lang, mounted]);
-
-    const toggleLang = () => setLang((prev) => (prev === "en" ? "ar" : "en"));
+    const toggleLang = () => {
+        const newLang = lang === "en" ? "ar" : "en";
+        const newPathname = pathname.replace(/^\/(en|ar)/, `/${newLang}`);
+        router.push(newPathname);
+    };
 
     const t = (key: string): string => {
         return translations[lang]?.[key] || translations["en"]?.[key] || key;
     };
-
-    const dir = lang === "ar" ? "rtl" : "ltr";
 
     return (
         <LanguageContext.Provider value={{ lang, dir, toggleLang, t }}>

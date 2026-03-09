@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { I18nManager } from 'react-native';
-import * as Updates from 'expo-updates';
 import en from '../i18n/en.json';
 import ar from '../i18n/ar.json';
 
@@ -43,13 +42,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       I18nManager.allowRTL(newIsRTL);
       I18nManager.forceRTL(newIsRTL);
       // RTL change requires app restart in React Native
-      if (Updates && Updates.reloadAsync) {
-        try {
-          await Updates.reloadAsync();
-        } catch {
-          // In development, reload may not be available
-        }
-      }
+      // RTL change requires app restart — user may need to manually restart
+      // expo-updates reloadAsync is only available in production builds
     }
   }, [lang]);
 

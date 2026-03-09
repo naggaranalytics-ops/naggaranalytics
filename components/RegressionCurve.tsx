@@ -10,7 +10,7 @@ export default function RegressionCurve() {
     const [b0, setB0] = useState("0");
     const [b1, setB1] = useState("0.0");
     const { theme } = useTheme();
-    const { t } = useLanguage();
+    const { t, dir } = useLanguage();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -163,7 +163,7 @@ export default function RegressionCurve() {
                     <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl">
                         <canvas ref={canvasRef} className="block w-full h-full"></canvas>
                     </div>
-                    <div className="absolute bottom-6 left-6 md:left-12 glass-card px-6 py-4 rounded-2xl text-[#fbbf24] font-mono text-lg md:text-2xl z-30 border-[#fbbf24]/20 shadow-2xl">
+                    <div className={`absolute bottom-6 ${dir === 'rtl' ? 'right-6 md:right-12' : 'left-6 md:left-12'} glass-card px-6 py-4 rounded-2xl text-[#fbbf24] font-mono text-lg md:text-2xl z-30 border-[#fbbf24]/20 shadow-2xl`}>
                         y = <span>{b0}</span> + <span>{b1}</span>x + ε
                     </div>
                 </div>

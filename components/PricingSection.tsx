@@ -1,5 +1,5 @@
 import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 
 export default function PricingSection() {
     return (
@@ -72,7 +72,7 @@ export default function PricingSection() {
                             <p className="text-right text-slate-300 leading-relaxed mb-8 flex-grow text-sm font-arabic" dir="rtl">
                                 للمراكز البحثية والجهات التي لديها مجموعة ضخمة من البيانات، يسعدنا التواصل معكم لتحديد باقة تناسب احتياجاتكم بدقة.
                             </p>
-                            <Link href="/contact" className="w-full block text-center py-3 border border-slate-600 text-slate-400 hover:border-white hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">تواصل معنا</Link>
+                            <LocaleLink href="/contact" className="w-full block text-center py-3 border border-slate-600 text-slate-400 hover:border-white hover:text-white rounded-xl transition-all font-semibold mt-auto font-arabic">تواصل معنا</LocaleLink>
                         </div>
                     </div>
                 </div>
