@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageProvider";
 import { Briefcase, Globe, ChevronDown, ChevronUp, Upload } from "lucide-react";
 
 // ── Job definitions ──────────────────────────────────────────────────────────
@@ -293,6 +294,8 @@ function JobCard({ job }: { job: typeof jobs[0] }) {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function CareersPage() {
+    const { lang } = useLanguage();
+
     return (
         <div className="min-h-screen bg-[#050a10] text-white selection:bg-[#16a085]/30">
             <Navbar />
@@ -305,7 +308,7 @@ export default function CareersPage() {
                         <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
                             Join Our <span className="text-[#16a085]">Team</span>
                         </h1>
-                        <p className="text-2xl font-bold text-[#16a085] mb-6" dir="rtl">انضم إلينا</p>
+                        {lang === 'ar' && <p className="text-2xl font-bold text-[#16a085] mb-6" dir="rtl">انضم إلينا</p>}
                         <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
                             We're building a team of passionate data professionals committed to delivering rigorous,
                             high-quality statistical analysis. All roles are fully remote.

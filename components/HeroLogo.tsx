@@ -8,9 +8,13 @@ export default function HeroLogo() {
     const { theme } = useTheme();
     const { lang } = useLanguage();
 
-    // The user specified 3.svg is the logo for the light theme.
-    // arabic.svg is the stylized hero logo for dark theme.
-    const logoSrc = theme === 'light' ? "/logo/light-logo.svg" : "/arabic.svg";
+    // Select hero logo based on language and theme
+    let logoSrc = "/logos/hero-en-light.svg";
+    if (lang === 'ar') {
+        logoSrc = theme === 'dark' ? "/logos/hero-ar-dark.svg" : "/logos/hero-ar-light.svg";
+    } else {
+        logoSrc = theme === 'dark' ? "/logos/hero-en-dark.svg" : "/logos/hero-en-light.svg";
+    }
 
     return (
         <h1 className="flex justify-center mb-6 drop-shadow-2xl">

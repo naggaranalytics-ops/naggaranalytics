@@ -9,10 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@capacitor/android": "^8.1.0",
-    "@capacitor/cli": "^8.1.0",
-    "@capacitor/core": "^8.1.0",
-    "@capacitor/ios": "^8.1.0",
     "@kinde-oss/kinde-auth-nextjs": "^2.1.13",
     "@supabase/supabase-js": "^2.39.0",
     "lucide-react": "^0.320.0",

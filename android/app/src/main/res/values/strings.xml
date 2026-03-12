@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Naggar Analytics</string>
-    <string name="title_activity_main">Naggar Analytics</string>
-    <string name="package_name">com.naggaranalytics.app</string>
-    <string name="custom_url_scheme">com.naggaranalytics.app</string>
-</resources>

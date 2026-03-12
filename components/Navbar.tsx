@@ -28,7 +28,7 @@ export default function Navbar() {
                     <div className="flex-shrink-0">
                         <LocaleLink href="/">
                             <Image
-                                src={theme === 'light' ? "/logo/light-logo.svg" : "/logo/logo.svg"}
+                                src={theme === 'dark' ? "/logos/navbar-dark.svg" : "/logos/navbar-light.svg"}
                                 alt="Naggar Analytics"
                                 width={400}
                                 height={400}
