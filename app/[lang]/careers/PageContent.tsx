@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import ParticlesScript from "@/components/ParticlesScript";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import { Briefcase, Globe, ChevronDown, ChevronUp, Upload } from "lucide-react";
@@ -296,7 +295,6 @@ function JobCard({ job }: { job: typeof jobs[0] }) {
 export default function CareersPage() {
     return (
         <div className="min-h-screen bg-[#050a10] text-white selection:bg-[#16a085]/30">
-            <ParticlesScript />
             <Navbar />
 
             <main className="pt-32 pb-20 px-4">

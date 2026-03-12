@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import ParticlesScript from "@/components/ParticlesScript";
 import Footer from "@/components/Footer";
 import LocaleLink from "@/components/LocaleLink";
 import { ArrowLeft, ArrowRight, ShieldCheck, Train, Download, ImageIcon } from "lucide-react";
@@ -24,7 +23,6 @@ export default function HaramainTrainPage() {
 
     return (
         <div className="min-h-screen bg-[#050a10] text-white selection:bg-[#16a085]/30" dir={dir}>
-            <ParticlesScript />
             <Navbar />
 
             <main className="pt-32 pb-20 px-4">

@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import ParticlesScript from "@/components/ParticlesScript";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageProvider";
@@ -11,7 +10,6 @@ export default function ContactPage() {
 
     return (
         <div className="min-h-screen selection:bg-[#16a085]/30" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>
-            <ParticlesScript />
             <Navbar />
 
             <main className="pt-32 pb-20 px-4">

@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import ParticlesScript from "@/components/ParticlesScript";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageProvider";
 
@@ -28,7 +27,6 @@ export default function ServicesPage() {
 
     return (
         <div className="min-h-screen text-white selection:bg-[#16a085]/30" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>
-            <ParticlesScript />
             <Navbar />
 
             <main className="pt-32 pb-20 px-4">
