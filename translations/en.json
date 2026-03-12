@@ -214,5 +214,11 @@
     "haramain.downloadDesc": "A simulated dataset mirroring the structure and statistical properties of the original data is available for download. This allows researchers and students to explore the analysis methods used.",
     "haramain.downloadBtn": "Download Dataset (CSV) — Coming Soon",
     "haramain.confidentialTitle": "Confidentiality Notice",
-    "haramain.confidentialDesc": "All data shared in this case study is <strong>mimic / simulated data</strong> that replicates the statistical structure of the original dataset. We uphold the highest standards of client transparency and confidentiality — no real operational data is disclosed."
+    "haramain.confidentialDesc": "All data shared in this case study is <strong>mimic / simulated data</strong> that replicates the statistical structure of the original dataset. We uphold the highest standards of client transparency and confidentiality — no real operational data is disclosed.",
+    "portfolioPage.psoriasis.title": "Kuwaiti Psoriasis Registry",
+    "portfolioPage.psoriasis.category": "Clinical Registry & Epidemiology",
+    "portfolioPage.psoriasis.desc": "A comprehensive epidemiological study of psoriasis prevalence and clinical characteristics across Kuwait. The analysis examined disease patterns, treatment outcomes, and patient demographics to support clinical practice guidelines.",
+    "portfolioPage.vitaminD.title": "Vitamin D Deficiency in Riyadh",
+    "portfolioPage.vitaminD.category": "Public Health & Nutritional Analysis",
+    "portfolioPage.vitaminD.desc": "An in-depth analysis of vitamin D deficiency prevalence and risk factors among the population of Riyadh. The study investigated serum vitamin D levels, demographic correlations, and seasonal variations to inform public health interventions."
 }

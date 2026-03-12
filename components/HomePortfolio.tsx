@@ -7,23 +7,26 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 export default function HomePortfolio() {
     const { t, dir, lang } = useLanguage();
 
-    const mockItems = [
+    const projects = [
         {
-            tag: lang === 'ar' ? 'نمذجة تنبؤية' : 'Predictive Modeling',
-            title: lang === 'ar' ? 'التنبؤ بإنتاجية المحاصيل الزراعية السعودية' : 'Predicting Saudi Agricultural Yields',
-            desc: lang === 'ar' ? 'استخدام خوارزميات التعلم الآلي للتنبؤ بمستويات الإنتاج وتحسين الموارد.' : 'Using ML algorithms to forecast production levels and optimize resources.',
+            id: 'haramain-train',
+            tag: t('portfolioPage.haramain.category'),
+            title: t('portfolioPage.haramain.title'),
+            desc: t('portfolioPage.haramain.desc'),
+            link: '/portfolio/haramain-train'
+        },
+        {
+            id: 'psoriasis',
+            tag: t('portfolioPage.psoriasis.category'),
+            title: t('portfolioPage.psoriasis.title'),
+            desc: t('portfolioPage.psoriasis.desc'),
             link: '/portfolio'
         },
         {
-            tag: lang === 'ar' ? 'تحليل الإحصاء الحيوي' : 'Biostatistical Analysis',
-            title: lang === 'ar' ? 'تأثير مرض السكري على صحة القلب والأوعية الدموية' : 'Impact of Diabetes on Cardiovascular Health',
-            desc: lang === 'ar' ? 'دراسة سريرية شاملة حول المضاعفات القلبية لدى مرضى السكري.' : 'A comprehensive clinical study on cardiac complications in diabetic patients.',
-            link: '/portfolio'
-        },
-        {
-            tag: lang === 'ar' ? 'تحليل المشاعر' : 'Sentiment Analysis',
-            title: lang === 'ar' ? 'تحليل رضا العملاء في قطاع التجزئة السعودي' : 'Retail Customer Satisfaction Analysis',
-            desc: lang === 'ar' ? 'تحليل تعليقات ومراجعات العملاء باستخدام تقنيات معالجة اللغة الطبيعية.' : 'Analyzing customer feedback and reviews using Natural Language Processing techniques.',
+            id: 'vitamin-d',
+            tag: t('portfolioPage.vitaminD.category'),
+            title: t('portfolioPage.vitaminD.title'),
+            desc: t('portfolioPage.vitaminD.desc'),
             link: '/portfolio'
         }
     ];
@@ -45,8 +48,8 @@ export default function HomePortfolio() {
                 </div>
 
                 <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                    {mockItems.map((item, index) => (
-                        <LocaleLink key={index} href={item.link} className="block group">
+                    {projects.map((item) => (
+                        <LocaleLink key={item.id} href={item.link} className="block group">
                             <div className="glass-card bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] rounded-3xl overflow-hidden border border-[var(--glass-border)] transition-all h-full flex flex-col hover:-translate-y-2">
                                 <div className="h-48 bg-[#111821] relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#16a085]/20 to-[#0ea5e9]/20" />
