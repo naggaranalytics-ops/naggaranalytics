@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     title: "Naggar Analytics | Advanced Statistical Analysis & Data Science",
     description: "Expert statistical analysis, data visualization, and research methodology services. Naggar Analytics provides defensible results for complex research data.",
     icons: {
-        icon: "/logo/logo.svg",
-        shortcut: "/logo/logo.svg",
-        apple: "/logo/logo.svg",
+        icon: "/logos/navbar-light.svg",
+        shortcut: "/logos/navbar-light.svg",
+        apple: "/logos/navbar-light.svg",
     },
 };
 
