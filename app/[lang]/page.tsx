@@ -1,7 +1,3 @@
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
-import Image from "next/image";
 import RegressionCurve from "@/components/RegressionCurve";
 // import BellCurve from "@/components/BellCurve"; // Temporarily hidden per user request
 import ParticlesScript from "@/components/ParticlesScript";

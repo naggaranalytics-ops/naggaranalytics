@@ -56,11 +56,10 @@ const Sidebar = ({ user }: SidebarProps) => {
             <aside
                 dir={dir}
                 className={`fixed inset-y-0 ${dir === 'rtl' ? 'right-0 border-l' : 'left-0 border-r'} z-40 w-64 backdrop-blur-xl flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : dir === 'rtl' ? "translate-x-full md:translate-x-0" : "-translate-x-full"
-                    }`}
-                style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+                    } bg-[var(--bg-secondary)] border-[var(--border-color)]`}
             >
                 {/* Logo */}
-                <div className="p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="p-6 border-b border-[var(--border-color)]">
                     <LocaleLink href="/" className="inline-block">
                         <Image
                             src={theme === 'light' ? "/logo/light-logo.svg" : "/logo/logo.svg"}
@@ -81,9 +80,8 @@ const Sidebar = ({ user }: SidebarProps) => {
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(item.href)
                                 ? "bg-[#16a085] text-white shadow-lg shadow-[#16a085]/20"
-                                : "hover:bg-[var(--input-bg)]"
+                                : "hover:bg-[var(--input-bg)] text-[var(--text-secondary)]"
                                 }`}
-                            style={!isActive(item.href) ? { color: 'var(--text-secondary)' } : {}}
                             onClick={() => setIsOpen(false)}
                         >
                             <item.icon size={20} />
@@ -93,22 +91,20 @@ const Sidebar = ({ user }: SidebarProps) => {
                 </nav>
 
                 {/* Footer controls */}
-                <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="p-4 border-t border-[var(--border-color)] space-y-2">
 
                     {/* Theme & Lang toggles */}
                     <div className="flex items-center gap-2 px-2 mb-2">
                         <button
                             onClick={toggleTheme}
-                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium transition-all hover:bg-[var(--input-bg)]"
-                            style={{ color: 'var(--text-secondary)' }}
+                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium transition-all hover:bg-[var(--input-bg)] text-[var(--text-secondary)]"
                         >
                             {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
                             {theme === "dark" ? "Light" : "Dark"}
                         </button>
                         <button
                             onClick={toggleLang}
-                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium border transition-all hover:bg-[var(--input-bg)]"
-                            style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}
+                            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-medium border border-[var(--border-color)] transition-all hover:bg-[var(--input-bg)] text-[var(--text-secondary)]"
                         >
                             <Globe size={14} />
                             {t("lang.toggle")}
@@ -117,30 +113,29 @@ const Sidebar = ({ user }: SidebarProps) => {
 
                     {/* Sign-out guidance tip */}
                     <button
-                        className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all hover:bg-[var(--input-bg)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
-                        style={{ color: 'var(--text-muted)' }}
+                        className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all hover:bg-[var(--input-bg)] text-[var(--text-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
                         onClick={() => setShowSignOutTip(!showSignOutTip)}
-                        aria-expanded={showSignOutTip ? "true" : "false"}
+                        aria-expanded={showSignOutTip}
                     >
                         <HelpCircle size={18} />
                         <span className="font-medium text-xs">{t("sidebar.signOutHelp")}</span>
                     </button>
 
                     {showSignOutTip && (
-                        <div className="mx-2 px-4 py-3 rounded-xl text-xs leading-relaxed border" style={{ backgroundColor: 'var(--input-bg)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                        <div className="mx-2 px-4 py-3 rounded-xl text-xs leading-relaxed border bg-[var(--input-bg)] border-[var(--border-color)] text-[var(--text-secondary)]">
                             {t("sidebar.signOutTip")}
                         </div>
                     )}
 
                     {/* User profile strip */}
                     {user?.email && (
-                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ backgroundColor: 'var(--input-bg)' }}>
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[var(--input-bg)]">
                             <div className="w-8 h-8 rounded-full bg-[#16a085]/20 flex items-center justify-center shrink-0">
                                 <User size={16} className="text-[#16a085]" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{user.name || t("sidebar.user")}</p>
-                                <p className="text-[10px] truncate" style={{ color: 'var(--text-muted)' }}>{user.email}</p>
+                                <p className="text-xs font-semibold truncate text-[var(--text-primary)]">{user.name || t("sidebar.user")}</p>
+                                <p className="text-[10px] truncate text-[var(--text-muted)]">{user.email}</p>
                             </div>
                         </div>
                     )}
