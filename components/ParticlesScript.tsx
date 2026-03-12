@@ -40,6 +40,7 @@ export default function ParticlesScript() {
 function initParticles(theme: string) {
     // @ts-ignore
     if (!window.particlesJS) return;
+    if (!document.getElementById("global-particles-bg")) return;
 
     const isMobile = window.innerWidth < 768;
     const lineColor = '#16a085';
