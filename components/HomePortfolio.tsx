@@ -1,11 +1,13 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageProvider";
+import { useTheme } from "@/context/ThemeProvider";
 import LocaleLink from "@/components/LocaleLink";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function HomePortfolio() {
     const { t, dir, lang } = useLanguage();
+    const { theme } = useTheme();
 
     const projects = [
         {
@@ -51,14 +53,14 @@ export default function HomePortfolio() {
                     {projects.map((item) => (
                         <LocaleLink key={item.id} href={item.link} className="block group">
                             <div className="glass-card bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] rounded-3xl overflow-hidden border border-[var(--glass-border)] transition-all h-full flex flex-col hover:-translate-y-2">
-                                <div className="h-48 bg-[#111821] relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#16a085]/20 to-[#0ea5e9]/20" />
+                                <div className="h-48 relative overflow-hidden" style={{ backgroundColor: theme === 'dark' ? '#111821' : '#f3f4f6' }}>
+                                    <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to bottom right, ${theme === 'dark' ? 'rgba(22, 160, 133, 0.2)' : 'rgba(22, 160, 133, 0.1)'}, ${theme === 'dark' ? 'rgba(14, 165, 233, 0.2)' : 'rgba(14, 165, 233, 0.1)'})` }} />
                                     <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:scale-110 transition-transform duration-700">
                                         {/* Abstract background shape for visual interest */}
-                                        <div className="w-32 h-32 rounded-full border-4 border-[#16a085]/40 border-dashed animate-[spin_20s_linear_infinite]" />
+                                        <div className="w-32 h-32 rounded-full border-4 border-dashed animate-[spin_20s_linear_infinite]" style={{ borderColor: theme === 'dark' ? 'rgba(22, 160, 133, 0.4)' : 'rgba(22, 160, 133, 0.2)' }} />
                                     </div>
                                     <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'}`}>
-                                        <span className="px-3 py-1 bg-black/50 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-white shadow-lg">
+                                        <span className="px-3 py-1 backdrop-blur-md border rounded-full text-xs font-mono shadow-lg" style={{ backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)', borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(22, 160, 133, 0.3)', color: theme === 'dark' ? '#ffffff' : '#1f2937' }}>
                                             {item.tag}
                                         </span>
                                     </div>
