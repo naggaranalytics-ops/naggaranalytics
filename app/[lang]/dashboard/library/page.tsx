@@ -1,11 +1,8 @@
 export const runtime = 'edge';
 
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { PlayCircle, Download, BookOpen, Lock, FileText, Video } from "lucide-react";
 
 export default async function LibraryPage() {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
 
     // Mock data for resources
     const videos = [
