@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Play } from "lucide-react";
 
@@ -26,9 +27,10 @@ const AcademySection = async () => {
                     >
                         <div className="aspect-video bg-secondary relative flex items-center justify-center">
                             {item.thumbnail_url ? (
-                                <img
+                                <Image
                                     src={item.thumbnail_url}
                                     alt={item.title}
+                                    fill
                                     className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
                                 />
                             ) : (

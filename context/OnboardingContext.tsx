@@ -11,6 +11,7 @@ export interface OnboardingState {
         thesisTitle: string;
     };
     files: File[];
+    googleDriveLink: string;
     tasks: {
         cleaning: boolean;
         descriptive: boolean;
@@ -26,6 +27,7 @@ interface OnboardingContextType extends OnboardingState {
     prevStep: () => void;
     updateAcademicDetails: (details: Partial<OnboardingState["academicDetails"]>) => void;
     setFiles: (files: File[]) => void;
+    setGoogleDriveLink: (link: string) => void;
     updateTasks: (tasks: Partial<OnboardingState["tasks"]>) => void;
     calculateTotal: () => number;
 }
@@ -37,6 +39,7 @@ const initialState: OnboardingState = {
         thesisTitle: "",
     },
     files: [],
+    googleDriveLink: "",
     tasks: {
         cleaning: false,
         descriptive: false,
@@ -63,6 +66,8 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     const setFiles = (files: File[]) => setState((prev) => ({ ...prev, files }));
 
+    const setGoogleDriveLink = (link: string) => setState((prev) => ({ ...prev, googleDriveLink: link }));
+
     const updateTasks = (tasks: Partial<OnboardingState["tasks"]>) =>
         setState((prev) => ({
             ...prev,
@@ -87,6 +92,7 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 prevStep,
                 updateAcademicDetails,
                 setFiles,
+                setGoogleDriveLink,
                 updateTasks,
                 calculateTotal,
             }}

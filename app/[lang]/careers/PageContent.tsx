@@ -119,7 +119,7 @@ function ApplicationForm({ jobTitle }: { jobTitle: string }) {
         return (
             <div className="mt-8 text-center py-10 border border-[#16a085]/30 bg-[#16a085]/5 rounded-2xl">
                 <p className="text-[#16a085] font-bold text-lg mb-2">Application Submitted! 🎉</p>
-                <p className="text-slate-400 text-sm">Thank you for applying. We'll be in touch soon.</p>
+                <p className="text-slate-400 text-sm">Thank you for applying. We&apos;ll be in touch soon.</p>
             </div>
         );
     }
@@ -310,7 +310,7 @@ export default function CareersPage() {
                         </h1>
                         {lang === 'ar' && <p className="text-2xl font-bold text-[#16a085] mb-6" dir="rtl">انضم إلينا</p>}
                         <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-                            We're building a team of passionate data professionals committed to delivering rigorous,
+                            We&apos;re building a team of passionate data professionals committed to delivering rigorous,
                             high-quality statistical analysis. All roles are fully remote.
                         </p>
                     </div>

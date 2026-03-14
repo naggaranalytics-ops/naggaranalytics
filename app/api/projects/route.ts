@@ -31,6 +31,15 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
+        // Validate thesis title has minimum 3 words
+        const wordCount = thesisTitle.trim().split(/\s+/).filter(word => word.length > 0).length;
+        if (wordCount < 3) {
+            return NextResponse.json({ 
+                error: 'Thesis title must contain at least 3 words',
+                wordCount: wordCount
+            }, { status: 400 });
+        }
+
         const tasks = JSON.parse(tasksStr);
         const total = parseFloat(totalStr);
 

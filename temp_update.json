@@ -1,0 +1,13 @@
+{
+    "onboarding.step2.uploadDesc": "Or drag and drop files here. Maximum 100 MB per file, up to 5 files total.",
+    "onboarding.step2.filesRequired": "At least one file is required",
+    "onboarding.step2.fileCountError": "Maximum 5 files allowed",
+    "onboarding.step2.fileSizeError": "File size must not exceed 100 MB",
+    "onboarding.step2.note": "For larger datasets (>500 MB), please upload to Google Drive and share the link below.",
+    "onboarding.step2.googleDriveSection": "Google Drive Link (Optional)",
+    "onboarding.step2.googleDriveLabel": "Paste your Google Drive sharing link",
+    "onboarding.step2.googleDrivePlaceholder": "https://drive.google.com/file/d/...",
+    "onboarding.step2.googleDriveError": "Please enter a valid Google Drive link",
+    "onboarding.step2.next": "Next",
+    "onboarding.step2.prev": "Back"
+}
