@@ -93,7 +93,7 @@ export default function DashboardPageContent({ user, projects, error }: { user: 
             <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 border-b pb-8" style={{ borderColor: 'var(--border-color)' }}>
                 <div className={`w-full md:w-auto ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     <h1 className="text-2xl md:text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
-                        {t('dash.welcome').replace('{name}', user?.given_name || (lang === 'ar' ? 'الباحث' : 'Researcher'))}
+                        {t('dash.welcome').replace('{name}', user?.name || user?.given_name || (lang === 'ar' ? 'الباحث' : 'Researcher'))}
                     </h1>
                     <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                         {t('dash.subtitle')}

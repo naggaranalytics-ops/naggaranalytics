@@ -1,21 +1,35 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
-import LocaleLink from "@/components/LocaleLink";
-import { LogOut, Settings, Users, FolderOpen, Briefcase, Mail } from "lucide-react";
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { getSessionUser, SESSION_COOKIE } from '@/lib/appwrite-auth';
+import LocaleLink from '@/components/LocaleLink';
+import { LogOut, Settings, Users, FolderOpen, Briefcase, Mail } from 'lucide-react';
 
 export default async function AdminLayout({
     children,
+    params,
 }: {
     children: React.ReactNode;
+    params?: { lang?: string };
 }) {
-    const { isAuthenticated, getUser } = getKindeServerSession();
-    const isAuth = await isAuthenticated();
+    const lang = params?.lang ?? 'ar';
 
-    if (!isAuth) {
-        redirect("/api/auth/login");
+    const cookieStore = await cookies();
+    const session     = cookieStore.get(SESSION_COOKIE)?.value;
+    const user        = await getSessionUser(session);
+
+    if (!user) {
+        redirect(`/${lang}/login`);
     }
 
-    const user = await getUser();
+    // Admin check: either the user has the "admin" label (set in Appwrite Console)
+    // or their email matches the ADMIN_EMAIL env var.
+    const isAdmin =
+        user.labels?.includes('admin') ||
+        user.email === process.env.ADMIN_EMAIL;
+
+    if (!isAdmin) {
+        redirect(`/${lang}/dashboard`);
+    }
 
     return (
         <div className="min-h-screen bg-[#0a0f16] flex flex-col md:flex-row" dir="rtl">
@@ -50,11 +64,11 @@ export default async function AdminLayout({
                 <div className="p-4 border-t border-white/5">
                     <div className="flex items-center gap-3 mb-4 px-2">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#16a085] to-emerald-400 flex items-center justify-center text-white font-bold text-sm">
-                            {user?.given_name?.[0] || 'A'}
+                            {user.name?.[0] ?? 'A'}
                         </div>
                         <div className="flex-1 truncate">
-                            <p className="text-white text-sm font-medium truncate">{user?.given_name} {user?.family_name}</p>
-                            <p className="text-slate-500 text-xs truncate font-mono">{user?.email}</p>
+                            <p className="text-white text-sm font-medium truncate">{user.name}</p>
+                            <p className="text-slate-500 text-xs truncate font-mono">{user.email}</p>
                         </div>
                     </div>
                 </div>
