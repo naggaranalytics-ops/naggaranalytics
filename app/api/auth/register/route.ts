@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         const createRes = await fetch(`${endpoint}/account`, {
             method:  'POST',
             headers,
-            body: JSON.stringify({ userId: 'unique()', email, password, name }),
+            body: JSON.stringify({ userId: crypto.randomUUID(), email, password, name }),
         });
 
         if (!createRes.ok) {
@@ -35,14 +35,26 @@ export async function POST(req: NextRequest) {
         });
 
         if (!sessionRes.ok) {
-            // Account created but auto-login failed — client should redirect to login
             return NextResponse.json({ success: true, message: 'Account created. Please log in.' });
         }
 
-        const session = await sessionRes.json();
+        // Appwrite sends the session cookie value in X-Fallback-Cookies header
+        const fallbackCookies = sessionRes.headers.get('X-Fallback-Cookies');
+        let sessionValue = '';
+
+        if (fallbackCookies) {
+            try {
+                const parsed = JSON.parse(fallbackCookies);
+                sessionValue = parsed[`a_session_${projectId}`] ?? '';
+            } catch { /* ignore parse errors */ }
+        }
+
+        if (!sessionValue) {
+            return NextResponse.json({ success: true, message: 'Account created. Please log in.' });
+        }
 
         const response = NextResponse.json({ success: true });
-        response.cookies.set(SESSION_COOKIE, session.secret, {
+        response.cookies.set(SESSION_COOKIE, sessionValue, {
             httpOnly: true,
             secure:   process.env.NODE_ENV === 'production',
             sameSite: 'lax',

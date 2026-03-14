@@ -4,17 +4,18 @@ import { SESSION_COOKIE } from '@/lib/appwrite-auth';
 export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
-    const session = req.cookies.get(SESSION_COOKIE)?.value;
+    const sessionValue = req.cookies.get(SESSION_COOKIE)?.value;
+    const projectId    = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!;
 
-    if (session) {
-        // Delete the session in Appwrite (fire and forget — don't block on failure)
+    if (sessionValue) {
+        // Delete the session in Appwrite (fire and forget)
         fetch(
             `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/account/sessions/current`,
             {
                 method:  'DELETE',
                 headers: {
-                    'X-Appwrite-Project': process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!,
-                    'X-Appwrite-Session': session,
+                    'X-Appwrite-Project': projectId,
+                    'Cookie': `a_session_${projectId}=${sessionValue}`,
                 },
             }
         ).catch(() => {});
