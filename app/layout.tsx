@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans_Arabic, Courier_Prime } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import AppwriteInitializer from "@/components/AppwriteInitializer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
@@ -34,6 +35,7 @@ export default function RootLayout({
         <html data-theme="dark" className={`${inter.variable} ${ibmPlexSansArabic.variable} ${courierPrime.variable}`}>
             <body className="font-sans antialiased">
                 <ThemeProvider>
+                    <AppwriteInitializer />
                     {children}
                 </ThemeProvider>
             </body>
