@@ -4,6 +4,8 @@ import { createAdminClient, DATABASE_ID, COLLECTIONS, Query } from '@/lib/appwri
 import { Project } from '@/lib/appwrite-types';
 import { ChatMasterLayout } from '@/components/dashboard/chat/ChatMasterLayout';
 
+export const runtime = 'edge';
+
 export default async function MessagesPage() {
     const cookieStore = await cookies();
     const session     = cookieStore.get(SESSION_COOKIE)?.value;
