@@ -1,0 +1,20 @@
+# Cloudflare Pages Edge Runtime Rules
+
+When developing for this project (Naggar Analytics), it is deployed on Cloudflare Pages using `@cloudflare/next-on-pages`. 
+
+**CRITICAL RULE FOR ALL ROUTES:**
+Cloudflare Pages requires the Edge Runtime for any dynamic or server-rendered route. If you create or modify a page that is not purely static, you MUST ensure the following line is exported from the `page.tsx`, `layout.tsx`, or `route.ts` file:
+
+```typescript
+export const runtime = 'edge';
+```
+
+### When to apply:
+1. **API Routes**: Every file in `app/api/**/route.ts` must export the edge runtime.
+2. **Dynamic Pages**: Any page that uses `cookies()`, `headers()`, or search parameters must export the edge runtime.
+3. **Admin/Dashboard/Technician Layouts**: If they check authentication or session state dynamically, they must export the edge runtime.
+
+Failure to add this will cause the `npx vercel build` or Cloudflare Pages build process to fail with:
+`The following routes were not configured to run with the Edge Runtime...`
+
+Always double check this before committing new routes!
