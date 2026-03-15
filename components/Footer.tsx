@@ -31,8 +31,8 @@ export default function Footer() {
                 <div>
                     <h5 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{t("footer.legal")}</h5>
                     <ul className="space-y-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                        <li><LocaleLink href="#" className="hover:text-[#16a085]">{t("footer.privacy")}</LocaleLink></li>
-                        <li><LocaleLink href="#" className="hover:text-[#16a085]">{t("footer.terms")}</LocaleLink></li>
+                        <li><LocaleLink href="/privacy" className="hover:text-[#16a085]">{t("footer.privacy")}</LocaleLink></li>
+                        <li><LocaleLink href="/terms" className="hover:text-[#16a085]">{t("footer.terms")}</LocaleLink></li>
                     </ul>
                 </div>
             </div>
