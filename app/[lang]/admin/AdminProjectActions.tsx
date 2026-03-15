@@ -2,21 +2,23 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, CheckCircle2, UserPlus } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageProvider';
 
-const STATUS_FLOW = ['inquiry', 'quoted', 'paid', 'in_progress', 'completed'];
-
-
+const STATUS_FLOW = ['inquiry', 'awaiting_quote', 'quoted', 'paid', 'in_progress', 'completed'];
 
 export default function AdminProjectActions({
     projectId,
     currentStatus,
+    currentTechnicianId,
 }: {
     projectId: string;
     currentStatus: string;
+    currentTechnicianId?: string;
 }) {
     const [isUpdating, setIsUpdating] = useState(false);
+    const [techId, setTechId] = useState(currentTechnicianId || '');
+    const [techSaved, setTechSaved] = useState(false);
     const router = useRouter();
     const { t, dir } = useLanguage();
 
@@ -33,6 +35,26 @@ export default function AdminProjectActions({
                 body:    JSON.stringify({ projectId, status: nextStatus }),
             });
             if (!res.ok) throw new Error('Update failed');
+            router.refresh();
+        } catch {
+            alert(t('admin.action.errorUpdate'));
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleAssignTechnician = async () => {
+        if (!techId.trim()) return;
+        setIsUpdating(true);
+        setTechSaved(false);
+        try {
+            const res = await fetch('/api/admin/projects', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ projectId, technician_id: techId.trim() }),
+            });
+            if (!res.ok) throw new Error('Assign failed');
+            setTechSaved(true);
             router.refresh();
         } catch {
             alert(t('admin.action.errorUpdate'));
@@ -61,6 +83,37 @@ export default function AdminProjectActions({
 
     return (
         <div className="pt-4 border-t border-white/5 mt-auto flex flex-col gap-3">
+            {/* Technician assignment */}
+            <div className="space-y-2">
+                <label className={`text-xs text-slate-500 font-${dir === 'rtl' ? 'arabic' : 'sans'}`}>
+                    {dir === 'rtl' ? 'معرف الفني' : 'Technician ID'}
+                </label>
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        value={techId}
+                        onChange={e => { setTechId(e.target.value); setTechSaved(false); }}
+                        placeholder={dir === 'rtl' ? 'أدخل معرف الفني…' : 'Paste technician user ID…'}
+                        dir="ltr"
+                        className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-mono placeholder-slate-600 focus:outline-none focus:border-[#16a085]/50"
+                    />
+                    <button
+                        onClick={handleAssignTechnician}
+                        disabled={isUpdating || !techId.trim()}
+                        className="flex items-center gap-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-50 transition-all"
+                    >
+                        <UserPlus size={14} />
+                        {dir === 'rtl' ? 'تعيين' : 'Assign'}
+                    </button>
+                </div>
+                {techSaved && (
+                    <p className="text-green-400 text-xs flex items-center gap-1">
+                        <CheckCircle2 size={12} />
+                        {dir === 'rtl' ? 'تم التعيين بنجاح' : 'Assigned successfully'}
+                    </p>
+                )}
+            </div>
+
             {(currentStatus === 'in_progress' || currentStatus === 'completed') && (
                 <div className="relative">
                     <input

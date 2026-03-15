@@ -78,7 +78,7 @@ export default function AdminPageContent({ projects, fetchError }: { projects: a
                                         <AlertCircle size={16} />
                                         {t('admin.project.filesMsg')}
                                     </div>
-                                    <AdminProjectActions projectId={project.$id} currentStatus={project.status} />
+                                    <AdminProjectActions projectId={project.$id} currentStatus={project.status} currentTechnicianId={project.technician_id} />
                                 </div>
                             </div>
                         </div>

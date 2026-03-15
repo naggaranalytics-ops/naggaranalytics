@@ -335,6 +335,7 @@
     "admin.project.quotedPrice": "السعر المقترح",
     "admin.project.filesMsg": "الملفات متاحة في Appwrite Storage",
     "admin.action.status.inquiry": "بانتظار التأكيد",
+    "admin.action.status.awaiting_quote": "بانتظار عرض السعر",
     "admin.action.status.quoted": "تم تقديم عرض",
     "admin.action.status.paid": "تم الدفع",
     "admin.action.status.in_progress": "جاري التحليل",

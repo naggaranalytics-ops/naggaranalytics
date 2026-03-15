@@ -48,6 +48,9 @@ const i18n = (lang: string) => {
         copyright:       `© ${new Date().getFullYear()} Naggar Analytics`,
         minChars:        isAr ? '8 أحرف كحد أدنى' : 'Min. 8 characters',
         noPasswordNeeded:isAr ? 'سنرسل لك رابطاً آمناً للدخول بدون كلمة مرور' : "We'll send you a secure link — no password needed",
+        forgotPassword:  isAr ? 'نسيت كلمة المرور؟' : 'Forgot password?',
+        forgotSent:      isAr ? 'تم إرسال رابط إعادة التعيين!' : 'Recovery link sent!',
+        forgotSentDesc:  isAr ? 'تحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور' : 'Check your email to reset your password',
         stat1:           '500+',
         stat1Label:      isAr ? 'مشروع مكتمل' : 'Projects Delivered',
         stat2:           '98%',
@@ -414,6 +417,21 @@ export default function LoginForm() {
                                         </button>
                                     </div>
                                     {mode === 'register' && <p className="text-slate-600 text-xs mt-1.5">{txt.minChars}</p>}
+                                    {mode === 'login' && (
+                                        <button type="button" onClick={async () => {
+                                            if (!email) { setError(isAr ? 'أدخل بريدك الإلكتروني أولاً' : 'Enter your email first'); return; }
+                                            setLoading(true); setError('');
+                                            try {
+                                                const res = await fetch('/api/auth/recovery', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, lang }) });
+                                                const data = await res.json();
+                                                if (!res.ok) setError(data.error);
+                                                else setError(txt.forgotSent + ' ' + txt.forgotSentDesc);
+                                            } catch { setError(txt.errorNetwork); }
+                                            finally { setLoading(false); }
+                                        }} className="text-[#16a085] hover:text-[#1abc9c] text-xs mt-1.5 transition-colors">
+                                            {txt.forgotPassword}
+                                        </button>
+                                    )}
                                 </div>
 
                                 {/* Submit */}

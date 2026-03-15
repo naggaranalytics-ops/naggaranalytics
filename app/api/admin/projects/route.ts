@@ -13,28 +13,36 @@ export async function PATCH(req: NextRequest) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const { projectId, status } = await req.json();
+    const { projectId, status, technician_id } = await req.json();
 
-    if (!projectId || !status) {
-        return NextResponse.json({ error: 'projectId and status are required' }, { status: 400 });
+    if (!projectId) {
+        return NextResponse.json({ error: 'projectId is required' }, { status: 400 });
     }
 
-    const VALID = ['inquiry', 'quoted', 'paid', 'in_progress', 'completed'];
-    if (!VALID.includes(status)) {
-        return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+    // At least one field to update
+    if (!status && technician_id === undefined) {
+        return NextResponse.json({ error: 'Provide status or technician_id to update' }, { status: 400 });
+    }
+
+    if (status) {
+        const VALID = ['inquiry', 'awaiting_quote', 'quoted', 'paid', 'in_progress', 'completed'];
+        if (!VALID.includes(status)) {
+            return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+        }
     }
 
     try {
         const { databases } = createAdminClient();
 
+        const data: Record<string, unknown> = { updated_at: new Date().toISOString() };
+        if (status) data.status = status;
+        if (technician_id !== undefined) data.technician_id = technician_id;
+
         const updated = await databases.updateDocument({
             databaseId:   DATABASE_ID,
             collectionId: COLLECTIONS.PROJECTS,
             documentId:   projectId,
-            data: {
-                status,
-                updated_at: new Date().toISOString(),
-            },
+            data,
         });
 
         return NextResponse.json(updated);

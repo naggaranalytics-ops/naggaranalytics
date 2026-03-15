@@ -77,26 +77,40 @@ export async function POST(request: NextRequest) {
             descriptionData.googleDriveLink = googleDriveLink;
         }
 
+        // Build project data — only include fields that are likely in schema
+        // Core required fields
+        const projectData: Record<string, unknown> = {
+            customer_id:    user.$id,
+            title:          thesisTitle,
+            description:    JSON.stringify(descriptionData),
+            degree_type:    degree,
+            status:         'awaiting_quote',
+            created_at:     new Date().toISOString(),
+            updated_at:     new Date().toISOString(),
+        };
+
+        // Optional fields — only add if not empty (avoids schema mismatch errors)
+        if (ndaSignature)  projectData.nda_signature = ndaSignature;
+        if (ndaAgreed)     projectData.nda_agreed = true;
+        if (ndaSignedAt)   projectData.nda_signed_at = ndaSignedAt || new Date().toISOString();
+
         // Create project document — status is awaiting_quote (no upfront payment)
-        const projectDoc = await databases.createDocument({
-            databaseId:   DATABASE_ID,
-            collectionId: COLLECTIONS.PROJECTS,
-            documentId:   ID.unique(),
-            data: {
-                customer_id:    user.$id,
-                title:          thesisTitle,
-                description:    JSON.stringify(descriptionData),
-                degree_type:    degree,
-                status:         'awaiting_quote',
-                payment_status: 'not_required',
-                quoted_price:   0,
-                nda_agreed:     true,
-                nda_signature:  ndaSignature,
-                nda_signed_at:  ndaSignedAt || new Date().toISOString(),
-                created_at:     new Date().toISOString(),
-                updated_at:     new Date().toISOString(),
-            },
-        });
+        let projectDoc;
+        try {
+            projectDoc = await databases.createDocument({
+                databaseId:   DATABASE_ID,
+                collectionId: COLLECTIONS.PROJECTS,
+                documentId:   ID.unique(),
+                data: projectData,
+            });
+        } catch (createErr: unknown) {
+            const msg = createErr instanceof Error ? createErr.message : String(createErr);
+            console.error('Appwrite createDocument error:', msg, JSON.stringify(createErr));
+            return NextResponse.json(
+                { error: 'Failed to create project. Please try again.', details: msg },
+                { status: 500 }
+            );
+        }
 
         const projectId = projectDoc.$id;
 

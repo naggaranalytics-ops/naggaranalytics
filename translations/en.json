@@ -335,6 +335,7 @@
     "admin.project.quotedPrice": "Quoted Price",
     "admin.project.filesMsg": "Files available in Appwrite Storage",
     "admin.action.status.inquiry": "Awaiting Confirmation",
+    "admin.action.status.awaiting_quote": "Awaiting Quote",
     "admin.action.status.quoted": "Quote Provided",
     "admin.action.status.paid": "Paid",
     "admin.action.status.in_progress": "Analysis In Progress",
