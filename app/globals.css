@@ -207,3 +207,25 @@ video,
 img {
   transition: none !important;
 }
+
+/* ── Chat component classes (used by MessageList, MessageInput, ChatWindow) ── */
+.bg-background    { background-color: var(--bg-primary); }
+.bg-card\/50      { background-color: var(--bg-card); }
+.bg-muted         { background-color: var(--input-bg); }
+.bg-muted\/50     { background-color: var(--input-bg); }
+.bg-muted\/10     { background-color: var(--input-bg); }
+.text-foreground  { color: var(--text-primary); }
+.text-muted-foreground { color: var(--text-muted); }
+.border-primary   { border-color: var(--primary); }
+.bg-primary       { background-color: var(--primary); }
+.text-primary-foreground { color: #fff; }
+.shadow-inner     { box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+
+/* ── Admin / Technician sidebar light theme ── */
+[data-theme="light"] .bg-\[\#111821\] {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="light"] .bg-\[\#0a0f16\] {
+  background-color: var(--bg-tertiary);
+}
