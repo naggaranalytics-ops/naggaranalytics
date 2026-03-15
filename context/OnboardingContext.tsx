@@ -10,6 +10,11 @@ export interface NDADetails {
     signedAt: string | null;
 }
 
+export interface PriceRange {
+    min: number;
+    max: number;
+}
+
 export interface OnboardingState {
     step: number;
     academicDetails: {
@@ -23,10 +28,19 @@ export interface OnboardingState {
         cleaning: boolean;
         descriptive: boolean;
         inferential: boolean;
+        metaAnalysis: boolean;
         writing: boolean;
     };
-    paymentPhase: "Deposit 70%" | "Final 30%" | "Paid in Full";
 }
+
+// Price ranges per service (shown to customer as estimates)
+export const SERVICE_PRICES: Record<string, { min: number; max: number }> = {
+    cleaning:     { min: 50,  max: 200 },
+    descriptive:  { min: 50,  max: 100 },
+    inferential:  { min: 100, max: 300 },
+    metaAnalysis: { min: 100, max: 300 },
+    writing:      { min: 50,  max: 150 },
+};
 
 interface OnboardingContextType extends OnboardingState {
     setStep: (step: number) => void;
@@ -37,7 +51,7 @@ interface OnboardingContextType extends OnboardingState {
     setFiles: (files: File[]) => void;
     setGoogleDriveLink: (link: string) => void;
     updateTasks: (tasks: Partial<OnboardingState["tasks"]>) => void;
-    calculateTotal: () => number;
+    calculateRange: () => PriceRange;
 }
 
 const initialState: OnboardingState = {
@@ -57,9 +71,9 @@ const initialState: OnboardingState = {
         cleaning: false,
         descriptive: false,
         inferential: false,
+        metaAnalysis: false,
         writing: false,
     },
-    paymentPhase: "Deposit 70%",
 };
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -93,13 +107,16 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             tasks: { ...prev.tasks, ...tasks },
         }));
 
-    const calculateTotal = () => {
-        let total = 0;
-        if (state.tasks.cleaning) total += 200;
-        if (state.tasks.descriptive) total += 100;
-        if (state.tasks.inferential) total += 200;
-        if (state.tasks.writing) total += 100;
-        return total;
+    const calculateRange = (): PriceRange => {
+        let min = 0;
+        let max = 0;
+        for (const [key, selected] of Object.entries(state.tasks)) {
+            if (selected && SERVICE_PRICES[key]) {
+                min += SERVICE_PRICES[key].min;
+                max += SERVICE_PRICES[key].max;
+            }
+        }
+        return { min, max };
     };
 
     return (
@@ -114,7 +131,7 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 setFiles,
                 setGoogleDriveLink,
                 updateTasks,
-                calculateTotal,
+                calculateRange,
             }}
         >
             {children}

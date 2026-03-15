@@ -2,21 +2,36 @@
 
 This document outlines the major architectural and functional enhancements required to make the Naggar Analytics platform more powerful, secure, and user-friendly for both clients and internal staff.
 
-## 1. Non-Disclosure Agreement (NDA) Integration
+## 1. Non-Disclosure Agreement (NDA) Integration ✅ DONE
 **Goal:** Build trust by requiring users to explicitly agree to an NDA before securely uploading their sensitive data.
-*   **Action Items:**
-    *   Introduce a new step in the `OnboardingStepper` (e.g., between "Academic Details" and "Upload Files").
-    *   Display a formal NDA document.
-    *   Provide a form where the user inputs their legal name to electronically sign/agree.
-    *   Save this signature and timestamp in the database linked to the user's profile and project.
+*   **Status:** Implemented. NDA is Step 2 of the 5-step onboarding flow.
+*   **DB Attributes Added:** `nda_agreed` (boolean), `nda_signature` (string), `nda_signed_at` (string).
 
 ## 2. Dynamic Quotation and Payment Receipt Flow
-**Goal:** Move away from upfront payments to a quote-based system where admins assess the work first.
-*   **Action Items:**
-    *   **Submission:** User submits the project without paying. Status becomes `awaiting_quote`.
-    *   **Quotation:** Admin reviews the files in the Admin Dashboard and sets a price (`quoted_price`).
-    *   **Payment & Receipt:** The project unlocks the "Payment" phase in the user's dashboard, displaying the price. The user transfers the money and **uploads a payment receipt**.
-    *   **Verification:** Admin reviews the receipt. Upon approval, status changes to `in_progress`.
+**Goal:** Replace fixed pricing with transparent price ranges. The customer selects services and sees estimated ranges. Admin reviews the data and sets the final quote based on effort, data complexity, and required tests.
+
+### Service Catalog (Price Ranges shown to customer):
+| Service | Price Range | Description |
+|---------|------------|-------------|
+| Data Cleaning & Preparation | $50 – $200 | Handling missing values, outliers, data restructuring. Price depends on dataset size and messiness. |
+| Descriptive Statistics | $50 – $100 | Frequency tables, charts, summary statistics. Price depends on number of variables. |
+| Inferential Statistics | $100 – $300 | T-Test, ANOVA, Chi-Square, Regression, etc. Price depends on number and complexity of tests. |
+| Meta-Analysis | $100 – $300 | Systematic review data synthesis, forest plots, heterogeneity analysis. Price depends on number of studies. |
+| Writing Results & Discussion | $50 – $150 | APA-style results chapter, interpretation, and discussion. Price depends on scope. |
+
+### Updated Flow:
+1. **Service Selection (Step 4):** Customer selects services and sees price ranges per service + estimated total range. A note explains: "Final price is determined after we review your data based on effort required, statistical tests needed, and data cleanliness."
+2. **Submission:** Customer submits project **without paying**. Status → `awaiting_quote`.
+3. **Admin Quotation:** Admin reviews uploaded files in Admin Dashboard, assesses complexity, and sets a final `quoted_price`.
+4. **Payment Notification:** Customer sees the final price in their dashboard. They transfer the money and upload a payment receipt.
+5. **Verification:** Admin reviews receipt → status changes to `in_progress`.
+
+### Implementation Changes:
+*   **Step 4 (Services):** Replace fixed prices with price ranges. Add "Meta-Analysis" as new service. Show estimated range total. Add explanatory note about quote-based pricing.
+*   **Step 5 (Payment):** Remove upfront payment requirement. Replace with a "Submit for Review" flow. No receipt upload at submission time.
+*   **OnboardingContext:** Add `metaAnalysis` to tasks. Remove `calculateTotal()` fixed pricing, replace with `calculateRange()` returning `{min, max}`.
+*   **API Route:** Remove receipt requirement at submission. Set status to `awaiting_quote` instead of `inquiry`.
+*   **Admin Dashboard:** (Future) Add quotation input to set final price per project.
 
 ## 3. Dedicated Technician Dashboard
 **Goal:** Allow analysts/technicians to work on projects without exposing sensitive financial or customer data.

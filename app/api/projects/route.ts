@@ -44,17 +44,17 @@ export async function POST(request: NextRequest) {
 
         const formData = await request.formData();
 
-        const degree        = formData.get('degree')        as string;
-        const thesisTitle   = formData.get('thesisTitle')   as string;
-        const tasksStr      = formData.get('tasks')          as string;
-        const totalStr      = formData.get('total')          as string;
-        const paymentPhase  = formData.get('paymentPhase')  as string;
-        const receiptFile   = formData.get('receipt')        as File | null;
-        const ndaAgreed     = formData.get('ndaAgreed')      as string;
-        const ndaSignature  = formData.get('ndaSignature')   as string;
-        const ndaSignedAt   = formData.get('ndaSignedAt')    as string;
+        const degree        = formData.get('degree')         as string;
+        const thesisTitle   = formData.get('thesisTitle')    as string;
+        const tasksStr      = formData.get('tasks')           as string;
+        const estimatedMin  = formData.get('estimatedMin')   as string;
+        const estimatedMax  = formData.get('estimatedMax')   as string;
+        const ndaAgreed     = formData.get('ndaAgreed')       as string;
+        const ndaSignature  = formData.get('ndaSignature')    as string;
+        const ndaSignedAt   = formData.get('ndaSignedAt')     as string;
+        const googleDriveLink = formData.get('googleDriveLink') as string | null;
 
-        if (!degree || !thesisTitle || !tasksStr || !totalStr || !receiptFile) {
+        if (!degree || !thesisTitle || !tasksStr) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
@@ -68,14 +68,16 @@ export async function POST(request: NextRequest) {
         }
 
         const tasks = JSON.parse(tasksStr);
-        const total = parseFloat(totalStr);
 
         const { databases } = createAdminClient();
 
-        // Upload receipt to Appwrite Storage
-        const receiptUrl = await uploadFile(receiptFile, BUCKETS.CLIENT_UPLOADS);
+        // Build description with tasks + google drive link
+        const descriptionData: Record<string, unknown> = { ...tasks };
+        if (googleDriveLink) {
+            descriptionData.googleDriveLink = googleDriveLink;
+        }
 
-        // Create project document
+        // Create project document — status is awaiting_quote (no upfront payment)
         const projectDoc = await databases.createDocument({
             databaseId:   DATABASE_ID,
             collectionId: COLLECTIONS.PROJECTS,
@@ -83,11 +85,11 @@ export async function POST(request: NextRequest) {
             data: {
                 customer_id:    user.$id,
                 title:          thesisTitle,
-                description:    JSON.stringify(tasks),
+                description:    JSON.stringify(descriptionData),
                 degree_type:    degree,
-                status:         'inquiry',
-                payment_status: 'pending',
-                quoted_price:   total,
+                status:         'awaiting_quote',
+                payment_status: 'not_required',
+                quoted_price:   0,
                 nda_agreed:     true,
                 nda_signature:  ndaSignature,
                 nda_signed_at:  ndaSignedAt || new Date().toISOString(),
@@ -98,27 +100,7 @@ export async function POST(request: NextRequest) {
 
         const projectId = projectDoc.$id;
 
-        // Record receipt as a file document
-        await databases.createDocument({
-            databaseId:   DATABASE_ID,
-            collectionId: COLLECTIONS.FILES,
-            documentId:   ID.unique(),
-            data: {
-                project_id:        projectId,
-                uploader_id:       user.$id,
-                file_name:         receiptFile.name,
-                file_size:         receiptFile.size,
-                file_type:         receiptFile.type || 'application/octet-stream',
-                storage_bucket_id: BUCKETS.CLIENT_UPLOADS,
-                storage_file_id:   receiptUrl,  // storing URL for quick access
-                file_version:      1,
-                file_purpose:      'inquiry',
-                status:            'pending',
-                created_at:        new Date().toISOString(),
-            },
-        });
-
-        // Upload additional files (raw data, docs, etc.)
+        // Upload data files (raw data, docs, etc.)
         const allFiles = formData.getAll('files') as File[];
 
         for (const file of allFiles) {
@@ -138,7 +120,7 @@ export async function POST(request: NextRequest) {
                         storage_bucket_id: BUCKETS.CLIENT_UPLOADS,
                         storage_file_id:   fileUrl,
                         file_version:      1,
-                        file_purpose:      'inquiry',
+                        file_purpose:      'initial_upload',
                         status:            'pending',
                         created_at:        new Date().toISOString(),
                     },
@@ -149,11 +131,16 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // Email notification
+        // Email notification to admin
         const RESEND_API_KEY = process.env.RESEND_API_KEY;
         const ADMIN_EMAIL    = process.env.ADMIN_EMAIL;
 
         if (RESEND_API_KEY && ADMIN_EMAIL) {
+            const selectedServices = Object.entries(tasks)
+                .filter(([, v]) => v)
+                .map(([k]) => k)
+                .join(', ');
+
             fetch('https://api.resend.com/emails', {
                 method:  'POST',
                 headers: {
@@ -163,14 +150,19 @@ export async function POST(request: NextRequest) {
                 body: JSON.stringify({
                     from:    'Naggar Analytics <onboarding@resend.dev>',
                     to:      [ADMIN_EMAIL],
-                    subject: `New Project Submitted: ${thesisTitle}`,
+                    subject: `New Project Awaiting Quote: ${thesisTitle}`,
                     html: `
-                        <h2>New Project Submitted</h2>
+                        <h2>New Project Submitted — Awaiting Your Quote</h2>
                         <p><strong>Title:</strong> ${thesisTitle}</p>
                         <p><strong>Degree:</strong> ${degree}</p>
                         <p><strong>Client:</strong> ${user.email}</p>
-                        <p><strong>Total:</strong> $${total}</p>
-                        <p><strong>Payment Phase:</strong> ${paymentPhase}</p>
+                        <p><strong>Services Requested:</strong> ${selectedServices}</p>
+                        <p><strong>Estimated Range:</strong> $${estimatedMin || '?'} – $${estimatedMax || '?'}</p>
+                        <p><strong>Files Uploaded:</strong> ${allFiles.length}</p>
+                        ${googleDriveLink ? `<p><strong>Google Drive:</strong> <a href="${googleDriveLink}">${googleDriveLink}</a></p>` : ''}
+                        <p><strong>NDA Signed By:</strong> ${ndaSignature}</p>
+                        <hr />
+                        <p>Please review the files and set a final quote in the Admin Dashboard.</p>
                     `,
                 }),
             }).catch(() => {});
