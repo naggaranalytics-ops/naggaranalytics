@@ -65,12 +65,12 @@ export default function Step4Payment() {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-right">
-                <h2 className="text-2xl font-bold font-arabic text-white mb-2">{t("onboarding.step4.title")}</h2>
-                <p className="text-slate-400 text-sm font-arabic">{t("onboarding.step4.subtitle")}</p>
+            <div className={lang === "ar" ? "text-right" : "text-left"}>
+                <h2 className="text-2xl font-bold text-white mb-2">{t("onboarding.step4.title")}</h2>
+                <p className="text-slate-400 text-sm">{t("onboarding.step4.subtitle")}</p>
             </div>
 
-            <div className="bg-[#111821] border border-white/5 rounded-2xl p-6 text-right font-arabic">
+            <div className={`bg-[#111821] border border-white/5 rounded-2xl p-6 ${lang === "ar" ? "text-right" : "text-left"}`}>
                 <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
                     <span className="text-3xl font-bold text-[#16a085] font-mono">${amountToPay.toFixed(2)}</span>
                     <div>
@@ -79,7 +79,7 @@ export default function Step4Payment() {
                     </div>
                 </div>
 
-                <h3 className="text-lg text-white font-bold mb-4 flex justify-end gap-2 items-center">
+                <h3 className={`text-lg text-white font-bold mb-4 flex gap-2 items-center ${lang === "ar" ? "justify-end" : "justify-start"}`}>
                     <span>{lang === "ar" ? "تفاصيل الحساب البنكي (بنك الراجحي)" : "Bank Account Details (Al-Rajhi Bank)"}</span>
                     <span className="w-2 h-2 rounded-full bg-[#16a085]"></span>
                 </h3>
@@ -104,8 +104,8 @@ export default function Step4Payment() {
                 </div>
             </div>
 
-            <div className="text-right mt-8">
-                <label className="block text-sm font-medium text-slate-300 mb-2 font-arabic pl-2">{t("onboarding.step4.uploadReceipt")} <span className="text-red-500">*</span></label>
+            <div className={`mt-8 ${lang === "ar" ? "text-right" : "text-left"}`}>
+                <label className="block text-sm font-medium text-slate-300 mb-2 pl-2">{t("onboarding.step4.uploadReceipt")} <span className="text-red-500">*</span></label>
                 <div
                     onClick={() => receiptRef.current?.click()}
                     className={`border border-dashed transition-all rounded-xl p-4 flex items-center justify-between cursor-pointer ${receipt ? 'border-[#16a085] bg-[#16a085]/5' : 'border-white/20 bg-[#111821] hover:bg-white/5'
@@ -128,8 +128,8 @@ export default function Step4Payment() {
                             <span className="text-xs text-slate-400">{(receipt.size / 1024 / 1024).toFixed(2)} MB</span>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-3 w-full justify-end">
-                            <span className="text-slate-400 font-arabic">{t("onboarding.step4.receiptPlaceholder")}</span>
+                        <div className={`flex items-center gap-3 w-full ${lang === "ar" ? "justify-end" : "justify-start"}`}>
+                            <span className="text-slate-400">{t("onboarding.step4.receiptPlaceholder")}</span>
                             <UploadCloud className="text-[#16a085]" size={24} />
                         </div>
                     )}
@@ -140,14 +140,14 @@ export default function Step4Payment() {
                 <button
                     onClick={prevStep}
                     disabled={isSubmitting}
-                    className="bg-transparent border border-white/10 hover:bg-white/5 text-white font-bold py-3 px-8 rounded-xl transition-all font-arabic disabled:opacity-50"
+                    className="bg-transparent border border-white/10 hover:bg-white/5 text-white font-bold py-3 px-8 rounded-xl transition-all disabled:opacity-50"
                 >
                     {t("onboarding.step4.prev")}
                 </button>
                 <button
                     onClick={handleSubmit}
                     disabled={!receipt || isSubmitting}
-                    className="bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 font-arabic disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                     {isSubmitting ? t("onboarding.step4.submitting") : t("onboarding.step4.submit")}
                 </button>

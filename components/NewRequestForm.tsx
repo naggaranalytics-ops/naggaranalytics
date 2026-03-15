@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
 import { Upload, FileUp, CheckCircle2, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Client, Storage, Databases, ID } from "appwrite";
+
+const client = new Client()
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
+
+const storage = new Storage(client);
+const databases = new Databases(client);
+
+const DATABASE_ID = 'analytics_db';
+const PROJECTS_COLLECTION = 'projects';
+const BUCKET_ID = 'client_uploads';
 
 const NewRequestForm = ({ userId }: { userId: string }) => {
     const router = useRouter();
@@ -19,34 +30,20 @@ const NewRequestForm = ({ userId }: { userId: string }) => {
 
         setLoading(true);
         try {
-            // 1. Upload to Supabase Storage
-            const fileExt = file.name.split(".").pop();
-            const fileName = `${userId}-${Math.random()}.${fileExt}`;
-            const filePath = `requests/${fileName}`;
+            // 1. Upload to Appwrite Storage
+            const uploaded = await storage.createFile(BUCKET_ID, ID.unique(), file);
 
-            const { data: uploadData, error: uploadError } = await supabase.storage
-                .from("thesis-files")
-                .upload(filePath, file);
+            // 2. Build file URL
+            const fileUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${uploaded.$id}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
 
-            if (uploadError) throw uploadError;
-
-            // 2. Get Public URL
-            const { data: { publicUrl } } = supabase.storage
-                .from("thesis-files")
-                .getPublicUrl(filePath);
-
-            // 3. Save to thesis_requests table
-            const { error: dbError } = await supabase.from("thesis_requests").insert([
-                {
-                    user_id: userId,
-                    topic,
-                    university,
-                    file_url: publicUrl,
-                    status: "pending",
-                },
-            ]);
-
-            if (dbError) throw dbError;
+            // 3. Save to projects collection
+            await databases.createDocument(DATABASE_ID, PROJECTS_COLLECTION, ID.unique(), {
+                user_id: userId,
+                topic,
+                university,
+                file_url: fileUrl,
+                status: "pending",
+            });
 
             setSuccess(true);
             setTopic("");

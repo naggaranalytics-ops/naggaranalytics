@@ -3,16 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageProvider';
 
 const STATUS_FLOW = ['inquiry', 'quoted', 'paid', 'in_progress', 'completed'];
 
-const STATUS_LABELS: Record<string, string> = {
-    inquiry:     'بانتظار التأكيد',
-    quoted:      'تم تقديم عرض',
-    paid:        'تم الدفع',
-    in_progress: 'جاري التحليل',
-    completed:   'مكتمل',
-};
+
 
 export default function AdminProjectActions({
     projectId,
@@ -23,6 +18,7 @@ export default function AdminProjectActions({
 }) {
     const [isUpdating, setIsUpdating] = useState(false);
     const router = useRouter();
+    const { t, dir } = useLanguage();
 
     const currentIndex = STATUS_FLOW.indexOf(currentStatus);
     const nextStatus   = STATUS_FLOW[currentIndex + 1];
@@ -39,7 +35,7 @@ export default function AdminProjectActions({
             if (!res.ok) throw new Error('Update failed');
             router.refresh();
         } catch {
-            alert('حدث خطأ أثناء التحديث.');
+            alert(t('admin.action.errorUpdate'));
         } finally {
             setIsUpdating(false);
         }
@@ -54,10 +50,10 @@ export default function AdminProjectActions({
         try {
             const res = await fetch('/api/admin/delivery', { method: 'POST', body: formData });
             if (!res.ok) throw new Error('Upload failed');
-            alert('تم رفع ملف النتيجة بنجاح!');
+            alert(t('admin.action.successUpload'));
             router.refresh();
         } catch {
-            alert('حدث خطأ أثناء الرفع!');
+            alert(t('admin.action.errorUpload'));
         } finally {
             setIsUpdating(false);
         }
@@ -74,8 +70,8 @@ export default function AdminProjectActions({
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         disabled={isUpdating}
                     />
-                    <div className="w-full flex justify-center items-center gap-2 bg-slate-800 text-white py-2.5 rounded-lg font-arabic font-bold text-sm border border-slate-700 hover:bg-slate-700 transition-all">
-                        {isUpdating ? <RefreshCw size={16} className="animate-spin" /> : 'رفع النتيجة النهائية'}
+                    <div className={`w-full flex justify-center items-center gap-2 bg-slate-800 text-white py-2.5 rounded-lg font-${dir === 'rtl' ? 'arabic' : 'sans'} font-bold text-sm border border-slate-700 hover:bg-slate-700 transition-all`}>
+                        {isUpdating ? <RefreshCw size={16} className="animate-spin" /> : t('admin.action.uploadBtn')}
                     </div>
                 </div>
             )}
@@ -84,14 +80,14 @@ export default function AdminProjectActions({
                 <button
                     onClick={handleUpdateStatus}
                     disabled={isUpdating}
-                    className="w-full flex justify-center items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white py-2.5 rounded-lg disabled:opacity-50 transition-all font-arabic font-bold text-sm shadow-lg shadow-[#16a085]/20"
+                    className={`w-full flex justify-center items-center gap-2 bg-[#16a085] hover:bg-[#149174] text-white py-2.5 rounded-lg disabled:opacity-50 transition-all font-${dir === 'rtl' ? 'arabic' : 'sans'} font-bold text-sm shadow-lg shadow-[#16a085]/20`}
                 >
                     {isUpdating ? <RefreshCw size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
-                    <span dir="rtl">ترقية لـ: {STATUS_LABELS[nextStatus]}</span>
+                    <span dir={dir}>{t('admin.action.upgradeBtn')} {t(`admin.action.status.${nextStatus}`)}</span>
                 </button>
             ) : (
-                <div className="w-full flex justify-center items-center py-2.5 bg-green-500/10 text-green-400 rounded-lg font-arabic font-bold text-sm border border-green-500/20">
-                    تم اكتمال المشروع بنجاح 🎉
+                <div className={`w-full flex justify-center items-center py-2.5 bg-green-500/10 text-green-400 rounded-lg font-${dir === 'rtl' ? 'arabic' : 'sans'} font-bold text-sm border border-green-500/20`}>
+                    {t('admin.action.completedMsg')}
                 </div>
             )}
         </div>

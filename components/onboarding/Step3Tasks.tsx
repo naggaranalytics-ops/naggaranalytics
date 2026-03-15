@@ -20,9 +20,9 @@ export default function Step3Tasks() {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-right">
-                <h2 className="text-2xl font-bold font-arabic text-white mb-2">{t("onboarding.step3.title")}</h2>
-                <p className="text-slate-400 text-sm font-arabic">{t("onboarding.step3.subtitle")}</p>
+            <div className={lang === "ar" ? "text-right" : "text-left"}>
+                <h2 className="text-2xl font-bold text-white mb-2">{t("onboarding.step3.title")}</h2>
+                <p className="text-slate-400 text-sm">{t("onboarding.step3.subtitle")}</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
@@ -39,10 +39,10 @@ export default function Step3Tasks() {
                                 ${task.price}
                             </div>
 
-                            <div className="flex items-center gap-4 text-right">
+                            <div className={`flex items-center gap-4 ${lang === "ar" ? "text-right" : "text-left"}`}>
                                 <div>
-                                    <h3 className="text-white font-bold font-arabic text-lg">{t(task.labelKey)}</h3>
-                                    <p className="text-sm text-slate-400 font-arabic">{t(task.descKey)}</p>
+                                    <h3 className="text-white font-bold text-lg">{t(task.labelKey)}</h3>
+                                    <p className="text-sm text-slate-400">{t(task.descKey)}</p>
                                 </div>
                                 <div className={`w-6 h-6 rounded-md border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#16a085] border-[#16a085]' : 'bg-[#050a10] border-slate-600'
                                     }`}>
@@ -56,7 +56,7 @@ export default function Step3Tasks() {
 
             <div className="bg-[#111821] border border-white/5 rounded-xl p-6 flex justify-between items-center mt-8">
                 <div className="text-3xl font-bold text-[#16a085] font-mono">${calculateTotal()}</div>
-                <div className="text-right font-arabic">
+                <div className={lang === "ar" ? "text-right" : "text-left"}>
                     <div className="text-lg font-bold text-white">{lang === "ar" ? "التكلفة التقديرية" : "Estimated Cost"}</div>
                     <div className="text-xs text-slate-400">{lang === "ar" ? "الأسعار قابلة للمراجعة بعد تقييم الملفات" : "Prices subject to revision after file review"}</div>
                 </div>
@@ -65,14 +65,14 @@ export default function Step3Tasks() {
             <div className="pt-6 border-t border-white/5 flex justify-between">
                 <button
                     onClick={prevStep}
-                    className="bg-transparent border border-white/10 hover:bg-white/5 text-white font-bold py-3 px-8 rounded-xl transition-all font-arabic"
+                    className="bg-transparent border border-white/10 hover:bg-white/5 text-white font-bold py-3 px-8 rounded-xl transition-all"
                 >
                     {t("onboarding.step3.prev")}
                 </button>
                 <button
                     onClick={nextStep}
                     disabled={!isComplete}
-                    className="bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 font-arabic disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[#16a085] hover:bg-[#149174] text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-[#16a085]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {t("onboarding.step3.next")}
                 </button>

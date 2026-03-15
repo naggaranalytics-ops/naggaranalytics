@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kinde-oss/kinde-auth-nextjs": "^2.1.13",
-    "@supabase/supabase-js": "^2.39.0",
     "appwrite": "^23.0.0",
+    "framer-motion": "^12.36.0",
     "lucide-react": "^0.320.0",
     "next": "^14.2.25",
     "node-appwrite": "^22.1.3",

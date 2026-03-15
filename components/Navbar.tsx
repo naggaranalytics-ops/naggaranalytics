@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Menu, X, Sun, Moon, Globe } from "lucide-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { useLanguage } from "@/context/LanguageProvider";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,12 +73,12 @@ export default function Navbar() {
                             {t("lang.toggle")}
                         </button>
 
-                        <LoginLink className="text-sm font-medium transition-colors" style={{ color: 'var(--text-primary)' }}>
+                        <LocaleLink href="/login" className="text-sm font-medium transition-colors" style={{ color: 'var(--text-primary)' }}>
                             {t("nav.signIn")}
-                        </LoginLink>
-                        <RegisterLink className="px-6 py-2 bg-[var(--primary)] hover:opacity-90 text-white text-sm font-bold rounded-xl transition-all">
+                        </LocaleLink>
+                        <LocaleLink href="/login" className="px-6 py-2 bg-[var(--primary)] hover:opacity-90 text-white text-sm font-bold rounded-xl transition-all">
                             {t("nav.register")}
-                        </RegisterLink>
+                        </LocaleLink>
                     </div>
 
                     {/* Mobile menu button */}
@@ -90,9 +89,9 @@ export default function Navbar() {
                         <button onClick={toggleLang} className="text-xs font-bold px-2 py-1 rounded-lg border" style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}>
                             {t("lang.toggle")}
                         </button>
-                        <LoginLink className="text-sm font-medium transition-colors" style={{ color: 'var(--text-primary)' }}>
+                        <LocaleLink href="/login" className="text-sm font-medium transition-colors" style={{ color: 'var(--text-primary)' }}>
                             {t("nav.signIn")}
-                        </LoginLink>
+                        </LocaleLink>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="transition-colors"
@@ -121,9 +120,9 @@ export default function Navbar() {
                             </LocaleLink>
                         ))}
                         <div className="pt-4 mt-4 border-t flex flex-col gap-3 px-4" style={{ borderColor: 'var(--border-color)' }}>
-                            <RegisterLink className="block w-full py-3 bg-[var(--primary)] text-white text-center font-bold rounded-xl shadow-lg">
+                            <LocaleLink href="/login" className="block w-full py-3 bg-[var(--primary)] text-white text-center font-bold rounded-xl shadow-lg">
                                 {t("nav.getStarted")}
-                            </RegisterLink>
+                            </LocaleLink>
                         </div>
                     </div>
                 </div>

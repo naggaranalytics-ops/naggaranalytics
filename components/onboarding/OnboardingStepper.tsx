@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useOnboarding } from "../../context/OnboardingContext";
+import { useLanguage } from "../../context/LanguageProvider";
 import Step1Academic from "./Step1Academic";
 import Step2Files from "./Step2Files";
 import Step3Tasks from "./Step3Tasks";
@@ -9,12 +10,13 @@ import Step4Payment from "./Step4Payment";
 
 export default function OnboardingStepper() {
     const { step } = useOnboarding();
+    const { t } = useLanguage();
 
     const steps = [
-        { num: 1, title: "التفاصيل الأكاديمية" },
-        { num: 2, title: "إرفاق الملفات" },
-        { num: 3, title: "الخدمات المطلوبة" },
-        { num: 4, title: "الدفع والتأكيد" },
+        { num: 1, title: t("onboarding.stepper.step1") },
+        { num: 2, title: t("onboarding.stepper.step2") },
+        { num: 3, title: t("onboarding.stepper.step3") },
+        { num: 4, title: t("onboarding.stepper.step4") },
     ];
 
     return (
@@ -32,7 +34,7 @@ export default function OnboardingStepper() {
                                 }`}>
                                 {s.num}
                             </div>
-                            <span className={`text-xs font-bold font-arabic hidden md:block transition-colors ${step >= s.num ? "text-white" : "text-slate-500"
+                            <span className={`text-xs font-bold hidden md:block transition-colors ${step >= s.num ? "text-white" : "text-slate-500"
                                 }`}>
                                 {s.title}
                             </span>

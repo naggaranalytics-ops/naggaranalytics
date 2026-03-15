@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
     LayoutDashboard,
     GraduationCap,
+    MessageSquare,
     PlusCircle,
     LogOut,
     Menu,
@@ -17,7 +18,7 @@ import {
     Globe,
 } from "lucide-react";
 import { useState } from "react";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 import { useLanguage } from "@/context/LanguageProvider";
 
@@ -27,14 +28,22 @@ interface SidebarProps {
 
 const Sidebar = ({ user }: SidebarProps) => {
     const pathname = usePathname();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [showSignOutTip, setShowSignOutTip] = useState(false);
     const { theme, toggleTheme } = useTheme();
     const { t, lang, dir, toggleLang } = useLanguage();
 
+    async function handleLogout() {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        router.push(`/${lang}/login`);
+        router.refresh();
+    }
+
     const navItems = [
         { label: t("sidebar.dashboard"), icon: LayoutDashboard, href: "/dashboard" },
         { label: t("sidebar.library"), icon: GraduationCap, href: "/dashboard/library" },
+        { label: t("sidebar.messages"), icon: MessageSquare, href: "/dashboard/messages" },
         { label: t("sidebar.newRequest"), icon: PlusCircle, href: "/dashboard/new" },
     ];
 
@@ -141,10 +150,10 @@ const Sidebar = ({ user }: SidebarProps) => {
                     )}
 
                     {/* Sign out button */}
-                    <LogoutLink className="flex items-center gap-3 px-4 py-3 w-full text-red-400 hover:text-red-300 hover:bg-red-400/5 rounded-xl transition-all">
+                    <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 w-full text-red-400 hover:text-red-300 hover:bg-red-400/5 rounded-xl transition-all">
                         <LogOut size={20} />
                         <span className="font-medium text-sm">{t("sidebar.signOut")}</span>
-                    </LogoutLink>
+                    </button>
                 </div>
             </aside>
 

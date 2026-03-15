@@ -1,28 +1,30 @@
-import { supabase } from "@/lib/supabase";
+import { createAdminClient, DATABASE_ID, COLLECTIONS, Query } from "@/lib/appwrite-server";
 import { FileText, Clock, ExternalLink } from "lucide-react";
 
 const ProjectsSection = async ({ userId }: { userId: string }) => {
-    const { data: requests, error } = await supabase
-        .from("thesis_requests")
-        .select("*")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false });
-
-    if (error) {
-        return <div className="text-red-400">Error loading projects: {error.message}</div>;
+    let requests: any[] = [];
+    try {
+        const { databases } = createAdminClient();
+        const res = await databases.listDocuments(DATABASE_ID, COLLECTIONS.PROJECTS, [
+            Query.equal('user_id', userId),
+            Query.orderDesc('$createdAt'),
+        ]);
+        requests = res.documents;
+    } catch {
+        return <div className="text-red-400">Error loading projects.</div>;
     }
 
     return (
         <div id="projects" className="space-y-6 scroll-mt-24">
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-white">My Projects</h2>
-                <span className="text-slate-400 text-sm font-mono">{requests?.length || 0} Total</span>
+                <span className="text-slate-400 text-sm font-mono">{requests.length} Total</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {requests?.map((request) => (
+                {requests.map((request) => (
                     <div
-                        key={request.id}
+                        key={request.$id}
                         className="group glass-card rounded-2xl p-6 hover:border-primary/50 transition-all hover:-translate-y-1"
                     >
                         <div className="flex justify-between items-start mb-4">
@@ -43,7 +45,7 @@ const ProjectsSection = async ({ userId }: { userId: string }) => {
                         <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/5">
                             <div className="flex items-center gap-2 text-slate-500 text-xs">
                                 <Clock size={14} />
-                                <span>{new Date(request.created_at).toLocaleDateString()}</span>
+                                <span>{new Date(request.$createdAt).toLocaleDateString()}</span>
                             </div>
                             {request.file_url && (
                                 <a
@@ -60,7 +62,7 @@ const ProjectsSection = async ({ userId }: { userId: string }) => {
                     </div>
                 ))}
 
-                {requests?.length === 0 && (
+                {requests.length === 0 && (
                     <div className="col-span-full py-12 text-center bg-white/5 border border-dashed border-white/10 rounded-2xl">
                         <p className="text-slate-500">No projects found. Create your first request below.</p>
                     </div>
