@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
-        if (!user.labels?.includes('admin') && user.email !== process.env.ADMIN_EMAIL) {
+        if (!user.labels?.includes('admin') && !user.labels?.includes('technician') && user.email !== process.env.ADMIN_EMAIL) {
             return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
         }
 

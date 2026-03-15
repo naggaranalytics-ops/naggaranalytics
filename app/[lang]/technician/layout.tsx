@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getSessionUser, SESSION_COOKIE } from '@/lib/appwrite-auth';
-import AdminLayoutShell from './AdminLayoutShell';
+import TechnicianLayoutShell from './TechnicianLayoutShell';
 
-export default async function AdminLayout({
+export default async function TechnicianLayout({
     children,
     params,
 }: {
@@ -20,15 +20,16 @@ export default async function AdminLayout({
         redirect(`/${lang}/login`);
     }
 
-    // Admin check: either the user has the "admin" label (set in Appwrite Console)
-    // or their email matches the ADMIN_EMAIL env var.
-    const isAdmin =
+    // Technician check: user must have the "technician" label (set in Appwrite Console)
+    // Also allow admins to access the technician panel
+    const isTechnician =
+        user.labels?.includes('technician') ||
         user.labels?.includes('admin') ||
         user.email === process.env.ADMIN_EMAIL;
 
-    if (!isAdmin) {
+    if (!isTechnician) {
         redirect(`/${lang}/dashboard`);
     }
 
-    return <AdminLayoutShell user={user}>{children}</AdminLayoutShell>;
+    return <TechnicianLayoutShell user={user}>{children}</TechnicianLayoutShell>;
 }

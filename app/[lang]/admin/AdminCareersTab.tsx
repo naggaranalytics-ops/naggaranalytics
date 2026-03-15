@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Mail, Phone, Briefcase, Calendar, ChevronDown, ChevronUp } from "lucide-react";
+import { useLanguage } from "@/context/LanguageProvider";
 
 interface Application {
     id: string;
@@ -18,16 +19,17 @@ export default function AdminCareersTab() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [expanded, setExpanded] = useState<string | null>(null);
+    const { t, dir } = useLanguage();
 
     useEffect(() => {
         fetch("/api/admin/applications")
             .then((r) => r.json())
             .then((d) => { setApplications(d.data ?? []); setLoading(false); })
-            .catch(() => { setError("Failed to load applications"); setLoading(false); });
+            .catch(() => { setError(t('admin.careers.loadError')); setLoading(false); });
     }, []);
 
     if (loading) return (
-        <div className="text-center py-20 text-slate-500 font-mono text-sm animate-pulse">Loading applications…</div>
+        <div className="text-center py-20 text-slate-500 font-mono text-sm animate-pulse">{t('admin.careers.loading')}</div>
     );
     if (error) return (
         <div className="text-center py-20 text-red-400 text-sm">{error}</div>
@@ -35,13 +37,15 @@ export default function AdminCareersTab() {
     if (applications.length === 0) return (
         <div className="text-center py-20 bg-[#111821] border-dashed border border-white/10 rounded-2xl">
             <Briefcase size={32} className="mx-auto text-slate-600 mb-3" />
-            <p className="text-slate-500 font-arabic">لا توجد طلبات توظيف حتى الآن.</p>
+            <p className={`text-slate-500 font-${dir === 'rtl' ? 'arabic' : 'sans'}`}>{t('admin.careers.empty')}</p>
         </div>
     );
 
     return (
-        <div className="space-y-4">
-            <p className="text-slate-500 text-xs font-mono mb-6">{applications.length} application{applications.length !== 1 ? "s" : ""} received</p>
+        <div className="space-y-4" dir={dir}>
+            <p className="text-slate-500 text-xs font-mono mb-6">
+                {applications.length} {t('admin.careers.count')}
+            </p>
             {applications.map((app) => (
                 <div key={app.id} className="bg-[#111821] border border-white/5 hover:border-[#16a085]/30 rounded-2xl p-6 transition-all">
                     <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -70,13 +74,13 @@ export default function AdminCareersTab() {
                             className="flex items-center gap-1.5 text-xs text-[#16a085] border border-[#16a085]/30 px-3 py-1.5 rounded-lg hover:bg-[#16a085]/10 transition-all shrink-0"
                         >
                             {expanded === app.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                            {expanded === app.id ? "Hide" : "Read Why"}
+                            {expanded === app.id ? t('admin.careers.hide') : t('admin.careers.readWhy')}
                         </button>
                     </div>
 
                     {expanded === app.id && (
                         <div className="mt-5 pt-5 border-t border-white/5">
-                            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Why they want to join</p>
+                            <p className={`text-xs font-mono uppercase tracking-widest text-slate-500 mb-2`}>{t('admin.careers.whyJoin')}</p>
                             <p className="text-slate-300 text-sm leading-relaxed">{app.why_join}</p>
                         </div>
                     )}
