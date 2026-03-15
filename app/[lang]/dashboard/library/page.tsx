@@ -3,6 +3,8 @@
 import { PlayCircle, Download, BookOpen, Lock, FileText, Video } from "lucide-react";
 import { useLanguage } from "@/context/LanguageProvider";
 
+export const runtime = 'edge';
+
 export default function LibraryPage({ params }: { params: { lang: string } }) {
     const { t, dir } = useLanguage();
 
