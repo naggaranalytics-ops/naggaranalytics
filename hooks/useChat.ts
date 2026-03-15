@@ -107,7 +107,7 @@ export function useChat(projectId: string | null) {
         COLLECTIONS.MESSAGES,
         ID.unique(),
         {
-          project_id: projectId,
+          project_id: projectId, // will store 'general_support' or 'complaints'
           sender_id: senderId,
           message_text: text,
           attached_file_id: attachedFileId,
@@ -116,6 +116,17 @@ export function useChat(projectId: string | null) {
           created_at: new Date().toISOString()
         }
       );
+
+      // Trigger email and in-app notifications
+      fetch('/api/messages/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              sender_id: senderId,
+              project_id: projectId,
+              message_text: text,
+          })
+      }).catch(err => console.error('Failed to trigger message notification:', err));
 
       return response as unknown as Message;
     } catch (err: any) {

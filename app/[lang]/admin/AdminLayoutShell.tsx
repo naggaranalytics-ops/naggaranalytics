@@ -13,7 +13,7 @@ export default function AdminLayoutShell({
     const { dir } = useLanguage();
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row" dir={dir} style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+        <div className="min-h-screen flex flex-col md:flex-row bg-[var(--bg-tertiary)]" dir={dir}>
             {/* Sidebar */}
             <AdminSidebar user={user} />
 

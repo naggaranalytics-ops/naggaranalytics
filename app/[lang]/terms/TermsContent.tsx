@@ -13,16 +13,16 @@ export default function TermsContent() {
     return (
         <>
             <Navbar />
-            <main dir={dir} className="min-h-screen pt-28 pb-16 px-4" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+            <main dir={dir} className="min-h-screen pt-28 pb-16 px-4 bg-[var(--bg-primary)] text-[var(--text-primary)]">
                 <div className="max-w-3xl mx-auto">
                     <h1 className={`text-4xl font-bold mb-2 font-${isAr ? 'arabic' : 'sans'}`}>
                         {isAr ? 'شروط الخدمة' : 'Terms of Service'}
                     </h1>
-                    <p className="text-sm mb-10" style={{ color: 'var(--text-muted)' }}>
+                    <p className="text-sm mb-10 text-[var(--text-muted)]">
                         {isAr ? `آخر تحديث: ${lastUpdated}` : `Last updated: ${lastUpdated}`}
                     </p>
 
-                    <div className={`space-y-8 leading-relaxed text-[15px] font-${isAr ? 'arabic' : 'sans'}`} style={{ color: 'var(--text-secondary)' }}>
+                    <div className={`space-y-8 leading-relaxed text-[15px] text-[var(--text-secondary)] font-${isAr ? 'arabic' : 'sans'}`}>
 
                         <Section title={isAr ? '1. قبول الشروط' : '1. Acceptance of Terms'}>
                             {isAr
@@ -100,7 +100,7 @@ export default function TermsContent() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
     return (
         <section>
-            <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>{title}</h2>
+            <h2 className="text-xl font-bold mb-3 text-[var(--text-primary)]">{title}</h2>
             <div>{children}</div>
         </section>
     );

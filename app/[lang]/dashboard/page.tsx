@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { SESSION_COOKIE, getSessionUser } from '@/lib/appwrite-auth';
 import { createAdminClient, DATABASE_ID, COLLECTIONS, Query } from '@/lib/appwrite-server';
 import DashboardPageContent from '@/components/DashboardPageContent';
+import WhatsAppWidget from '@/components/WhatsAppWidget';
 
 export default async function DashboardPage() {
     const cookieStore = await cookies();
@@ -34,10 +35,13 @@ export default async function DashboardPage() {
     }
 
     return (
-        <DashboardPageContent
-            user={{ id: user.$id, email: user.email, name: user.name }}
-            projects={projects}
-            error={error}
-        />
+        <>
+            <DashboardPageContent
+                user={{ id: user.$id, email: user.email, name: user.name }}
+                projects={projects}
+                error={error}
+            />
+            <WhatsAppWidget />
+        </>
     );
 }

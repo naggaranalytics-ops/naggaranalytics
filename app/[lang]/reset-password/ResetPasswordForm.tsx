@@ -59,7 +59,7 @@ export default function ResetPasswordForm() {
 
     if (!userId || !secret) {
         return (
-            <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(145deg, #060a10 0%, #0a1018 50%, #0d1520 100%)' }}>
+            <div className="min-h-screen flex items-center justify-center px-4 bg-[linear-gradient(145deg,#060a10_0%,#0a1018_50%,#0d1520_100%)]">
                 <div className="text-center">
                     <p className="text-red-400 text-sm mb-4">{txt.invalidLink}</p>
                     <a href={`/${lang}/login`} className="text-[#16a085] hover:underline text-sm">{txt.goToLogin}</a>
@@ -70,7 +70,7 @@ export default function ResetPasswordForm() {
 
     if (success) {
         return (
-            <div className="min-h-screen flex items-center justify-center px-4" dir={isAr ? 'rtl' : 'ltr'} style={{ background: 'linear-gradient(145deg, #060a10 0%, #0a1018 50%, #0d1520 100%)' }}>
+            <div className="min-h-screen flex items-center justify-center px-4 bg-[linear-gradient(145deg,#060a10_0%,#0a1018_50%,#0d1520_100%)]" dir={isAr ? 'rtl' : 'ltr'}>
                 <div className="max-w-md w-full text-center">
                     <div className="mx-auto w-20 h-20 rounded-full bg-[#16a085]/10 border border-[#16a085]/20 flex items-center justify-center mb-6">
                         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16a085" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -91,7 +91,7 @@ export default function ResetPasswordForm() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4" dir={isAr ? 'rtl' : 'ltr'} style={{ background: 'linear-gradient(145deg, #060a10 0%, #0a1018 50%, #0d1520 100%)' }}>
+        <div className="min-h-screen flex items-center justify-center px-4 bg-[linear-gradient(145deg,#060a10_0%,#0a1018_50%,#0d1520_100%)]" dir={isAr ? 'rtl' : 'ltr'}>
             <div className="w-full max-w-md">
                 <div className={`mb-8 ${isAr ? 'text-right' : 'text-left'}`}>
                     <h2 className="text-2xl font-bold text-white mb-1.5">{txt.title}</h2>

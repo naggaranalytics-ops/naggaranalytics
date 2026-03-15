@@ -22,12 +22,11 @@ export default async function DashboardLayout({
     const isRtl = params.lang === 'ar';
 
     return (
-        <div className="min-h-screen flex" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>
+        <div className="min-h-screen flex bg-[var(--bg-tertiary)] text-[var(--text-primary)]">
             <Sidebar user={{ name: user.name || null, email: user.email || null }} />
             <main className={`flex-1 ${isRtl ? 'md:mr-64' : 'md:ml-64'} pt-6 px-4 sm:px-6 lg:px-8 pb-20 min-h-screen`}>
                 {children}
             </main>
-            <WhatsAppWidget />
         </div>
     );
 }

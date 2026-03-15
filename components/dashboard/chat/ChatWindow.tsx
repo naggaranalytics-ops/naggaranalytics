@@ -9,14 +9,17 @@ import { Project } from '@/lib/appwrite-types';
 interface ChatWindowProps {
   project: Project | null;
   currentUserId: string;
+  selectedPseudoId?: string | null;
 }
 
-export function ChatWindow({ project, currentUserId }: ChatWindowProps) {
+export function ChatWindow({ project, currentUserId, selectedPseudoId }: ChatWindowProps) {
   // If no project is selected, useChat handles null gracefully
-  const { messages, loading, sendMessage } = useChat(project?.$id ?? null);
+  // use pseudoId scoped to currentUser if string identifier is selected instead of a real project
+  const finalProjectId = project?.$id ?? (selectedPseudoId ? `${selectedPseudoId}_${currentUserId}` : null);
+  const { messages, loading, sendMessage } = useChat(finalProjectId);
 
   const handleSendMessage = async (text: string) => {
-    if (!project) return;
+    if (!project && !selectedPseudoId) return;
     await sendMessage(text, currentUserId);
   };
 
@@ -31,14 +34,23 @@ export function ChatWindow({ project, currentUserId }: ChatWindowProps) {
               Status: <span className="capitalize">{project.status.replace('_', ' ')}</span>
             </p>
           </div>
+        ) : selectedPseudoId === 'general_support' ? (
+          <div>
+            <h2 className="font-semibold text-lg">Contact Customer Service</h2>
+            <p className="text-xs text-muted-foreground">General inquiries & help</p>
+          </div>
+        ) : selectedPseudoId === 'complaints' ? (
+          <div>
+            <h2 className="font-semibold text-lg">Complaints & Issues</h2>
+            <p className="text-xs text-muted-foreground line-clamp-1">Report a problem</p>
+          </div>
         ) : (
           <h2 className="text-muted-foreground">Select a project to view messages</h2>
         )}
       </div>
 
-      {/* Messages Area */}
       <div className="flex-1 overflow-hidden flex flex-col relative bg-muted/10">
-        {project ? (
+        {project || selectedPseudoId ? (
           <MessageList 
             messages={messages} 
             currentUserId={currentUserId} 
@@ -53,7 +65,7 @@ export function ChatWindow({ project, currentUserId }: ChatWindowProps) {
                 </svg>
               </div>
               <h3 className="text-lg font-medium">Your Messages</h3>
-              <p className="mt-2 text-sm">Select an active project from the sidebar to view your conversation history or start a new message.</p>
+              <p className="mt-2 text-sm">Select an active project, or a support channel from the sidebar to view your conversation history or start a new message.</p>
             </div>
           </div>
         )}
@@ -62,7 +74,7 @@ export function ChatWindow({ project, currentUserId }: ChatWindowProps) {
       {/* Input Area */}
       <MessageInput 
         onSendMessage={handleSendMessage} 
-        disabled={!project} 
+        disabled={!project && !selectedPseudoId} 
       />
     </div>
   );

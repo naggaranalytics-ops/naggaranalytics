@@ -55,7 +55,6 @@ export default function LocaleLayout({
         <LanguageProvider initialLang={params.lang as "en" | "ar"}>
             <HtmlLangSetter lang={params.lang} />
             {children}
-            <WhatsAppWidget />
         </LanguageProvider>
     );
 }

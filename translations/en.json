@@ -129,7 +129,7 @@
     "dashboard.status.review": "Final Review",
     "dashboard.status.completed": "Completed ✓",
     "sidebar.dashboard": "Dashboard",
-    "sidebar.library": "Research Academy",
+    "sidebar.library": "Resources",
     "sidebar.messages": "Messages",
     "sidebar.newRequest": "New Request",
     "sidebar.signOutHelp": "No help signing out?",
@@ -379,5 +379,14 @@
     "tech.action.status.paid": "Paid",
     "tech.action.status.in_progress": "Analysis In Progress",
     "tech.action.status.completed": "Completed",
-    "tech.action.completedMsg": "Project completed 🎉"
+    "tech.action.completedMsg": "Project completed 🎉",
+    "library.title": "Digital Library 📚",
+    "library.subtitle": "Resources and training courses specifically designed for researchers and graduate students.",
+    "library.videos": "Educational Videos",
+    "library.free": "Free",
+    "library.premium": "Premium",
+    "library.goToChannel": "Go to Channel",
+    "library.exclusiveSoon": "Exclusive Content (Soon)",
+    "library.templates": "Templates & Documents",
+    "library.download": "Download File"
 }

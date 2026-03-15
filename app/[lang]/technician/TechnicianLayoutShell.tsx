@@ -13,7 +13,7 @@ export default function TechnicianLayoutShell({
     const { dir } = useLanguage();
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row" dir={dir} style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+        <div className="min-h-screen flex flex-col md:flex-row bg-[var(--bg-tertiary)]" dir={dir}>
             <TechnicianSidebar user={user} />
             <main className="flex-1 overflow-x-hidden overflow-y-auto">
                 {children}

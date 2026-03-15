@@ -129,7 +129,7 @@
     "dashboard.status.review": "المراجعة النهائية",
     "dashboard.status.completed": "مكتمل ✓",
     "sidebar.dashboard": "لوحة التحكم",
-    "sidebar.library": "الأكاديمية البحثية",
+    "sidebar.library": "الموارد",
     "sidebar.messages": "الرسائل",
     "sidebar.newRequest": "طلب جديد",
     "sidebar.signOutHelp": "تحتاج مساعدة لتسجيل الخروج؟",
@@ -379,5 +379,14 @@
     "tech.action.status.paid": "تم الدفع",
     "tech.action.status.in_progress": "جاري التحليل",
     "tech.action.status.completed": "مكتمل",
-    "tech.action.completedMsg": "تم اكتمال المشروع 🎉"
+    "tech.action.completedMsg": "تم اكتمال المشروع 🎉",
+    "library.title": "المكتبة الرقمية 📚",
+    "library.subtitle": "موارد ودورات تدريبية مصممة خصيصاً للباحثين وطلاب الدراسات العليا.",
+    "library.videos": "الفيديوهات التعليمية",
+    "library.free": "مجاني",
+    "library.premium": "متقدم",
+    "library.goToChannel": "الانتقال إلى القناة",
+    "library.exclusiveSoon": "محتوى حصري (قريباً)",
+    "library.templates": "القوالب والمستندات",
+    "library.download": "تحميل الملف"
 }

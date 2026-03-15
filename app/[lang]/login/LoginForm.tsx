@@ -184,7 +184,7 @@ export default function LoginForm() {
         return (
             <>
                 <style dangerouslySetInnerHTML={{ __html: cssAnimations }} />
-                <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(145deg, #060a10 0%, #0a1018 50%, #0d1520 100%)' }} dir={isAr ? 'rtl' : 'ltr'}>
+                <div className="min-h-screen flex items-center justify-center px-4 bg-[linear-gradient(145deg,#060a10_0%,#0a1018_50%,#0d1520_100%)]" dir={isAr ? 'rtl' : 'ltr'}>
                     <div className="max-w-md w-full text-center anim-fade-scale">
                         <div className="mx-auto w-20 h-20 rounded-full bg-[#16a085]/10 border border-[#16a085]/20 flex items-center justify-center mb-6">
                             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16a085" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -214,7 +214,7 @@ export default function LoginForm() {
     return (
         <>
             <style dangerouslySetInnerHTML={{ __html: cssAnimations }} />
-            <div className="min-h-screen flex" style={{ background: 'linear-gradient(145deg, #060a10 0%, #0a1018 50%, #0d1520 100%)' }} dir={isAr ? 'rtl' : 'ltr'}>
+            <div className="min-h-screen flex bg-[linear-gradient(145deg,#060a10_0%,#0a1018_50%,#0d1520_100%)]" dir={isAr ? 'rtl' : 'ltr'}>
 
                 {/* ════════ LEFT PANEL — Branding (desktop only) ════════ */}
                 <div className="hidden lg:flex lg:w-[45%] xl:w-[48%] relative flex-col justify-between p-12 overflow-hidden">
@@ -308,7 +308,7 @@ export default function LoginForm() {
                         <div className="relative my-7">
                             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/[0.06]"></div></div>
                             <div className="relative flex justify-center">
-                                <span className="px-4 text-xs text-slate-600 uppercase tracking-widest" style={{ background: 'linear-gradient(145deg, #080d14, #0b1119)' }}>
+                                <span className="px-4 text-xs text-slate-600 uppercase tracking-widest bg-[linear-gradient(145deg,#080d14,#0b1119)]">
                                     {txt.orDivider}
                                 </span>
                             </div>

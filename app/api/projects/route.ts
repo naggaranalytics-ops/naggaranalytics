@@ -103,13 +103,63 @@ export async function POST(request: NextRequest) {
                 documentId:   ID.unique(),
                 data: projectData,
             });
-        } catch (createErr: unknown) {
-            const msg = createErr instanceof Error ? createErr.message : String(createErr);
-            console.error('Appwrite createDocument error:', msg, JSON.stringify(createErr));
-            return NextResponse.json(
-                { error: 'Failed to create project. Please try again.', details: msg },
-                { status: 500 }
-            );
+        } catch (createErr: any) {
+            console.warn('Appwrite createDocument error, attempting auto-migration...', createErr.message);
+            // Auto-migrate schema if fields are missing
+            try {
+                const attributesToEnsure = [
+                    { key: 'customer_id', type: 'string', size: 255 },
+                    { key: 'degree_type', type: 'string', size: 255 },
+                    { key: 'nda_signature', type: 'string', size: 500 },
+                    { key: 'nda_signed_at', type: 'string', size: 255 },
+                    { key: 'technician_id', type: 'string', size: 255 },
+                    { key: 'quoted_price', type: 'string', size: 255 },
+                    { key: 'delivery_url', type: 'string', size: 2048 },
+                ];
+                
+                for (const attr of attributesToEnsure) {
+                    try {
+                        await databases.createStringAttribute(
+                            DATABASE_ID,
+                            COLLECTIONS.PROJECTS,
+                            attr.key,
+                            attr.size,
+                            false,
+                            undefined
+                        );
+                    } catch (e: any) {
+                        // Ignore already exists
+                    }
+                }
+                
+                try {
+                    await databases.createBooleanAttribute(
+                        DATABASE_ID,
+                        COLLECTIONS.PROJECTS,
+                        'nda_agreed',
+                        false,
+                        false
+                    );
+                } catch (e: any) {}
+
+                // Wait 1 second for Appwrite to apply schema before retry
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Retry creating project document
+                projectDoc = await databases.createDocument({
+                    databaseId:   DATABASE_ID,
+                    collectionId: COLLECTIONS.PROJECTS,
+                    documentId:   ID.unique(),
+                    data: projectData,
+                });
+            } catch (fallbackErr: any) {
+                const msg = fallbackErr instanceof Error ? fallbackErr.message : String(fallbackErr);
+                console.error('Appwrite createDocument retry error:', msg);
+                return NextResponse.json(
+                    { error: 'Failed to create project due to database schema. Please contact support.', details: msg },
+                    { status: 500 }
+                );
+            }
         }
 
         const projectId = projectDoc.$id;
