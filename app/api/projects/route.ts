@@ -44,15 +44,22 @@ export async function POST(request: NextRequest) {
 
         const formData = await request.formData();
 
-        const degree      = formData.get('degree')       as string;
-        const thesisTitle = formData.get('thesisTitle')  as string;
-        const tasksStr    = formData.get('tasks')         as string;
-        const totalStr    = formData.get('total')         as string;
-        const paymentPhase = formData.get('paymentPhase') as string;
-        const receiptFile = formData.get('receipt')       as File | null;
+        const degree        = formData.get('degree')        as string;
+        const thesisTitle   = formData.get('thesisTitle')   as string;
+        const tasksStr      = formData.get('tasks')          as string;
+        const totalStr      = formData.get('total')          as string;
+        const paymentPhase  = formData.get('paymentPhase')  as string;
+        const receiptFile   = formData.get('receipt')        as File | null;
+        const ndaAgreed     = formData.get('ndaAgreed')      as string;
+        const ndaSignature  = formData.get('ndaSignature')   as string;
+        const ndaSignedAt   = formData.get('ndaSignedAt')    as string;
 
         if (!degree || !thesisTitle || !tasksStr || !totalStr || !receiptFile) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        }
+
+        if (ndaAgreed !== 'true' || !ndaSignature) {
+            return NextResponse.json({ error: 'NDA must be signed before submitting' }, { status: 400 });
         }
 
         const wordCount = thesisTitle.trim().split(/\s+/).filter(w => w.length > 0).length;
@@ -74,15 +81,18 @@ export async function POST(request: NextRequest) {
             collectionId: COLLECTIONS.PROJECTS,
             documentId:   ID.unique(),
             data: {
-                customer_id:   user.$id,
-                title:         thesisTitle,
-                description:   JSON.stringify(tasks),
-                degree_type:   degree,
-                status:        'inquiry',
+                customer_id:    user.$id,
+                title:          thesisTitle,
+                description:    JSON.stringify(tasks),
+                degree_type:    degree,
+                status:         'inquiry',
                 payment_status: 'pending',
-                quoted_price:  total,
-                created_at:    new Date().toISOString(),
-                updated_at:    new Date().toISOString(),
+                quoted_price:   total,
+                nda_agreed:     true,
+                nda_signature:  ndaSignature,
+                nda_signed_at:  ndaSignedAt || new Date().toISOString(),
+                created_at:     new Date().toISOString(),
+                updated_at:     new Date().toISOString(),
             },
         });
 

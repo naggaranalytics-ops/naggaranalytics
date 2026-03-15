@@ -4,9 +4,10 @@ import React from "react";
 import { useOnboarding } from "../../context/OnboardingContext";
 import { useLanguage } from "../../context/LanguageProvider";
 import Step1Academic from "./Step1Academic";
-import Step2Files from "./Step2Files";
-import Step3Tasks from "./Step3Tasks";
-import Step4Payment from "./Step4Payment";
+import Step2NDA from "./Step2NDA";
+import Step3Files from "./Step3Files";
+import Step4Tasks from "./Step4Tasks";
+import Step5Payment from "./Step5Payment";
 
 export default function OnboardingStepper() {
     const { step } = useOnboarding();
@@ -17,6 +18,7 @@ export default function OnboardingStepper() {
         { num: 2, title: t("onboarding.stepper.step2") },
         { num: 3, title: t("onboarding.stepper.step3") },
         { num: 4, title: t("onboarding.stepper.step4") },
+        { num: 5, title: t("onboarding.stepper.step5") },
     ];
 
     return (
@@ -32,7 +34,13 @@ export default function OnboardingStepper() {
                                         ? "bg-[#16a085] text-white"
                                         : "bg-[#111821] text-slate-500 border-2 border-slate-700"
                                 }`}>
-                                {s.num}
+                                {step > s.num ? (
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                ) : (
+                                    s.num
+                                )}
                             </div>
                             <span className={`text-xs font-bold hidden md:block transition-colors ${step >= s.num ? "text-white" : "text-slate-500"
                                 }`}>
@@ -46,9 +54,10 @@ export default function OnboardingStepper() {
             {/* Stepper Body */}
             <div className="glass-card rounded-2xl p-6 md:p-10 border border-white/5 bg-[#111821]/80 shadow-2xl">
                 {step === 1 && <Step1Academic />}
-                {step === 2 && <Step2Files />}
-                {step === 3 && <Step3Tasks />}
-                {step === 4 && <Step4Payment />}
+                {step === 2 && <Step2NDA />}
+                {step === 3 && <Step3Files />}
+                {step === 4 && <Step4Tasks />}
+                {step === 5 && <Step5Payment />}
             </div>
         </div>
     );

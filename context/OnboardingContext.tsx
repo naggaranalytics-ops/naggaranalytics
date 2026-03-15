@@ -4,12 +4,19 @@ import React, { createContext, useContext, useState } from "react";
 
 export type DegreeType = "Masters" | "PhD" | "Other" | "";
 
+export interface NDADetails {
+    agreed: boolean;
+    signatureName: string;
+    signedAt: string | null;
+}
+
 export interface OnboardingState {
     step: number;
     academicDetails: {
         degree: DegreeType;
         thesisTitle: string;
     };
+    nda: NDADetails;
     files: File[];
     googleDriveLink: string;
     tasks: {
@@ -26,6 +33,7 @@ interface OnboardingContextType extends OnboardingState {
     nextStep: () => void;
     prevStep: () => void;
     updateAcademicDetails: (details: Partial<OnboardingState["academicDetails"]>) => void;
+    updateNDA: (nda: Partial<NDADetails>) => void;
     setFiles: (files: File[]) => void;
     setGoogleDriveLink: (link: string) => void;
     updateTasks: (tasks: Partial<OnboardingState["tasks"]>) => void;
@@ -37,6 +45,11 @@ const initialState: OnboardingState = {
     academicDetails: {
         degree: "",
         thesisTitle: "",
+    },
+    nda: {
+        agreed: false,
+        signatureName: "",
+        signedAt: null,
     },
     files: [],
     googleDriveLink: "",
@@ -55,13 +68,19 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [state, setState] = useState<OnboardingState>(initialState);
 
     const setStep = (step: number) => setState((prev) => ({ ...prev, step }));
-    const nextStep = () => setState((prev) => ({ ...prev, step: Math.min(prev.step + 1, 4) }));
+    const nextStep = () => setState((prev) => ({ ...prev, step: Math.min(prev.step + 1, 5) }));
     const prevStep = () => setState((prev) => ({ ...prev, step: Math.max(prev.step - 1, 1) }));
 
     const updateAcademicDetails = (details: Partial<OnboardingState["academicDetails"]>) =>
         setState((prev) => ({
             ...prev,
             academicDetails: { ...prev.academicDetails, ...details },
+        }));
+
+    const updateNDA = (nda: Partial<NDADetails>) =>
+        setState((prev) => ({
+            ...prev,
+            nda: { ...prev.nda, ...nda },
         }));
 
     const setFiles = (files: File[]) => setState((prev) => ({ ...prev, files }));
@@ -91,6 +110,7 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 nextStep,
                 prevStep,
                 updateAcademicDetails,
+                updateNDA,
                 setFiles,
                 setGoogleDriveLink,
                 updateTasks,
